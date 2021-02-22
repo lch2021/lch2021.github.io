@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      638 字
+      642 字
     </span>
   
 
@@ -227,39 +227,7 @@
             <h1 style="display: none"></h1>
             
             <div class="markdown-body">
-              <h2 id="模块的加载机制"><a href="#模块的加载机制" class="headerlink" title="模块的加载机制"></a>模块的加载机制</h2><ol>
-<li>优先从缓存中加载<br>模块在第一次加载后会被缓存。 这也意味着多次调用 require() 不会导致模块的代码被执行多次。</li>
-</ol>
-<p>注意：不论是内置模块、用户自定义模块、还是第三方模块，它们都会优先从缓存中加载，从而提高模块的加载效率。</p>
-<ol start="2">
-<li>内置模块的加载机制<br>内置模块是由 Node.js 官方提供的模块，内置模块的加载优先级最高。</li>
-</ol>
-<p>例如，require(‘fs’) 始终返回内置的 fs 模块，即使在 node_modules 目录下有名字相同的包也叫做 fs。</p>
-<ol start="3">
-<li>自定义模块的加载机制<br>使用 require() 加载自定义模块时，必须指定以 ./ 或 …/ 开头的路径标识符。在加载自定义模块时，如果没有指定 ./ 或 …/ 这样的路径标识符，则 node 会把它当作内置模块或第三方模块进行加载。</li>
-</ol>
-<p>同时，在使用 require() 导入自定义模块时，如果省略了文件的扩展名，则 Node.js 会按顺序分别尝试加载以下的文件：</p>
-<p>①按照确切的文件名进行加载</p>
-<p>②补全 .js 扩展名进行加载</p>
-<p>③补全 .json 扩展名进行加载</p>
-<p>④补全 .node 扩展名进行加载</p>
-<p>⑤加载失败，终端报错</p>
-<ol start="4">
-<li>第三方模块的加载机制<br>如果传递给 require() 的模块标识符不是一个内置模块，也没有以 ‘./’ 或 ‘…/’ 开头，则 Node.js 会从当前模块的父目录开始，尝试从 /node_modules 文件夹中加载第三方模块。</li>
-</ol>
-<p>如果没有找到对应的第三方模块，则移动到再上一层父目录中，进行加载，直到文件系统的根目录。</p>
-<p>例如，假设在 ‘C:\Users\itheima\project\foo.js’ 文件里调用了 require(‘tools’)，则 Node.js 会按以下顺序查找：</p>
-<p>① C:\Users\itheima\project\node_modules\tools</p>
-<p>② C:\Users\itheima\node_modules\tools</p>
-<p>③ C:\Users\node_modules\tools</p>
-<p>④ C:\node_modules\tools</p>
-<ol start="5">
-<li>目录作为模块<br>当把目录作为模块标识符，传递给 require() 进行加载的时候，有三种加载方式：</li>
-</ol>
-<p>①在被加载的目录下查找一个叫做 package.json 的文件，并寻找 main 属性，作为 require() 加载的入口</p>
-<p>②如果目录里没有 package.json 文件，或者 main 入口不存在或无法解析，则 Node.js 将会试图加载目录下的 index.js 文件。</p>
-<p>③如果以上两步都失败了，则 Node.js 会在终端打印错误消息，报告模块的缺失：Error: Cannot find module ‘xxx’</p>
-
+              <h2 id="模块的加载机制"><a href="#模块的加载机制" class="headerlink" title="模块的加载机制"></a>模块的加载机制</h2><figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs moonscript"><span class="hljs-number">1.</span>优先从缓存中加载<br>模块在第一次加载后会被缓存。 这也意味着多次调用 <span class="hljs-built_in">require</span>() 不会导致模块的代码被执行多次。<br><br>注意：不论是内置模块、用户自定义模块、还是第三方模块，它们都会优先从缓存中加载，从而提高模块的加载效率。<br><br><span class="hljs-number">2.</span>内置模块的加载机制<br>内置模块是由 Node.js 官方提供的模块，内置模块的加载优先级最高。<br><br>例如，<span class="hljs-built_in">require</span>(‘fs’) 始终返回内置的 fs 模块，即使在 node_modules 目录下有名字相同的包也叫做 fs。<br><br><span class="hljs-number">3.</span>自定义模块的加载机制<br>使用 <span class="hljs-built_in">require</span>() 加载自定义模块时，必须指定以 ./ 或 …/ 开头的路径标识符。在加载自定义模块时，如果没有指定 ./ 或 …/ 这样的路径标识符，则 node 会把它当作内置模块或第三方模块进行加载。<br><br>同时，在使用 <span class="hljs-built_in">require</span>() 导入自定义模块时，如果省略了文件的扩展名，则 Node.js 会按顺序分别尝试加载以下的文件：<br><br>①按照确切的文件名进行加载<br><br>②补全 .js 扩展名进行加载<br><br>③补全 .json 扩展名进行加载<br><br>④补全 .node 扩展名进行加载<br><br>⑤加载失败，终端报错<br><br><br><br><span class="hljs-number">4.</span>第三方模块的加载机制<br>如果传递给 <span class="hljs-built_in">require</span>() 的模块标识符不是一个内置模块，也没有以 ‘./’ 或 ‘…/’ 开头，则 Node.js 会从当前模块的父目录开始，尝试从 /node_modules 文件夹中加载第三方模块。<br><br>如果没有找到对应的第三方模块，则移动到再上一层父目录中，进行加载，直到文件系统的根目录。<br><br>例如，假设在 ‘<span class="hljs-name">C</span>:\Users\itheima\project\foo.js’ 文件里调用了 <span class="hljs-built_in">require</span>(‘tools’)，则 Node.js 会按以下顺序查找：<br><br>① <span class="hljs-name">C</span>:\Users\itheima\project\node_modules\tools<br><br>② <span class="hljs-name">C</span>:\Users\itheima\node_modules\tools<br><br>③ <span class="hljs-name">C</span>:\Users\node_modules\tools<br><br>④ <span class="hljs-name">C</span>:\node_modules\tools<br><br><br><br><span class="hljs-number">5.</span>目录作为模块<br>当把目录作为模块标识符，传递给 <span class="hljs-built_in">require</span>() 进行加载的时候，有三种加载方式：<br><br>①在被加载的目录下查找一个叫做 <span class="hljs-built_in">package</span>.json 的文件，并寻找 main 属性，作为 <span class="hljs-built_in">require</span>() 加载的入口<br><br>②如果目录里没有 <span class="hljs-built_in">package</span>.json 文件，或者 main 入口不存在或无法解析，则 Node.js 将会试图加载目录下的 index.js 文件。<br><br>③如果以上两步都失败了，则 Node.js 会在终端打印错误消息，报告模块的缺失：<span class="hljs-name">Error</span>: Cannot find <span class="hljs-built_in">module</span> ‘xxx’<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>

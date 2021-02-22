@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      107 字
+      117 字
     </span>
   
 
@@ -227,8 +227,7 @@
             <h1 style="display: none"></h1>
             
             <div class="markdown-body">
-              <h1 id="给定一个变量-判断这个变量-值是属于什么类型的"><a href="#给定一个变量-判断这个变量-值是属于什么类型的" class="headerlink" title="给定一个变量, 判断这个变量/值是属于什么类型的"></a>给定一个变量, 判断这个变量/值是属于什么类型的</h1><p>function IdentifyingDataTypes(data) {<br>    //此处使用typeof来判断是否为object,不是则返回<br>    var type = typeof data;<br>    if (type !== ‘object’) {<br>        return type<br>    }<br>    //此处利用Object.prototype.toString().call()来判断数据类型<br>    //因为Object.prototype.toString().call()方法判断的结果是通常为[object ***],所以使用replace和正则进行分隔<br>    return Object.prototype.toString.call(data).replace(/^[object (\S+)]$/, ‘$1’)<br>}<br>module.exports = {<br>    IdentifyingDataTypes<br>}</p>
-
+              <h1 id="给定一个变量-判断这个变量-值是属于什么类型的"><a href="#给定一个变量-判断这个变量-值是属于什么类型的" class="headerlink" title="给定一个变量, 判断这个变量/值是属于什么类型的"></a>给定一个变量, 判断这个变量/值是属于什么类型的</h1><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-title">function</span> <span class="hljs-type">IdentifyingDataTypes</span>(data) &#123;<br>    //此处使用typeof来判断是否为object,不是则返回<br>    var <span class="hljs-keyword">type</span> = typeof data;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">type</span> !== &#x27;object&#x27;) &#123;<br>        return type<br>    &#125;<br>    //此处利用<span class="hljs-type">Object</span>.proto<span class="hljs-keyword">type</span>.toString().call()来判断数据类型<br>    //因为<span class="hljs-type">Object</span>.proto<span class="hljs-keyword">type</span>.toString().call()方法判断的结果是通常为[object ***],所以使用replace和正则进行分隔<br>    return <span class="hljs-type">Object</span>.proto<span class="hljs-keyword">type</span>.toString.call(data).replace(/^\[object (\<span class="hljs-type">S</span>+)\]$/, &#x27;$1&#x27;)<br>&#125;<br><span class="hljs-title">module</span>.exports = &#123;<br>    <span class="hljs-type">IdentifyingDataTypes</span><br>&#125;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
