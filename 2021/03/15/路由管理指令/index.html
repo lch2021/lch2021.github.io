@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.new.png">
+  <link rel="icon" type="image/png" href="/img/favicon.new.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="清风">
+  <meta name="author" content="Lch">
+  <meta name="keywords" content="">
+  <title>岛屿木海</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-15 01:55" pubdate>
+        2021年3月15日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      987 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <h2 id="路由相关指令"><a href="#路由相关指令" class="headerlink" title="路由相关指令"></a>路由相关指令</h2><h4 id="1-route"><a href="#1-route" class="headerlink" title="1.route"></a>1.route</h4><p> 创建页面组(配置选项)   创建的是每一条路由route</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> login = &#123; <span class="hljs-attr">template</span>: <span class="hljs-string">&quot;#login&quot;</span> &#125;<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="2-routes"><a href="#2-routes" class="headerlink" title="2.routes"></a>2.routes</h4><p>创建路由映射 把每一条route 集中起来</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> routes = [<br>  &#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/login&#x27;</span>, <span class="hljs-attr">component</span>: login &#125;,<br>  &#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/news&#x27;</span>, <span class="hljs-attr">component</span>: news &#125;,<br>  ]<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="3-router"><a href="#3-router" class="headerlink" title="3.router"></a>3.router</h4><p>是一个机制，相当于一个管理者，它来管理路由。因为routes 只是定义了一组路由</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> router = <span class="hljs-keyword">new</span> VueRouter(&#123; <span class="hljs-comment">//创建一个路由实例 new VueRouter(&#123; 配置选项 &#125;)</span><br>        routes: routes  <span class="hljs-comment">//routes=routes</span><br>    &#125;)<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="4-点击跳转"><a href="#4-点击跳转" class="headerlink" title="4.点击跳转"></a>4.点击跳转</h4><h5 id="4-1-router-push-location"><a href="#4-1-router-push-location" class="headerlink" title="4.1.router.push(location)"></a>4.1.router.push(location)</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;router-link to=<span class="hljs-string">&#x27;/...&#x27;</span>&gt;&lt;<span class="hljs-regexp">/router-link&gt;   /</span><span class="hljs-regexp">/这个方法会在内部调用 </span><br><span class="hljs-regexp">/</span><span class="hljs-regexp">/ 字符串</span><br><span class="hljs-regexp">router.push(&#x27;home&#x27;)</span><br><span class="hljs-regexp">/</span><span class="hljs-regexp">/ 对象</span><br><span class="hljs-regexp">this.$router.push(&#123;path: &#x27;/</span>login?url=<span class="hljs-string">&#x27; + this.$route.path&#125;);</span><br><span class="hljs-string">// 带查询参数，变成/backend/order?selected=2</span><br><span class="hljs-string">this.$router.push(&#123;path: &#x27;</span>/user/userinfo<span class="hljs-string">&#x27;, query: &#123;selected: &quot;2&quot;&#125;&#125;);</span><br><span class="hljs-string">// 命名的路由</span><br><span class="hljs-string">router.push(&#123; name: &#x27;</span>user<span class="hljs-string">&#x27;, params: &#123; userId: 123 &#125;&#125;)</span><br></code></pre></td></tr></table></figure>
+<h5 id="4-2-router-replace-location-location-位置"><a href="#4-2-router-replace-location-location-位置" class="headerlink" title="4.2.router.replace(location)  location:位置"></a>4.2.router.replace(location)  location:位置</h5><p>设置 <strong>replace 属性（默认值: false）</strong>的话，当点击时，<strong>会调用 router.replace()</strong> 而不是 router.push()，<strong>于是导航后不会留下 history 记录。即使点击返回按钮也不会回到这个页面</strong></p>
+<p>加上<strong>replace: true</strong>后，它不会向 history 添加新记录，而是跟它的方法名一样 —— <strong>替换掉当前的 history 记录。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//声明式：</span><br>&lt;router-link :to=<span class="hljs-string">&quot;...&quot;</span> replace&gt;&lt;/router-link&gt;<br><span class="hljs-comment">// 编程式:</span><br>router.replace(...)<br><span class="hljs-comment">//push方法也可以传replace</span><br><span class="hljs-built_in">this</span>.$router.push(&#123;<span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/home&#x27;</span>, <span class="hljs-attr">replace</span>: <span class="hljs-literal">true</span>&#125;)<br></code></pre></td></tr></table></figure>
+<h5 id="4-3-router-back"><a href="#4-3-router-back" class="headerlink" title="4.3 router.back()"></a>4.3 router.back()</h5><p> 使用路由进行页面前进时，<strong>路由会向 history 栈添加一个新的记录</strong>，所以，<strong>当用户点击$router.back()**后退按钮时，</strong>则回到之前的 URL /返回就会回到上一级路由**</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br>methods: &#123; <span class="hljs-comment">//函数里</span><br>    <span class="hljs-function"><span class="hljs-title">quit</span>(<span class="hljs-params"></span>)</span> &#123;<br>      .localStorage.setItem(<span class="hljs-string">&#x27;key&#x27;</span>,value)<br>      <span class="hljs-comment">//localStorage.removeItem(&#x27;adminUser&#x27;) 删除adminUser 中的数据</span><br>     <br>    &#125;<br><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="5-传参方式"><a href="#5-传参方式" class="headerlink" title="5.传参方式"></a>5.传参方式</h4><h5 id="两者都可以传递参数，区别是什么："><a href="#两者都可以传递参数，区别是什么：" class="headerlink" title="两者都可以传递参数，区别是什么："></a>两者都可以传递参数，区别是什么：</h5><ol>
+<li><strong>query</strong> 传参配置的是<strong>path</strong>，而<strong>params</strong>传参配置的是<strong>name</strong>，在params中配置path无效</li>
+<li>query在路由配置<strong>不需要设置参数</strong>，而<strong>params必须设置</strong></li>
+<li>query传递的参数会<strong>显示在地址栏中</strong></li>
+<li><strong>params传参刷新会无效</strong>，但是<strong>query会保存传递过来的值</strong>，<strong>刷新不变</strong> ;    </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript">methods: &#123;<br>  getParams () &#123;<br>  <span class="hljs-keyword">let</span> site = <span class="hljs-built_in">this</span>.$route.query.site<br>  <span class="hljs-keyword">let</span> bu = <span class="hljs-built_in">this</span>.$route.query.bu<br>  <span class="hljs-comment">// 如果是params 传参，那就是this.$route.params.site</span><br>  上面就可以获取到传递的参数了<br> &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>注意</strong>：获取路由上面的参数，<strong>用的是$route</strong>，<strong>后面没有r</strong></p>
+<h5 id="5-1-使用query"><a href="#5-1-使用query" class="headerlink" title="5.1 使用query:"></a>5.1 使用query:</h5><p><strong>query</strong>：/router1?id=123 ,/router1?id=456 ,这里的id叫做query</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">this</span>.$router.push(&#123;<br>  path: <span class="hljs-string">&#x27;/home&#x27;</span>,<br>  query: &#123;<br>    site: [],<br>    bu: []<br>&#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+<h5 id="5-2-使用params"><a href="#5-2-使用params" class="headerlink" title="5.2 使用params:"></a>5.2 使用params:</h5><p><strong>params</strong>：/router1/:id ，/router1/123，/router1/789 ,这里的id叫做params</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">this</span>.$router.push(&#123;<br>  name: <span class="hljs-string">&#x27;Home&#x27;</span>,  <span class="hljs-comment">// 路由的名称</span><br>  params: &#123;<br>    site: [],<br>    bu: []<br>&#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="6-localStorage的存储-读取-删除"><a href="#6-localStorage的存储-读取-删除" class="headerlink" title="6. localStorage的存储,读取,删除"></a>6. localStorage的存储,读取,删除</h4><h5 id="6-1-localStorage存储（setItem）"><a href="#6-1-localStorage存储（setItem）" class="headerlink" title="6.1  localStorage存储（setItem）"></a><strong>6.1  localStorage存储（setItem）</strong></h5><p>我们通过以下方式将数据储存到localStorage中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">this</span>.localStorage.setItem(<span class="hljs-string">&#x27;key&#x27;</span>,value)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>但有时value为一个对象Object,以上面的方式写入,会出现读取的返回值为{object Object}的情况,但这并不是我们想要的,此时我们需要使用新的方式传入Object</li>
+<li>通过JSON.stringify(Object)方法<strong>将对象转化为一个json格式的字符串进行存储</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">this</span>.localStorage.setItem(<span class="hljs-string">&#x27;param&#x27;</span>,<span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-built_in">Object</span>))<br></code></pre></td></tr></table></figure>
+<h5 id="6-2-localStorage读取（getItem）"><a href="#6-2-localStorage读取（getItem）" class="headerlink" title="6.2  localStorage读取（getItem）"></a><strong>6.2  localStorage读取（getItem）</strong></h5><p>我们通过以下方式来读取localStorage中的值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">this</span>.localStorage.getItem(<span class="hljs-string">&#x27;key&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p> 1.相对的在读取json格式字符串只有我们也无法直接使用,需要将它转换为josn对象之后才是我们想要的结果,所以我们需要调用 JSON.parse()方法来进行转化,<br>之后在继续使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">this</span>.localStorage.getItem(<span class="hljs-string">&#x27;key&#x27;</span>))<br></code></pre></td></tr></table></figure>
+<h5 id="6-3-localStorage删除（removeItem）"><a href="#6-3-localStorage删除（removeItem）" class="headerlink" title="6.3  localStorage删除（removeItem）"></a><strong>6.3  localStorage删除（removeItem）</strong></h5><p>我们通过以下方法来删除对应key以及key中的内容</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">this</span>.<span class="hljs-built_in">localStorage</span>.removeItem(<span class="hljs-string">&#x27;key&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h5 id="6-4-localStorage清空所有的key"><a href="#6-4-localStorage清空所有的key" class="headerlink" title="6.4  localStorage清空所有的key"></a><strong>6.4  localStorage清空所有的key</strong></h5><p>清空localStorage中所有的key;<br>注意:请谨慎使用,它会清空所有的本地存储数据</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">this</span>.localStorage.<span class="hljs-built_in">clear</span>()<br></code></pre></td></tr></table></figure>
+
+
+<p>7.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/27/Node.js%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
