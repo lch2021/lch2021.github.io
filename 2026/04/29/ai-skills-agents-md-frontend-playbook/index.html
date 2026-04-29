@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme="dark">
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.new.png">
+  <link rel="icon" type="image/png" href="/img/favicon.new.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="好提示词会过期，好流程可以复用。">
+  <meta name="author" content="Lch">
+  <meta name="keywords" content="前端,AI,提效,Agent,MCP">
+  <title>把 AI 能力技能化：AGENTS.md、Rules、Instructions 的前端写法 - 岛屿木海</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/ai-posts.css" />
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+  <meta name="generator" content="Codex static enrichment">
+</head>
+<body>
+
+<header style="height: 70vh;">
+  
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li>
+        <li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li>
+        <li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <div class="banner" id="banner" parallax="true" style="background: url('/img/default.webp') no-repeat center center;background-size: cover;">
+    <div class="full-bg-img">
+      <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.45)">
+        <div class="page-header text-center fade-in-up">
+          <span class="h2" id="subtitle" title="把 AI 能力技能化：AGENTS.md、Rules、Instructions 的前端写法">把 AI 能力技能化：AGENTS.md、Rules、Instructions 的前端写法</span>
+          <p class="ai-banner-subtitle">好提示词会过期，好流程可以复用。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container-fluid nopadding-x">
+    <div class="row nomargin-x">
+      <div class="d-none d-lg-block col-lg-2"></div>
+      <div class="col-lg-8 nopadding-x-md">
+        <div class="container nopadding-x-md" id="board-ctn">
+          <div class="py-5" id="board">
+            <article class="post-content mx-auto ai-post">
+              <h1 style="display:none">把 AI 能力技能化：AGENTS.md、Rules、Instructions 的前端写法</h1>
+              <div class="ai-post-meta">
+                <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
+                <span><i class="iconfont icon-chart"></i> 2508 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
+              </div>
+              <div class="ai-tags"><a class="ai-chip" href="/tags/%E6%8A%80%E8%83%BD/">技能</a><a class="ai-chip" href="/tags/AGENTS.md/">AGENTS.md</a><a class="ai-chip" href="/tags/%E5%9B%A2%E9%98%9F%E8%A7%84%E8%8C%83/">团队规范</a></div>
+              <div class="markdown-body">
+                <figure class="ai-cover"><img src="/img/ai-posts/ai-skills-agents-md-frontend-playbook.png" alt="把 AI 能力技能化：AGENTS.md、Rules、Instructions 的前端写法 配图"></figure>
+                <p class="ai-note">这篇文章基于 2026-04-29 可公开访问的官方资料整理，面向前端工程师的日常提效场景。</p>
+                
+      <p>AI 反复犯同一个错，通常不是模型问题，而是团队没有把约定写成可执行规则。老成员知道不能直接写 button、知道要复用 EmptyState、知道移动端不能横向滚动，但 Agent 不知道。</p>
+      <p>这篇讲如何把 Review 返工点变成 AGENTS.md、Rules 和技能卡，让 AI 每次开工前先读规则，而不是每次都靠你口头纠正。</p>
+  
+      <h2>核心痛点</h2>
+      <ul class="ai-pain-list"><li>团队约定只在老成员脑子里，AI 每次都猜错。</li><li>规则文档写成口号，无法验证也无法执行。</li><li>不同工具各写一套提示词，维护成本高。</li><li>Review 中反复指出同一类问题，却没有沉淀成规则。</li></ul>
+      <h2>解决流程图</h2>
+      <div class="ai-decision-flow">
+    <div class="ai-flow-row">
+      <div class="ai-d-node start"><span>发现</span><strong>收集返工点</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>判断</span><strong>是否适合进入 AI 流程?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>否</span><div class="ai-d-node muted"><span>先补齐</span><strong>写规则 / 人工判断</strong></div></div>
+      <div class="ai-branch-item yes"><span>是</span><div class="ai-d-node normal"><span>准备</span><strong>拆技能卡</strong></div></div>
+    </div>
+    <div class="ai-flow-row">
+      <div class="ai-d-node normal"><span>执行</span><strong>绑定目录</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>验证</span><strong>任务试跑 是否通过?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>失败</span><div class="ai-d-node muted"><span>回流</span><strong>带证据回到 拆技能卡</strong></div></div>
+      <div class="ai-branch-item yes"><span>通过</span><div class="ai-d-node normal"><span>审查</span><strong>Review 反馈</strong></div></div>
+    </div>
+    <div class="ai-flow-row ai-flow-end">
+      <div class="ai-d-node start"><span>沉淀</span><strong>迭代规则</strong></div>
+    </div>
+  </div>
+      
+        <h2>详细解决方案：把团队经验写成可执行接口</h2>
+        <p>AGENTS.md、Rules、Instructions 的目标不是写漂亮文档，而是把团队约定变成 Agent 能执行的接口。接口必须短、硬、可验证。</p>
+        <h3>规则模板</h3>
+        <pre><code># 目录边界
+src/components 不引入业务 API。
+src/pages 可以组合业务逻辑，但不复制通用 UI。
+src/api 只封装请求，不处理页面状态。
+
+# UI 规则
+新增业务组件必须覆盖 loading/empty/error/success。
+移动端 375px 不允许横向滚动。
+按钮、弹窗、空态必须复用组件库。</code></pre>
+        <h3>迭代方式</h3>
+        <p>每次 AI PR 返工后，把问题归类：上下文缺失、范围过大、组件 API 猜错、测试不足、安全风险。某类问题出现两次，就补进规则。</p>
+      
+      
+      <h2>实战案例：把 Review 返工变成规则</h2>
+      <p>连续三次 AI PR 都新增了原生 button，没有复用组件库。不要继续口头提醒，直接写进 AGENTS.md。</p>
+      <p>规则改成“业务页面不得直接写 button，必须使用 Button 组件；例外需要说明原因”。下一次 Agent 任务前先读取规则，返工明显减少。</p>
+  
+  
+      <h2>进一步落地：从 Review 返工提炼规则</h2>
+      <p>规则不是凭空写出来的。最好的规则来自 Review 返工：AI 连续两次犯同样错误，就把这个错误写成明确规则。比如“不要直接写 button”比“遵守组件规范”更有用。</p>
+      <h2>规则写法对比</h2>
+      <table><thead><tr><th>差的规则</th><th>好的规则</th></tr></thead><tbody><tr><td>代码要优雅</td><td>业务页面不得直接写原生 button，使用 Button 组件</td></tr><tr><td>注意响应式</td><td>375px 宽度不允许横向滚动</td></tr><tr><td>测试要充分</td><td>新增 UI 覆盖 loading、empty、error、success</td></tr></tbody></table>
+      <h2>技能卡模板</h2>
+      <pre><code>技能：新增业务页面
+1. 先找相似页面。
+2. 列出可复用组件。
+3. 实现四态：loading/empty/error/success。
+4. 检查 375px 和 1440px。
+5. 补 story 或测试。
+6. 输出验证命令和风险。</code></pre>
+    
+      <h2>规则文件应该像项目接口</h2>
+      <p>AGENTS.md、Rules、Instructions 不是写给人看的宣言，而是写给 Agent 执行的接口。接口要稳定、明确、可验证。比如“组件要好看”不是接口，“新增卡片组件必须复用 Card、Button、EmptyState，并覆盖 375px 宽度”才是接口。</p>
+      <h2>推荐目录级规则</h2>
+      <pre><code>src/components:
+  只放通用组件，不引入业务接口。
+src/pages:
+  可以组合业务逻辑，但不复制通用 UI。
+src/api:
+  只封装请求，不处理页面状态。
+tests:
+  不删除断言；快照变更必须说明原因。</code></pre>
+      <p>目录级规则能减少误伤。比如 Agent 修一个页面 bug 时，不应该顺手改组件库公共 API；改组件库时，也不应该引入业务接口。把边界写清楚，能让 AI 的改动更像团队成员，而不是外包脚本。</p>
+      <h2>技能化的判断标准</h2>
+      <p>如果某个流程每周都会出现三次以上，就值得写成技能。例如“新增业务页”“修测试失败”“补 Story”“处理接口错误态”“根据设计稿实现组件”。技能里不要塞太多背景知识，重点写步骤和验收。</p>
+      <h2>维护规则的方式</h2>
+      <p>每次 review AI 代码时，把问题分类：缺上下文、改动范围过大、组件 API 猜错、测试没跑、样式不符合规范。如果某类问题出现两次，就把对应规则写进文件。规则要短，能被执行；过长的规则会被忽略，或者让 Agent 把时间花在读文档上。</p>
+      <h2>一个实用底线</h2>
+      <p>让 Agent 在动手前先复述计划。计划里必须包含文件范围、验证命令和风险。你确认后再让它写代码。这个步骤会多花几十秒，但能避免大量“已经写完但方向错了”的返工。</p>
+  
+      <h2>优秀规则文档的写法：短、硬、可验证</h2>
+      <p>别人写 AI 规则经验文时，经常强调“不要写价值观，写操作约束”。例如“保持代码优雅”没有用，因为无法验证；“新增表格必须复用 DataTable，分页逻辑放在 usePagination，不在页面里重复写”才有用。规则越像 lint，Agent 越容易遵守。</p>
+      <h2>AGENTS.md 推荐结构</h2>
+      <pre><code># 项目概况
+框架、包管理器、启动命令。
+
+# 目录边界
+哪些目录放页面，哪些放组件，哪些放 API。
+
+# 编码规则
+组件、样式、状态、错误处理。
+
+# 测试规则
+什么时候补单测、story、e2e。
+
+# 禁止事项
+密钥、生产配置、锁文件、未批准依赖。</code></pre>
+      <h2>规则如何迭代</h2>
+      <p>不要一次写几千字规则。先写 20 条最常见约束，然后用真实 PR 验证。每当 AI 犯同一个错误两次，就把规则补一条。每当规则长期没被触发，就删掉或合并。规则文档应该像代码一样维护，不是写完就放着。</p>
+      <h2>技能卡示例：新增页面</h2>
+      <pre><code>触发：用户要求新增业务页面。
+步骤：
+1. 先找相似页面和路由模式。
+2. 列出可复用组件和缺失信息。
+3. 实现 loading / empty / error / success。
+4. 补 story 或测试。
+5. 输出文件列表和验证结果。</code></pre>
+      <p>技能卡的价值是让团队少说重复话。只要流程稳定，就能让不同人、不同 Agent 都按同一套质量底线交付。</p>
+  
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://platform.openai.com/docs/docs-mcp" target="_blank" rel="nofollow noopener">OpenAI Docs MCP</a></li><li><a href="https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot" target="_blank" rel="nofollow noopener">Adding repository custom instructions for GitHub Copilot</a></li><li><a href="https://docs.cursor.com/en/context/rules" target="_blank" rel="nofollow noopener">Cursor Rules</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents" target="_blank" rel="nofollow noopener">Claude Code subagents</a></li><li><a href="https://www.builder.io/m/explainers/best-cursor-ai-prompts-for-coding" target="_blank" rel="nofollow noopener">How to Write Cursor AI Prompts That Don't Waste Your Time</a></li></ul>
+              </div>
+              <hr>
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>
+              <div class="post-prevnext">
+                <article class="post-prev col-6"><a href="/2026/04/29/secure-ai-coding-frontend-mcp/"><i class="iconfont icon-arrowleft"></i><span class="hidden-mobile">前端使用 AI Agent 的安全清单：MCP、权限、提示注入与审查</span><span class="visible-mobile">上一篇</span></a></article>
+                <article class="post-next col-6"><a href="/2026/04/29/playwright-mcp-chrome-devtools-ai-debugging/"><span class="hidden-mobile">Playwright MCP + Chrome DevTools AI：前端调试从截图走向可执行上下文</span><span class="visible-mobile">下一篇</span><i class="iconfont icon-arrowright"></i></a></article>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div class="toc-body" id="toc-body"></div></div></div>
+    </div>
+  </div>
+
+<a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
+
+<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="text-center mt-5 py-3"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+<script>NProgress.configure({"showSpinner":false,"trickleSpeed":100});NProgress.start();window.addEventListener('load',function(){NProgress.done();});</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/events.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/js/lazyload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/local-search.js"></script>
+<script>(function(){var path="/local-search.xml";if(window.Fluid&&Fluid.plugins&&Fluid.plugins.search){Fluid.plugins.search(path);}})();</script>
+</body>
+</html>

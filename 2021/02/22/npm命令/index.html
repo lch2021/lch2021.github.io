@@ -1,440 +1,192 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
-
-
-
+<html lang="zh-CN" data-default-color-scheme="dark">
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.new.png">
   <link rel="icon" type="image/png" href="/img/favicon.new.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="清风">
+  <meta name="description" content="整理 npm 日常开发最常用命令：init、install、uninstall、scripts、版本管理、镜像源、全局包、发布和排错。">
   <meta name="author" content="Lch">
-  <meta name="keywords" content="">
-  <title>岛屿木海</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
+  <meta name="keywords" content="前端,AI,提效,Agent,MCP">
+  <title>npm 常用命令：安装、卸载、脚本、版本与发布 - 岛屿木海</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/ai-posts.css" />
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+  <meta name="generator" content="Codex static enrichment">
+</head>
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<header style="height: 70vh;">
+  
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
-
-    <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
+        <li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li>
+        <li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li>
+        <li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li>
       </ul>
     </div>
   </div>
 </nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.webp') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-22 10:51" pubdate>
-        2021年2月22日 上午
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      400 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      4
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
-          
+  <div class="banner" id="banner" parallax="true" style="background: url('/img/default.webp') no-repeat center center;background-size: cover;">
+    <div class="full-bg-img">
+      <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.45)">
+        <div class="page-header text-center fade-in-up">
+          <span class="h2" id="subtitle" title="npm 常用命令：安装、卸载、脚本、版本与发布">npm 常用命令：安装、卸载、脚本、版本与发布</span>
+          <p class="ai-banner-subtitle">整理 npm 日常开发最常用命令：init、install、uninstall、scripts、版本管理、镜像源、全局包、发布和排错。</p>
         </div>
       </div>
     </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none"></h1>
-            
-            <div class="markdown-body">
-              <h1 id="npm-相关的命令"><a href="#npm-相关的命令" class="headerlink" title="npm 相关的命令"></a>npm 相关的命令</h1><h5 id="1-查看npm的版本信息"><a href="#1-查看npm的版本信息" class="headerlink" title="1.查看npm的版本信息"></a>1.查看npm的版本信息</h5><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> -v<br></code></pre></td></tr></table></figure>
-<h5 id="2-安装第三方包和卸载"><a href="#2-安装第三方包和卸载" class="headerlink" title="2.安装第三方包和卸载"></a>2.安装第三方包和卸载</h5><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> install 包名          (会生成一个node_modules文件目录，所下载的包都放在这个目录里。)<br><span class="hljs-built_in">npm</span> install 包名@xxx      (下载指定包版本)<br><span class="hljs-built_in">npm</span> install               (一次性安装所有的依赖包)<br><span class="hljs-built_in">npm</span> init -y               (生成一个 package.json 文件 里面用来记录您使用 <span class="hljs-built_in">npm</span> install 命令安装了哪些包)<br><span class="hljs-built_in">npm</span> uninstall 包名        (卸载第三方包)<br><span class="hljs-built_in">npm</span> list                  (查看项目安装了哪些包)<br><span class="hljs-built_in">npm</span> install 包名 -D       (安装指定的包，并记录到devDependencies)<br></code></pre></td></tr></table></figure>
-<h5 id="3-切换npm的下包镜像源"><a href="#3-切换npm的下包镜像源" class="headerlink" title="3.切换npm的下包镜像源"></a>3.切换npm的下包镜像源</h5><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function">npm <span class="hljs-built_in">config</span> <span class="hljs-built_in">get</span> <span class="hljs-title">registry</span>   <span class="hljs-params">(查看当前的下包镜像源)</span></span><br><span class="hljs-function">npm <span class="hljs-built_in">config</span> <span class="hljs-built_in">set</span> registry https:<span class="hljs-comment">//registry.npm.taobao.org/ (更改 npm 的下载镜像源为淘宝镜像)</span></span><br></code></pre></td></tr></table></figure>
-<h5 id="4-nrm"><a href="#4-nrm" class="headerlink" title="4.nrm"></a>4.nrm</h5><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">npm</span> <span class="hljs-selector-tag">i</span> <span class="hljs-selector-tag">nrm</span> <span class="hljs-selector-tag">-g</span>              (通过npm 包管理器，将 nrm 安装为全局可用的工具)<br><span class="hljs-selector-tag">nrm</span> <span class="hljs-selector-tag">ls</span>                    (查看所有可用的镜像源)<br><span class="hljs-selector-tag">nrm</span> <span class="hljs-selector-tag">use</span> <span class="hljs-selector-tag">taobao</span>            (将下包的镜像源切为 taobao 镜像) <br></code></pre></td></tr></table></figure>
-
-
-<h5 id="5-项目包"><a href="#5-项目包" class="headerlink" title="5.项目包"></a>5.项目包</h5><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> 包名 -D       (开发依赖包:会被记录到 devDependencies 节点中的包，只在开发期间会用到)<br>npm <span class="hljs-keyword">install</span> 包名          (核心依赖包:被记录到 dependencies 节点中的包，在开发期间和项目上线之后都会用到)<br></code></pre></td></tr></table></figure>
-<p>6.全局包</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> install 包名 -g      (全局安装指定的包)<br><span class="hljs-built_in">npm</span> uninstall 包名 -g    (卸载全局安装的包)<br></code></pre></td></tr></table></figure>
-<h5 id="7-i5ting-toc"><a href="#7-i5ting-toc" class="headerlink" title="7.i5ting_toc"></a>7.i5ting_toc</h5><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">npm</span> install -g i<span class="hljs-number">5</span>ting_toc            (将i<span class="hljs-number">5</span>ting_toc安装为全局包)<br><span class="hljs-attribute">i5ting_toc</span> -f 要转换的md文件路径 -o   (调用i<span class="hljs-number">5</span>ting_toc，轻松实现md转html的功能)<br></code></pre></td></tr></table></figure>
-<h5 id="8-登录"><a href="#8-登录" class="headerlink" title="8.登录"></a>8.登录</h5><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> login<br></code></pre></td></tr></table></figure>
-<h5 id="9-发布包："><a href="#9-发布包：" class="headerlink" title="9.发布包："></a>9.发布包：</h5><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> init<br><span class="hljs-built_in">npm</span> publish<br></code></pre></td></tr></table></figure>
-<h5 id="10-撤销发布"><a href="#10-撤销发布" class="headerlink" title="10.撤销发布"></a>10.撤销发布</h5><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">npm -f unpublish <span class="hljs-symbol">dollarphajax@</span>*<br></code></pre></td></tr></table></figure>
-
-
-
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/02/22/%E6%A8%A1%E5%9D%97%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
   </div>
-</div>
-
-<!-- Custom -->
-
-
+</header>
+<main>
+  <div class="container-fluid nopadding-x">
+    <div class="row nomargin-x">
+      <div class="d-none d-lg-block col-lg-2"></div>
+      <div class="col-lg-8 nopadding-x-md">
+        <div class="container nopadding-x-md" id="board-ctn">
+          <div class="py-5" id="board">
+            <article class="post-content mx-auto">
+              <h1 style="display:none">npm 常用命令：安装、卸载、脚本、版本与发布</h1>
+              <div class="ai-post-meta">
+                <span><i class="iconfont icon-date-fill"></i> 2021-02-22</span>
+                <span><i class="iconfont icon-chart"></i> 1826 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 4 分钟</span>
+              </div>
+              <div class="markdown-body">
+      <h2>npm 是什么</h2>
+      <p>npm 是 Node.js 的包管理工具，负责安装依赖、运行脚本、管理版本和发布包。前端项目基本都离不开 npm 或兼容工具。</p>
+      <h2>初始化项目</h2>
+      <pre><code>npm init
+npm init -y</code></pre>
+      <p>执行后会生成 package.json，用来记录项目名称、版本、依赖和脚本。</p>
+      <h2>安装依赖</h2>
+      <pre><code>npm install
+npm install axios
+npm install vite -D
+npm install lodash@4</code></pre>
+      <p><code>dependencies</code> 是运行依赖，<code>devDependencies</code> 是开发依赖。构建工具、测试工具、类型工具通常放 devDependencies。</p>
+      <h2>卸载依赖</h2>
+      <pre><code>npm uninstall axios
+npm uninstall vite -D</code></pre>
+      <h2>运行脚本</h2>
+      <pre><code>{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest"
+  }
+}</code></pre>
+      <pre><code>npm run dev
+npm run build
+npm test</code></pre>
+      <h2>查看和切换源</h2>
+      <pre><code>npm config get registry
+npm config set registry https://registry.npmmirror.com</code></pre>
+      <p>如果安装依赖很慢，可以切换镜像源。但发布包前要确认 registry 是否是官方源。</p>
+      <h2>全局包</h2>
+      <pre><code>npm install pnpm -g
+npm list -g --depth=0
+npm uninstall pnpm -g</code></pre>
+      <p>全局包适合命令行工具，不建议把项目运行依赖装成全局，否则团队环境不一致。</p>
+      <h2>版本和锁文件</h2>
+      <p>package-lock.json 记录精确依赖树，保证团队安装结果一致。不要随意删除锁文件；如果锁文件变化，要确认是否符合预期。</p>
+      <h2>发布包</h2>
+      <pre><code>npm login
+npm publish</code></pre>
+      <p>发布前检查 package name、version、files、main/module/types 字段。已经发布的版本号不能重复发布。</p>
+      <h2>常见排错</h2>
+      <ul><li>安装失败：检查 Node 版本、网络、registry。</li><li>命令不存在：确认依赖是否安装，脚本是否写在 package.json。</li><li>依赖冲突：查看 peerDependencies 提示。</li><li>构建和本地不一致：检查 lockfile 和 Node 版本。</li></ul>
     
+      <h2>常见痛点</h2>
+      <ul class="ai-pain-list"><li><strong>dependencies 和 devDependencies 混用：</strong>运行环境安装了大量不需要的构建工具。</li><li><strong>lockfile 随手删除：</strong>团队成员安装出来的依赖树不一致，问题很难复现。</li><li><strong>全局包污染环境：</strong>本地命令能跑，别人电脑或 CI 上找不到。</li><li><strong>registry 切换后忘记恢复：</strong>发布包时还指向镜像源，导致发布失败。</li></ul>
+      <h2>npm 使用流程</h2>
+      <div class="ai-decision-flow">
+        <div class="ai-flow-row"><div class="ai-d-node start"><span>Step 1</span><strong>确认要做的事</strong></div><div class="ai-d-arrow">→</div><div class="ai-d-node"><span>类型</span><strong>安装 / 脚本 / 升级 / 发布 / 排错</strong></div></div>
+        <div class="ai-flow-row"><div class="ai-d-node decision"><span>Step 2</span><strong>依赖是否参与线上运行？</strong></div><div class="ai-d-arrow">→</div><div class="ai-d-node"><span>是</span><strong>npm install package</strong></div><div class="ai-d-arrow">→</div><div class="ai-d-node muted"><span>否</span><strong>npm install package -D</strong></div></div>
+        <div class="ai-flow-row ai-flow-end"><div class="ai-d-node"><span>Step 3</span><strong>提交前确认</strong></div><div class="ai-d-arrow">→</div><div class="ai-d-node"><span>产物</span><strong>package.json 与 package-lock.json 一起检查</strong></div></div>
+      </div>
+      <h2>详细解决方案</h2>
+      <p>团队项目建议把常用命令写进 scripts，而不是依赖全局命令。CI、本地、同事电脑都通过 npm run 调用同一套脚本。</p>
+      <pre><code>{
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "lint": "eslint src",
+    "preview": "vite preview"
+  }
+}</code></pre>
+      <p>安装依赖时，普通业务运行包进 dependencies，例如 axios、lodash；构建、测试、类型、格式化工具进 devDependencies，例如 vite、eslint、typescript、vitest。部署环境如果只安装生产依赖，就不会漏掉真正运行需要的包。</p>
+      <h2>排查清单</h2>
+      <ul><li>npm run 报命令不存在，检查依赖是否安装、脚本名是否正确。</li><li>依赖冲突，优先看 peerDependencies 提示，不要盲目 --force。</li><li>CI 和本地结果不同，检查 Node 版本、npm 版本和 package-lock.json。</li><li>发布失败，检查 registry、登录状态、包名、版本号和 files 字段。</li></ul>
+    </div>
+              <hr>
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div class="toc-body" id="toc-body"></div></div></div>
+    </div>
+  </div>
 
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
+<a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
 
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
-    
+</main>
+<footer class="text-center mt-5 py-3"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></footer>
 
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-
-  
-
-  
-</footer>
-
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+<script>NProgress.configure({"showSpinner":false,"trickleSpeed":100});NProgress.start();window.addEventListener('load',function(){NProgress.done();});</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/events.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/js/lazyload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/local-search.js"></script>
+<script>(function(){var path="/local-search.xml";if(window.Fluid&&Fluid.plugins&&Fluid.plugins.search){Fluid.plugins.search(path);}})();</script>
 </body>
 </html>

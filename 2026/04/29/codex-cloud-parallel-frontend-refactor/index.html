@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme="dark">
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.new.png">
+  <link rel="icon" type="image/png" href="/img/favicon.new.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="把长重构拆成多个可回滚分支，减少等待时间。">
+  <meta name="author" content="Lch">
+  <meta name="keywords" content="前端,AI,提效,Agent,MCP">
+  <title>Codex 云端并行任务：前端重构可以拆成十分钟的小队列 - 岛屿木海</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/ai-posts.css" />
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+  <meta name="generator" content="Codex static enrichment">
+</head>
+<body>
+
+<header style="height: 70vh;">
+  
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li>
+        <li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li>
+        <li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <div class="banner" id="banner" parallax="true" style="background: url('/img/default.webp') no-repeat center center;background-size: cover;">
+    <div class="full-bg-img">
+      <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.45)">
+        <div class="page-header text-center fade-in-up">
+          <span class="h2" id="subtitle" title="Codex 云端并行任务：前端重构可以拆成十分钟的小队列">Codex 云端并行任务：前端重构可以拆成十分钟的小队列</span>
+          <p class="ai-banner-subtitle">把长重构拆成多个可回滚分支，减少等待时间。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container-fluid nopadding-x">
+    <div class="row nomargin-x">
+      <div class="d-none d-lg-block col-lg-2"></div>
+      <div class="col-lg-8 nopadding-x-md">
+        <div class="container nopadding-x-md" id="board-ctn">
+          <div class="py-5" id="board">
+            <article class="post-content mx-auto ai-post">
+              <h1 style="display:none">Codex 云端并行任务：前端重构可以拆成十分钟的小队列</h1>
+              <div class="ai-post-meta">
+                <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
+                <span><i class="iconfont icon-chart"></i> 2951 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 7 分钟</span>
+              </div>
+              <div class="ai-tags"><a class="ai-chip" href="/tags/Codex/">Codex</a><a class="ai-chip" href="/tags/Agent/">Agent</a><a class="ai-chip" href="/tags/%E9%87%8D%E6%9E%84/">重构</a></div>
+              <div class="markdown-body">
+                <figure class="ai-cover"><img src="/img/ai-posts/codex-cloud-parallel-frontend-refactor.png" alt="Codex 云端并行任务：前端重构可以拆成十分钟的小队列 配图"></figure>
+                <p class="ai-note">这篇文章基于 2026-04-29 可公开访问的官方资料整理，面向前端工程师的日常提效场景。</p>
+                
+      <p>云端 Agent 最适合做并行任务，但前提是任务已经被拆清楚。前端重构一旦范围失控，AI 会同时碰到公共组件、样式 token、测试、文档和业务页面，最后生成一个没人敢 Review 的大 PR。</p>
+      <p>这篇把“云端并行”拆成一个可执行流程：如何判断重构是否适合 Agent，如何给每个 Agent 分配 ownership，如何合并多个分支，如何避免单分支通过但集成失败。</p>
+  
+      <h2>核心痛点</h2>
+      <ul class="ai-pain-list"><li>重构范围一大，AI 改动分散，Review 成本超过手写。</li><li>多个 Agent 同时改公共组件，最后冲突和行为回归一起出现。</li><li>云端环境跑过，不代表本地、CI、浏览器都通过。</li><li>没有拆分策略，长任务变成不可回滚的大 PR。</li></ul>
+      <h2>解决流程图</h2>
+      <div class="ai-decision-flow">
+    <div class="ai-flow-row">
+      <div class="ai-d-node start"><span>发现</span><strong>重构目标</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>判断</span><strong>是否适合进入 AI 流程?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>否</span><div class="ai-d-node muted"><span>先补齐</span><strong>拆分 ownership / 人工判断</strong></div></div>
+      <div class="ai-branch-item yes"><span>是</span><div class="ai-d-node normal"><span>准备</span><strong>并行任务</strong></div></div>
+    </div>
+    <div class="ai-flow-row">
+      <div class="ai-d-node normal"><span>执行</span><strong>逐个验收</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>验证</span><strong>集成分支 是否通过?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>失败</span><div class="ai-d-node muted"><span>回流</span><strong>带证据回到 并行任务</strong></div></div>
+      <div class="ai-branch-item yes"><span>通过</span><div class="ai-d-node normal"><span>审查</span><strong>回归测试</strong></div></div>
+    </div>
+    <div class="ai-flow-row ai-flow-end">
+      <div class="ai-d-node start"><span>沉淀</span><strong>发布记录</strong></div>
+    </div>
+  </div>
+      
+        <h2>详细解决方案：把大重构拆成可回滚小队列</h2>
+        <p>云端 Agent 的价值不是“让它一次重构全站”，而是把重复、清晰、可验证的改动并行化。前端重构要先定义 ownership：每个任务拥有独立目录或职责，尽量不同时改同一个公共文件。</p>
+        <h3>拆分示例：组件 API 迁移</h3>
+        <table><thead><tr><th>任务</th><th>负责范围</th><th>验收</th></tr></thead><tbody><tr><td>业务调用迁移</td><td>src/pages/order/**</td><td>订单相关测试通过</td></tr><tr><td>组件文档更新</td><td>stories/docs</td><td>Storybook 正常渲染</td></tr><tr><td>类型收窄</td><td>组件类型定义</td><td>typecheck 通过</td></tr><tr><td>迁移说明</td><td>docs/changelog</td><td>列出 breaking change</td></tr></tbody></table>
+        <h3>合并策略</h3>
+        <p>先合并公共 API，再合并业务调用点，最后合并测试和文档。每一步都跑 typecheck 和相关测试，避免多个分支单独通过、合并后失败。</p>
+      
+      
+      <h2>实战案例：旧 Button API 分模块迁移</h2>
+      <p>把全站 Button size 迁移拆成订单、用户、设置、文档四条任务，分别交给云端 Agent。每条任务只能改自己的目录。</p>
+      <p>先合并文档和类型，再合并业务调用点。每合并一步跑 typecheck，避免多个分支各自通过但最终集成失败。</p>
+  
+  
+      <h2>进一步落地：云端并行任务的拆分方法</h2>
+      <p>一个可并行的前端重构任务，必须满足三个条件：每个子任务有独立文件范围；每个子任务有独立验收命令；合并顺序可控。如果三个条件不满足，就不要开多个云端 Agent，否则最后会得到一组互相冲突的分支。</p>
+      <h2>重构拆分表</h2>
+      <table><thead><tr><th>重构类型</th><th>推荐拆法</th><th>风险</th></tr></thead><tbody><tr><td>组件 API 迁移</td><td>按业务目录拆</td><td>公共组件被多分支同时修改</td></tr><tr><td>样式 token 替换</td><td>按页面域拆</td><td>视觉回归难发现</td></tr><tr><td>测试补齐</td><td>按组件或路由拆</td><td>测试写成实现细节</td></tr><tr><td>类型收窄</td><td>先公共类型，再调用点</td><td>单分支通过，集成失败</td></tr></tbody></table>
+      <h2>云端任务 Prompt</h2>
+      <pre><code>你在云端分支中处理一个局部重构任务。
+范围：只修改 src/pages/order/**
+目标：把 ModalV1 调用迁移到 Dialog。
+保持：文案、埋点、接口参数、焦点行为不变。
+禁止：修改 Dialog 公共实现、升级依赖、改锁文件。
+验收：pnpm typecheck、pnpm test order。
+输出：修改文件、验证结果、无法确认的风险。</code></pre>
+      <h2>合并前检查</h2>
+      <p>合并前要做一次“集成验证”：把所有候选分支按顺序合入临时分支，跑全量 typecheck 和相关测试，再抽样看页面截图。不要相信每个子分支单独通过就等于整体通过。</p>
+    
+      <h2>并行任务怎么拆才不冲突</h2>
+      <p>云端 Agent 最大的价值是并行，但并行的前提是写清楚所有权。比如你要把旧组件 <code>ModalV1</code> 迁到 <code>Dialog</code>，不要开一个“全站迁移”的大任务。更稳的拆法是：用户中心页面一条任务，订单页面一条任务，组件文档一条任务，测试补齐一条任务。每条任务明确不能改公共 Dialog 实现，公共 API 由人类先定好。</p>
+      <h2>重构任务卡示例</h2>
+      <pre><code>目标：迁移订单模块中的 ModalV1 到 Dialog。
+范围：src/pages/order/**，不修改 src/components/Dialog。
+保持：交互、文案、埋点字段、接口参数不变。
+必须：补充或更新对应测试；记录无法迁移的调用点。
+验收：pnpm typecheck、pnpm test order、pnpm lint。</code></pre>
+      <p>这个任务卡的关键是“保持不变”写得足够清楚。很多 AI 重构的问题不是不会改，而是太愿意顺手“优化”。前端代码里一个看似无害的组件替换，可能改变焦点管理、滚动锁定、动画时机和埋点触发。</p>
+      <h2>如何审查云端结果</h2>
+      <p>先看 commit diff 是否符合范围，再看测试输出是否真实。云端环境有时缺依赖、缺环境变量、缺浏览器，Agent 可能只跑了部分命令。PR 描述里如果没有明确“运行了什么、失败了什么、为什么失败”，就不能当作已验证。其次看视觉和可访问性。模态框、弹层、下拉菜单、日期选择器这类组件，必须特别看键盘操作、焦点回收、滚动穿透和移动端遮挡。</p>
+      <h2>适合批量并行的任务</h2>
+      <ul>
+        <li>把多个页面的旧 API client 调用迁移到新封装。</li>
+        <li>给每个业务模块补缺失的 loading 和 empty 状态。</li>
+        <li>把硬编码颜色替换成设计 token。</li>
+        <li>给历史组件补 stories，并截图确认视觉没有明显回归。</li>
+        <li>整理文档和示例，让新人能启动项目。</li>
+      </ul>
+      <p>如果你的项目没有测试，也可以用 Codex 做第一轮“补测试基建”，但不要让它边改业务边补基建。先把可验证闭环建起来，再扩大自动化范围。</p>
+  
+      <h2>云端 Agent 的正确使用姿势：拆小，不是放任</h2>
+      <p>很多文章会把远程 Agent 写得像“自动开发团队”，但实际工程里更可靠的方式是把它当作并行执行器。它适合处理耗时、机械、可验证的任务，不适合替你决定架构。前端重构尤其要避免“大一统任务”，因为一次全站替换很容易牵连公共组件、样式 token、截图测试和路由懒加载。</p>
+      <h2>拆分示例：组件 API 迁移</h2>
+      <p>假设要把 <code>Button size="middle"</code> 改成 <code>size="md"</code>。不要让一个 Agent 全仓库替换。可以拆成四个任务：业务页面调用点迁移、组件文档和 stories 更新、测试和类型更新、迁移说明和废弃检查。每个任务都限制目录，避免同时改同一个公共定义。</p>
+      <pre><code>任务 A：只修改 src/pages/order/** 的 Button size。
+任务 B：只修改 src/stories/Button.stories.tsx 和文档。
+任务 C：只补测试，不改业务实现。
+任务 D：生成迁移说明，不改代码。</code></pre>
+      <h2>合并前的冲突处理</h2>
+      <p>并行任务完成后，不要按完成时间直接合并。先合并公共 API 或文档，再合并调用点，再合并测试。每合并一个分支都运行一次 typecheck，避免多个 Agent 各自通过、合起来失败。对于视觉改动，最好用同一套截图基线，不要让每个 Agent 自己判断“差不多”。</p>
+      <h2>什么时候不该用云端 Agent</h2>
+      <p>如果任务需要频繁问产品、依赖设计确认、涉及灰度策略、需要访问私有生产数据，云端 Agent 只能做辅助分析。真正的改动应该在人类掌控下完成。云端能力越强，越要把任务卡写得像测试用例一样明确。</p>
+  
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://openai.com/index/introducing-the-codex-app/" target="_blank" rel="nofollow noopener">Introducing the Codex app</a></li><li><a href="https://platform.openai.com/docs/codex" target="_blank" rel="nofollow noopener">Codex cloud</a></li><li><a href="https://platform.openai.com/docs/docs-mcp" target="_blank" rel="nofollow noopener">OpenAI Docs MCP</a></li></ul>
+              </div>
+              <hr>
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>
+              <div class="post-prevnext">
+                <article class="post-prev col-6"><a href="/2026/04/29/claude-code-terminal-frontend-skills/"><i class="iconfont icon-arrowleft"></i><span class="hidden-mobile">Claude Code 在终端里的前端用法：把重复流程做成可复用技能</span><span class="visible-mobile">上一篇</span></a></article>
+                <article class="post-next col-6"><a href="/2026/04/29/copilot-agent-mode-frontend-pr/"><span class="hidden-mobile">用 GitHub Copilot Coding Agent 做前端 PR：任务边界比提示词更重要</span><span class="visible-mobile">下一篇</span><i class="iconfont icon-arrowright"></i></a></article>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div class="toc-body" id="toc-body"></div></div></div>
+    </div>
+  </div>
+
+<a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
+
+<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="text-center mt-5 py-3"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+<script>NProgress.configure({"showSpinner":false,"trickleSpeed":100});NProgress.start();window.addEventListener('load',function(){NProgress.done();});</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/events.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/js/lazyload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/local-search.js"></script>
+<script>(function(){var path="/local-search.xml";if(window.Fluid&&Fluid.plugins&&Fluid.plugins.search){Fluid.plugins.search(path);}})();</script>
+</body>
+</html>

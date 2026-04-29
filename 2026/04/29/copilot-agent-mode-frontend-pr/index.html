@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme="dark">
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.new.png">
+  <link rel="icon" type="image/png" href="/img/favicon.new.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="让 Copilot 背景处理 issue，但把验收权留在 PR。">
+  <meta name="author" content="Lch">
+  <meta name="keywords" content="前端,AI,提效,Agent,MCP">
+  <title>用 GitHub Copilot Coding Agent 做前端 PR：任务边界比提示词更重要 - 岛屿木海</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/ai-posts.css" />
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+  <meta name="generator" content="Codex static enrichment">
+</head>
+<body>
+
+<header style="height: 70vh;">
+  
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li>
+        <li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li>
+        <li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <div class="banner" id="banner" parallax="true" style="background: url('/img/default.webp') no-repeat center center;background-size: cover;">
+    <div class="full-bg-img">
+      <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.45)">
+        <div class="page-header text-center fade-in-up">
+          <span class="h2" id="subtitle" title="用 GitHub Copilot Coding Agent 做前端 PR：任务边界比提示词更重要">用 GitHub Copilot Coding Agent 做前端 PR：任务边界比提示词更重要</span>
+          <p class="ai-banner-subtitle">让 Copilot 背景处理 issue，但把验收权留在 PR。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container-fluid nopadding-x">
+    <div class="row nomargin-x">
+      <div class="d-none d-lg-block col-lg-2"></div>
+      <div class="col-lg-8 nopadding-x-md">
+        <div class="container nopadding-x-md" id="board-ctn">
+          <div class="py-5" id="board">
+            <article class="post-content mx-auto ai-post">
+              <h1 style="display:none">用 GitHub Copilot Coding Agent 做前端 PR：任务边界比提示词更重要</h1>
+              <div class="ai-post-meta">
+                <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
+                <span><i class="iconfont icon-chart"></i> 3448 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 8 分钟</span>
+              </div>
+              <div class="ai-tags"><a class="ai-chip" href="/tags/GitHub%20Copilot/">GitHub Copilot</a><a class="ai-chip" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5/">代码审查</a><a class="ai-chip" href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B/">前端工程</a></div>
+              <div class="markdown-body">
+                <figure class="ai-cover"><img src="/img/ai-posts/copilot-agent-mode-frontend-pr.png" alt="用 GitHub Copilot Coding Agent 做前端 PR：任务边界比提示词更重要 配图"></figure>
+                <p class="ai-note">这篇文章基于 2026-04-29 可公开访问的官方资料整理，面向前端工程师的日常提效场景。</p>
+                
+      <p>Copilot coding agent 的核心价值不是“帮你写几行代码”，而是把明确的 issue 变成可审查 PR。但如果 issue 写得像口头需求，PR 也会像猜谜结果。前端场景里，PR 还会涉及状态、组件库、移动端、可访问性、埋点和接口兼容，不能只看 CI 是否绿色。</p>
+      <p>这篇重点讲：什么样的 issue 适合交给 Copilot，PR 里应该审什么，如何让 Copilot 按 Review 继续迭代，以及如何防止 AI 为了通过测试而修改错误的地方。</p>
+  
+      <h2>核心痛点</h2>
+      <ul class="ai-pain-list"><li>Issue 写得太泛，Copilot 只能按字面猜业务意图。</li><li>PR 看起来能跑，但漏掉权限、错误态、埋点或移动端。</li><li>Agent 为了通过测试修改快照或删除断言。</li><li>仓库没有 instructions，导致每次都重复解释组件规范。</li></ul>
+      <h2>解决流程图</h2>
+      <div class="ai-decision-flow">
+    <div class="ai-flow-row">
+      <div class="ai-d-node start"><span>发现</span><strong>Issue 模板</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>判断</span><strong>是否适合进入 AI 流程?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>否</span><div class="ai-d-node muted"><span>先补齐</span><strong>仓库指令 / 人工判断</strong></div></div>
+      <div class="ai-branch-item yes"><span>是</span><div class="ai-d-node normal"><span>准备</span><strong>生成 PR</strong></div></div>
+    </div>
+    <div class="ai-flow-row">
+      <div class="ai-d-node normal"><span>执行</span><strong>CI 检查</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>验证</span><strong>人工 Review 是否通过?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>失败</span><div class="ai-d-node muted"><span>回流</span><strong>带证据回到 生成 PR</strong></div></div>
+      <div class="ai-branch-item yes"><span>通过</span><div class="ai-d-node normal"><span>审查</span><strong>补充规则</strong></div></div>
+    </div>
+    <div class="ai-flow-row ai-flow-end">
+      <div class="ai-d-node start"><span>沉淀</span><strong>合并</strong></div>
+    </div>
+  </div>
+      
+        <h2>详细解决方案：把 Copilot PR 变成可审查交付</h2>
+        <p>Copilot coding agent 最适合处理“边界清楚、结果可测”的 issue。你需要把 issue 写成执行规格，而不是愿望清单。规格越具体，PR 越接近可合并。</p>
+        <h3>Issue 必须写清四件事</h3>
+        <ul><li><strong>现象：</strong>用户在哪个页面、什么视口、什么操作下遇到问题。</li><li><strong>期望：</strong>修完后行为是什么，哪些行为必须保持不变。</li><li><strong>范围：</strong>允许修改哪些目录，禁止碰哪些公共模块。</li><li><strong>验收：</strong>运行哪些命令，补哪些测试，看哪些截图。</li></ul>
+        <h3>Review 要按用户路径审</h3>
+        <p>不要只看代码风格。先走真实用户路径，再看组件复用、状态覆盖、接口兼容、可访问性和测试质量。AI 生成代码最容易漏的是非成功态：loading、empty、error、forbidden、long text、mobile。</p>
+        <pre><code>PR Review 清单：
+- 是否只改了 issue 允许的目录？
+- 是否复用了项目组件库？
+- 是否覆盖 loading/empty/error/forbidden？
+- 是否改变接口参数、缓存 key 或埋点？
+- 是否运行 CI 以外的本地视觉验证？</code></pre>
+      
+      
+      <h2>实战案例：移动端筛选弹层修复</h2>
+      <p>Issue 明确写出 390x844 视口下底部按钮被遮挡，禁止改全局 Drawer。Copilot 只修改筛选弹层和相关测试。</p>
+      <p>Review 时重点看焦点回收、底部安全区、键盘弹起、桌面端是否保持原样。最终 PR 只改局部样式和一个交互测试，合并风险可控。</p>
+  
+  
+      <h2>进一步落地：给 Copilot 的 Issue 必须像小型 PRD</h2>
+      <p>Copilot coding agent 最怕的是“优化”“调整”“完善”这类词。前端任务要写成可执行规格：页面入口、用户动作、期望结果、不可改变行为、允许改动范围、验收命令。这样它才能开出可审查 PR，而不是把问题扩散成大改动。</p>
+      <h2>Issue 模板</h2>
+      <pre><code>【背景】
+用户在移动端打开筛选弹层时，底部提交按钮被安全区遮挡。
+
+【期望】
+390x844 和 375x667 视口下按钮可见可点击，桌面布局保持不变。
+
+【允许修改】
+src/pages/search/**
+src/components/FilterDrawer/**
+
+【禁止修改】
+全局 Drawer、路由、接口字段、埋点字段。
+
+【验收】
+npm run lint
+npm run test -- FilterDrawer
+补一个移动端交互测试。</code></pre>
+      <h2>PR 二次追问清单</h2>
+      <p>收到 PR 后不要只看总结。继续问 Copilot：为什么只改这些文件？哪些状态没有覆盖？有没有改变接口或埋点？移动端和桌面端分别怎么验证？如果它回答不清楚，说明 PR 证据不足。</p>
+      <h2>常见失败处理</h2>
+      <table><thead><tr><th>问题</th><th>处理</th></tr></thead><tbody><tr><td>改动范围过大</td><td>要求拆分 PR，只保留本 issue 范围</td></tr><tr><td>删除测试断言</td><td>退回，要求解释失败根因</td></tr><tr><td>新增依赖</td><td>要求说明必要性，默认拒绝</td></tr><tr><td>只修成功态</td><td>补 loading、empty、error、forbidden</td></tr></tbody></table>
+    
+      <h2>把 issue 写成 Copilot 能执行的规格</h2>
+      <p>Copilot coding agent 的输入最好像一个小型需求文档，而不是一句愿望。前端 issue 至少要包含四类信息：用户现象、期望行为、修改范围、验收方式。比如“弹窗在移动端按钮被遮挡”要写清具体视口、入口页面、按钮位置、是否影响桌面端。如果只写“优化移动端体验”，Agent 会把问题扩散成大范围样式调整。</p>
+      <h2>仓库指令的推荐结构</h2>
+      <pre><code># Copilot Instructions
+项目使用 React + TypeScript。
+样式：优先使用 design tokens，不新增硬编码颜色。
+组件：业务页面不得直接写原生 button，使用 src/components/Button。
+测试：组件交互补 Vitest，跨页面流程补 Playwright。
+禁止：不要修改 env、部署配置、锁文件，除非 issue 明确要求。</code></pre>
+      <p>这类指令越具体越好。不要写“保持代码质量”，要写“新增列表组件必须覆盖空态和加载态”。不要写“注意响应式”，要写“375px 宽度不能出现横向滚动，筛选项可以换行”。</p>
+      <h2>PR 审查流程</h2>
+      <p>拿到 Copilot PR 后，我建议按顺序看：文件范围、业务逻辑、UI 状态、测试、依赖。先看文件范围是为了防止它顺手改共享组件或全局样式；再看业务逻辑是为了确认没有遗漏权限、分页、缓存、错误态；最后看测试和依赖，确保它没有通过删除断言或升级大依赖来“解决”问题。</p>
+      <h2>适合 Copilot 处理的前端任务</h2>
+      <ul>
+        <li>根据已有组件模式新增一个相似表单。</li>
+        <li>给已有组件补 Storybook stories 和基础交互测试。</li>
+        <li>修复明确的 TypeScript 报错或 ESLint 规则。</li>
+        <li>根据 review comment 做小范围修改。</li>
+        <li>把文档中的用法同步到示例代码。</li>
+      </ul>
+      <h2>不建议直接交给它的任务</h2>
+      <p>涉及支付、鉴权、埋点口径、缓存策略、组件库公共 API 的变更，不建议让 Copilot 独立完成。它可以先给迁移方案和候选实现，但这些地方的边界往往不在代码表面，而在业务规则、历史兼容和上线风险里。</p>
+  
+      <h2>把 Copilot PR 当作实习同事的 PR 来审</h2>
+      <p>高质量的 AI 编程文章经常提醒一件事：AI 生成代码最危险的地方不是“明显错误”，而是“看起来非常像对的”。所以 Copilot coding agent 开出的 PR，不能因为它自动跑过一部分检查就直接合并。前端 PR 审查要从用户路径倒推，而不是只看代码是否优雅。</p>
+      <h2>Issue 写法：从模糊需求到可执行任务</h2>
+      <p>差的 issue 是“优化列表页性能”。好的 issue 会写：列表页在 1000 条数据时滚动卡顿，当前入口是 <code>/orders</code>，只能修改订单列表和虚拟滚动封装，不能改变接口分页参数；验收方式是 Chrome Performance 里滚动长任务减少，Playwright 用例仍通过。这样的描述能让 Copilot 明确“性能”的含义。</p>
+      <pre><code>请处理 issue #123。
+先阅读 src/pages/orders、src/components/VirtualList 和现有测试。
+只允许修改订单列表相关文件。
+目标：保持交互不变，降低大列表滚动卡顿。
+验收：npm run test -- orders；补充一个大数据量渲染测试。
+PR 描述必须写明：性能改动点、测试结果、未覆盖风险。</code></pre>
+      <h2>Review 时看哪些细节</h2>
+      <ul>
+        <li><strong>状态覆盖：</strong>是否漏了 loading、empty、error、permission denied。</li>
+        <li><strong>组件一致性：</strong>是否复用了项目已有 Button、Modal、Table，而不是写新 class。</li>
+        <li><strong>接口稳定性：</strong>是否改变请求参数、缓存 key、错误处理和重试行为。</li>
+        <li><strong>可访问性：</strong>弹窗焦点、表单 label、键盘操作是否保留。</li>
+        <li><strong>测试质量：</strong>是否为了通过测试删除断言，是否只更新快照不解释原因。</li>
+      </ul>
+      <h2>给团队的落地建议</h2>
+      <p>可以先建立一个“Copilot 可接任务”标签。只有具备明确范围、验收命令和低风险边界的 issue 才打这个标签。这样比让所有 issue 都自动分配给 Agent 更稳，也方便团队总结哪些任务真的提效。</p>
+  
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.github.com/en/copilot/concepts/coding-agent/about-copilot-coding-agent" target="_blank" rel="nofollow noopener">About GitHub Copilot coding agent</a></li><li><a href="https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot" target="_blank" rel="nofollow noopener">Adding repository custom instructions for GitHub Copilot</a></li><li><a href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode" target="_blank" rel="nofollow noopener">VS Code Chat and agent mode overview</a></li></ul>
+              </div>
+              <hr>
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>
+              <div class="post-prevnext">
+                <article class="post-prev col-6"><a href="/2026/04/29/codex-cloud-parallel-frontend-refactor/"><i class="iconfont icon-arrowleft"></i><span class="hidden-mobile">Codex 云端并行任务：前端重构可以拆成十分钟的小队列</span><span class="visible-mobile">上一篇</span></a></article>
+                <article class="post-next col-6"><a href="/2026/04/29/ai-frontend-agent-workflow-2026/"><span class="hidden-mobile">2026 前端 AI 提效总览：从代码补全到多代理交付</span><span class="visible-mobile">下一篇</span><i class="iconfont icon-arrowright"></i></a></article>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div class="toc-body" id="toc-body"></div></div></div>
+    </div>
+  </div>
+
+<a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
+
+<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="text-center mt-5 py-3"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+<script>NProgress.configure({"showSpinner":false,"trickleSpeed":100});NProgress.start();window.addEventListener('load',function(){NProgress.done();});</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/events.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/js/lazyload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/local-search.js"></script>
+<script>(function(){var path="/local-search.xml";if(window.Fluid&&Fluid.plugins&&Fluid.plugins.search){Fluid.plugins.search(path);}})();</script>
+</body>
+</html>

@@ -1,444 +1,179 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
-
-
-
+<html lang="zh-CN" data-default-color-scheme="dark">
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.new.png">
   <link rel="icon" type="image/png" href="/img/favicon.new.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="清风">
+  <meta name="description" content="整理 MySQL Workbench 中最常用的查询、新增、修改、删除、排序、分页、条件查询和聚合统计命令，并补充 SQL 编写注意事项。">
   <meta name="author" content="Lch">
-  <meta name="keywords" content="">
-  <title>岛屿木海</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
+  <meta name="keywords" content="前端,AI,提效,Agent,MCP">
+  <title>MySQL Workbench 常用 SQL 命令整理 - 岛屿木海</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/ai-posts.css" />
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+  <meta name="generator" content="Codex static enrichment">
+</head>
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<header style="height: 70vh;">
+  
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
-
-    <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
+        <li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li>
+        <li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li>
+        <li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li>
       </ul>
     </div>
   </div>
 </nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.webp') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-25 10:34" pubdate>
-        2021年2月25日 上午
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      536 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      7
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
-          
+  <div class="banner" id="banner" parallax="true" style="background: url('/img/default.webp') no-repeat center center;background-size: cover;">
+    <div class="full-bg-img">
+      <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.45)">
+        <div class="page-header text-center fade-in-up">
+          <span class="h2" id="subtitle" title="MySQL Workbench 常用 SQL 命令整理">MySQL Workbench 常用 SQL 命令整理</span>
+          <p class="ai-banner-subtitle">整理 MySQL Workbench 中最常用的查询、新增、修改、删除、排序、分页、条件查询和聚合统计命令，并补充 SQL 编写注意事项。</p>
         </div>
       </div>
     </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none"></h1>
-            
-            <div class="markdown-body">
-              <h2 id="MySQL-Workbench-相关命令"><a href="#MySQL-Workbench-相关命令" class="headerlink" title="MySQL Workbench 相关命令"></a>MySQL Workbench 相关命令</h2><h5 id="1-从数据库中查询数据-列入表名称为-users"><a href="#1-从数据库中查询数据-列入表名称为-users" class="headerlink" title="1.从数据库中查询数据 列入表名称为 users"></a>1.从数据库中查询数据 列入表名称为 users</h5><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> 表名称(users)<br></code></pre></td></tr></table></figure>
-<h5 id="2-如需获取名为-“username”-和-“password”-的列的内容（从名为-“users”-的数据库表）语法格式如下："><a href="#2-如需获取名为-“username”-和-“password”-的列的内容（从名为-“users”-的数据库表）语法格式如下：" class="headerlink" title="2.如需获取名为 “username” 和 “password” 的列的内容（从名为 “users” 的数据库表）语法格式如下："></a>2.如需获取名为 “username” 和 “password” 的列的内容（从名为 “users” 的数据库表）语法格式如下：</h5><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">select</span> username,<span class="hljs-keyword">password</span> <span class="hljs-keyword">from</span> 表名称(users)<br></code></pre></td></tr></table></figure>
-<h5 id="3-INSERT-INTO-语句用于向数据表中插入新的数据行，语法格式如下："><a href="#3-INSERT-INTO-语句用于向数据表中插入新的数据行，语法格式如下：" class="headerlink" title="3.INSERT INTO 语句用于向数据表中插入新的数据行，语法格式如下："></a>3.INSERT INTO 语句用于向数据表中插入新的数据行，语法格式如下：</h5><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> 表名称(users) (username,<span class="hljs-keyword">password</span>) <span class="hljs-keyword">values</span>(<span class="hljs-string">&#x27;名称值&#x27;</span>,<span class="hljs-string">&#x27;数字值&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<h5 id="4-Update-语句用于修改表中的数据。语法格式如下：（将-id-为-5-的用户密码，更新为-888）"><a href="#4-Update-语句用于修改表中的数据。语法格式如下：（将-id-为-5-的用户密码，更新为-888）" class="headerlink" title="4.Update 语句用于修改表中的数据。语法格式如下：（将 id 为 5 的用户密码，更新为 888）"></a>4.Update 语句用于修改表中的数据。语法格式如下：（将 id 为 5 的用户密码，更新为 888）</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">update 表名称(users) <span class="hljs-builtin-name">set</span> <span class="hljs-attribute">password</span>=<span class="hljs-string">&#x27;888&#x27;</span>  where <span class="hljs-attribute">id</span>=5<br></code></pre></td></tr></table></figure>
-<h5 id="5-把-users-表中-id-为-2-的用户密码和用户状态，分别更新为-admin123-和-1-用户名为李华"><a href="#5-把-users-表中-id-为-2-的用户密码和用户状态，分别更新为-admin123-和-1-用户名为李华" class="headerlink" title="5.把 users 表中 id 为 2 的用户密码和用户状态，分别更新为 admin123 和 1 用户名为李华"></a>5.把 users 表中 id 为 2 的用户密码和用户状态，分别更新为 admin123 和 1 用户名为李华</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">select  表名称(users) <span class="hljs-builtin-name">set</span> <span class="hljs-attribute">password</span>=<span class="hljs-string">&#x27;admin123&#x27;</span>,status=1,username=&#x27;李华&#x27; where <span class="hljs-attribute">id</span>=2<br></code></pre></td></tr></table></figure>
-<h5 id="6-从-users-表中，删除-id-为-2-的用户，示例如下："><a href="#6-从-users-表中，删除-id-为-2-的用户，示例如下：" class="headerlink" title="6.从 users 表中，删除 id 为 2 的用户，示例如下："></a>6.从 users 表中，删除 id 为 2 的用户，示例如下：</h5><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> 表名称(users) <span class="hljs-keyword">where</span> id=<span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
-<h5 id="7-从-users-表中，查询表中-id-为-3-的用户："><a href="#7-从-users-表中，查询表中-id-为-3-的用户：" class="headerlink" title="7.从 users 表中，查询表中 id 为 3 的用户："></a>7.从 users 表中，查询表中 id 为 3 的用户：</h5><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">select * <span class="hljs-keyword">from</span> 表名称(users) <span class="hljs-keyword">where</span> <span class="hljs-built_in">id</span>=<span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
-<h5 id="8-从-users-表中，查询表中-id-大于-3-的用户"><a href="#8-从-users-表中，查询表中-id-大于-3-的用户" class="headerlink" title="8.从 users 表中，查询表中 id 大于 3 的用户"></a>8.从 users 表中，查询表中 id 大于 3 的用户</h5><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">select * <span class="hljs-keyword">from</span> 表名称(users) <span class="hljs-keyword">where</span> <span class="hljs-built_in">id</span>&gt;<span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
-<h5 id="9-从-users-表中，查询表中-id-不为-2-的用户"><a href="#9-从-users-表中，查询表中-id-不为-2-的用户" class="headerlink" title="9.从 users 表中，查询表中 id 不为 2 的用户"></a>9.从 users 表中，查询表中 id 不为 2 的用户</h5><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">select * <span class="hljs-keyword">from</span> 表名称(users) <span class="hljs-keyword">where</span> <span class="hljs-built_in">id</span>!=<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
-<h5 id="10-从-users-表中，查询表中-id-3-5-的用户"><a href="#10-从-users-表中，查询表中-id-3-5-的用户" class="headerlink" title="10.从 users 表中，查询表中 id 3-5 的用户"></a>10.从 users 表中，查询表中 id 3-5 的用户</h5><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">select * <span class="hljs-keyword">from</span> 表名称(users) <span class="hljs-keyword">where</span>  <span class="hljs-built_in">id</span> <span class="hljs-keyword">between</span> <span class="hljs-number">2</span> <span class="hljs-keyword">and</span> <span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
-<h5 id="11-从-users-表中，查询表中-id-大于-3-且-status-为-1-的用户"><a href="#11-从-users-表中，查询表中-id-大于-3-且-status-为-1-的用户" class="headerlink" title="11.从 users 表中，查询表中 id 大于 3 且 status 为 1 的用户"></a>11.从 users 表中，查询表中 id 大于 3 且 status 为 1 的用户</h5><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">select * <span class="hljs-keyword">from</span> 表名称(users)  <span class="hljs-keyword">where</span> <span class="hljs-built_in">id</span>&gt;<span class="hljs-number">3</span> <span class="hljs-keyword">and</span> status=<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
-<h5 id="12-从-users-表中，查询表中-id-为-5-或者-username-为-uzi-的用户"><a href="#12-从-users-表中，查询表中-id-为-5-或者-username-为-uzi-的用户" class="headerlink" title="12.从 users 表中，查询表中 id 为 5 或者 username 为 uzi 的用户"></a>12.从 users 表中，查询表中 id 为 5 或者 username 为 uzi 的用户</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">select * ftom 表名称(users) where <span class="hljs-attribute">id</span>=5 <span class="hljs-keyword">or</span> <span class="hljs-attribute">username</span>=<span class="hljs-string">&#x27;uzi&#x27;</span><br></code></pre></td></tr></table></figure>
-<h5 id="13-从-users-表中，按照-status-字段进行升序排序-asc-默认是升序排列-，示例如下："><a href="#13-从-users-表中，按照-status-字段进行升序排序-asc-默认是升序排列-，示例如下：" class="headerlink" title="13.从 users 表中，按照 status 字段进行升序排序(asc 默认是升序排列)，示例如下："></a>13.从 users 表中，按照 status 字段进行升序排序(asc 默认是升序排列)，示例如下：</h5><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> 表名称(users) <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> status <span class="hljs-keyword">asc</span><br></code></pre></td></tr></table></figure>
-<h5 id="14-从-users-表中，按照-id-gt-2-的用户并且-status-字段进行升序降序-asc-是降序排列-，示例如下："><a href="#14-从-users-表中，按照-id-gt-2-的用户并且-status-字段进行升序降序-asc-是降序排列-，示例如下：" class="headerlink" title="14.从 users 表中，按照 id&gt;2 的用户并且 status 字段进行升序降序 (asc 是降序排列)，示例如下："></a>14.从 users 表中，按照 id&gt;2 的用户并且 status 字段进行升序降序 (asc 是降序排列)，示例如下：</h5><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> 表名称(users) <span class="hljs-keyword">where</span> id&gt;<span class="hljs-number">2</span> <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> id <span class="hljs-keyword">desc</span><br></code></pre></td></tr></table></figure>
-<h5 id="15-从-users-表中-先按照-status-字段进行降序排序，再按照-username-的字母顺序，进行升序排序，示例如下："><a href="#15-从-users-表中-先按照-status-字段进行降序排序，再按照-username-的字母顺序，进行升序排序，示例如下：" class="headerlink" title="15.从 users 表中,先按照 status 字段进行降序排序，再按照 username 的字母顺序，进行升序排序，示例如下："></a>15.从 users 表中,先按照 status 字段进行降序排序，再按照 username 的字母顺序，进行升序排序，示例如下：</h5><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> 表名称(users) <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> status <span class="hljs-keyword">desc</span>,username <span class="hljs-keyword">asc</span><br></code></pre></td></tr></table></figure>
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/02/27/JWT%E5%92%8CSESSION%E7%9A%84%E5%8C%BA%E5%88%AB/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/02/22/%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F%EF%BC%8C%E5%88%A4%E6%96%AD%E8%BF%99%E4%B8%AA%E5%8F%98%E9%87%8F%E6%98%AF%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B/">
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
   </div>
-</div>
-
-<!-- Custom -->
-
-
+</header>
+<main>
+  <div class="container-fluid nopadding-x">
+    <div class="row nomargin-x">
+      <div class="d-none d-lg-block col-lg-2"></div>
+      <div class="col-lg-8 nopadding-x-md">
+        <div class="container nopadding-x-md" id="board-ctn">
+          <div class="py-5" id="board">
+            <article class="post-content mx-auto">
+              <h1 style="display:none">MySQL Workbench 常用 SQL 命令整理</h1>
+              <div class="ai-post-meta">
+                <span><i class="iconfont icon-date-fill"></i> 2021-02-25</span>
+                <span><i class="iconfont icon-chart"></i> 1888 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 4 分钟</span>
+              </div>
+              <div class="markdown-body">
+      <h2>SQL 学习重点</h2>
+      <p>SQL 不只是记命令，更重要的是理解数据表、字段、条件和结果集之间的关系。Workbench 只是图形化工具，核心仍然是 SQL。</p>
+      <h2>基础查询</h2>
+      <pre><code>select * from users;
+select id, username, status from users;</code></pre>
+      <p>生产环境不要随意 <code>select *</code>，字段过多会增加网络和解析成本，也容易暴露不该返回的数据。</p>
+      <h2>条件查询</h2>
+      <pre><code>select * from users where id = 5;
+select * from users where status = 1 and age &gt;= 18;
+select * from users where username like '%tom%';</code></pre>
+      <p><code>and</code> 表示同时满足，<code>or</code> 表示满足任意条件。复杂条件建议加括号，避免优先级导致结果不符合预期。</p>
+      <h2>新增、修改、删除</h2>
+      <pre><code>insert into users (username, password) values ('tom', '123456');
+update users set status = 0 where id = 5;
+delete from users where id = 5;</code></pre>
+      <p>update 和 delete 必须带 where。执行前可以先用 select 检查目标数据，避免误改全表。</p>
+      <h2>排序和分页</h2>
+      <pre><code>select * from users order by id desc;
+select * from users order by created_at desc limit 10 offset 20;</code></pre>
+      <p>分页常用于列表接口。大数据量分页要注意性能，后期可以考虑基于 id 或时间的游标分页。</p>
+      <h2>聚合统计</h2>
+      <pre><code>select count(*) from users;
+select status, count(*) from users group by status;
+select max(age), min(age), avg(age) from users;</code></pre>
+      <h2>常见错误</h2>
+      <ul><li>from 写成 ftom。</li><li>字符串忘记加引号。</li><li>update/delete 忘记 where。</li><li>order by asc/desc 含义混淆：asc 升序，desc 降序。</li><li>字段名和关键字冲突时需要反引号。</li></ul>
+      <h2>实践建议</h2>
+      <p>写 SQL 时先写 select 验证结果，再写 update/delete。重要操作开启事务，确认无误后 commit，出错 rollback。</p>
     
+      <h2>常见痛点</h2>
+      <ul class="ai-pain-list"><li><strong>update/delete 忘记 where：</strong>学习阶段最容易出现的高风险操作。</li><li><strong>只会 select *：</strong>字段越多越慢，也容易把密码、token 等敏感字段查出来。</li><li><strong>分页越往后越慢：</strong>大 offset 会扫描并丢弃大量数据。</li><li><strong>不知道事务怎么兜底：</strong>多条相关写操作中途失败后，数据可能半成功半失败。</li></ul>
+      <h2>SQL 编写流程</h2>
+      <div class="ai-decision-flow">
+        <div class="ai-flow-row"><div class="ai-d-node start"><span>Step 1</span><strong>先确认目标数据</strong></div><div class="ai-d-arrow">→</div><div class="ai-d-node"><span>命令</span><strong>select 字段 from 表 where 条件</strong></div></div>
+        <div class="ai-flow-row"><div class="ai-d-node decision"><span>Step 2</span><strong>是否是写操作？</strong></div><div class="ai-d-arrow">→</div><div class="ai-d-node"><span>是</span><strong>开启事务并确认 where</strong></div><div class="ai-d-arrow">→</div><div class="ai-d-node muted"><span>否</span><strong>关注索引、排序和分页</strong></div></div>
+        <div class="ai-flow-row ai-flow-end"><div class="ai-d-node"><span>Step 3</span><strong>执行后复核</strong></div><div class="ai-d-arrow">→</div><div class="ai-d-node"><span>命令</span><strong>select 再查一次，必要时 commit / rollback</strong></div></div>
+      </div>
+      <h2>详细解决方案</h2>
+      <p>Workbench 里做重要修改时，可以先开启事务。先 select 确认影响范围，再 update 或 delete，最后复查结果。确认无误后 commit，发现问题就 rollback。</p>
+      <pre><code>start transaction;
+select id, status from users where id = 5;
+update users set status = 0 where id = 5;
+select id, status from users where id = 5;
+commit;</code></pre>
+      <p>分页查询前期可以用 limit offset，数据量变大后要考虑游标分页。例如按 id 从上一次最后一条继续查，避免很大的 offset。</p>
+      <pre><code>select id, username
+from users
+where id &gt; 1000
+order by id asc
+limit 20;</code></pre>
+      <h2>排查清单</h2>
+      <ul><li>查询很慢，先 explain 查看是否走索引。</li><li>结果数量不对，检查 and/or 优先级并加括号。</li><li>中文乱码，检查表、字段、连接字符集是否一致。</li><li>误操作后不要继续写入，优先确认是否有事务、备份或 binlog 可恢复。</li></ul>
+    </div>
+              <hr>
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div class="toc-body" id="toc-body"></div></div></div>
+    </div>
+  </div>
 
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
+<a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
 
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
-    
+</main>
+<footer class="text-center mt-5 py-3"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></footer>
 
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-
-  
-
-  
-</footer>
-
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+<script>NProgress.configure({"showSpinner":false,"trickleSpeed":100});NProgress.start();window.addEventListener('load',function(){NProgress.done();});</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/events.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/js/lazyload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/local-search.js"></script>
+<script>(function(){var path="/local-search.xml";if(window.Fluid&&Fluid.plugins&&Fluid.plugins.search){Fluid.plugins.search(path);}})();</script>
 </body>
 </html>

@@ -1,625 +1,187 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;dark&#34;>
-
-
-
+<html lang="zh-CN" data-default-color-scheme="dark">
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.new.png">
   <link rel="icon" type="image/png" href="/img/favicon.new.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="清风">
   <meta name="author" content="Lch">
-  <meta name="keywords" content="">
+  <meta name="keywords" content="前端,AI,提效,Agent,MCP">
   <title>岛屿木海</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/ai-posts.css" />
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+  <meta name="generator" content="Codex static enrichment">
+</head>
 <body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<header style="height: 100vh;">
+  
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <div class="animated-icon"><span></span><span></span><span></span></div>
     </button>
-
-    <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
+        <li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li>
+        <li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li>
+        <li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li>
       </ul>
     </div>
   </div>
 </nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.webp') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="风崋是一指流沙，蒼老是一段年华">
-              
-            </span>
-
-            
-          </div>
-
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
+  <div class="banner" id="banner" parallax="true" style="background: url('/img/default.webp') no-repeat center center;background-size: cover;">
+    <div class="full-bg-img">
+      <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.45)">
+        <div class="page-header text-center fade-in-up">
+          <span class="h2" id="subtitle" title="风崋是一指流沙，蒼老是一段年华">风崋是一指流沙，蒼老是一段年华</span>
           
         </div>
       </div>
     </div>
-  </header>
-
-  <main>
-    
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
+  </div>
+</header>
+<main>
+  <div class="container nopadding-x-md"><div class="py-5" id="board" style="margin-top:0"><div class="container"><div class="row"><div class="col-12 col-md-10 m-auto"><div class="row mx-auto index-card">
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/16/%E9%80%9A%E4%BF%A1/"></a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/16/%E9%80%9A%E4%BF%A1/">
-          
-          
-            
-          
-          一、父子通信1.子组件里面定义props 属性
-1props:[&#x27;自定义属性名1&#x27;,&#x27;自定义属性名2&#x27;] 
-2.父模板中 组件标签上面书写属性绑定数据
-1&lt;子组件名 自定义属性名=&quot;数据&quot;  :自定义属性名2=&quot;变量&quot; /&gt;
-3.子组件里面直接使用props属性  ， 父模板中展示数据
-12&#123;&#
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-16 19:20" pubdate>
-              2021-04-16
-            </time>
-          </div>
-        
-        
-        
-      </div>
+      <h1 class="index-header"><a href="/2026/04/29/ai-frontend-agent-workflow-2026/">2026 前端 AI 提效总览：从代码补全到多代理交付</a></h1>
+      <p class="index-excerpt"><a href="/2026/04/29/ai-frontend-agent-workflow-2026/">把 AI 当作可审查的工程同事，而不是万能聊天框。 前端团队用 AI 最容易踩的坑，是把它当成一个“更会写代码的搜索框”。真实项目里，AI 生成的代码如果没有上下文、范围、验证和审查，很快就会变成返工。更靠谱的方式，是把 AI 放进工程流程：先判断任务是否适合交给 Agent，再准备上下文，再让它做小范围改动，最后用测试和人工审查兜底。 这篇不再罗列...</a></p>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2026-04-29 15:00" pubdate>2026-04-29</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> AI提效 / 前端工程 / Agent</div></div>
     </article>
   </div>
-
-  <div class="row mx-auto index-card">
-    
-    
+<div class="row mx-auto index-card">
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/15/%E8%B7%AF%E7%94%B1%E7%AE%A1%E7%90%86%E6%8C%87%E4%BB%A4/"></a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/15/%E8%B7%AF%E7%94%B1%E7%AE%A1%E7%90%86%E6%8C%87%E4%BB%A4/">
-          
-          
-            
-          
-          路由相关指令1.route 创建页面组(配置选项)   创建的是每一条路由route
-1let login = &#123; template: &quot;#login&quot; &#125;
-
-
-2.routes创建路由映射 把每一条route 集中起来
-1234let routes = [  &#123; path: &#x27;/login&#x27;, component: login
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-15 01:55" pubdate>
-              2021-03-15
-            </time>
-          </div>
-        
-        
-        
-      </div>
+      <h1 class="index-header"><a href="/2026/04/29/copilot-agent-mode-frontend-pr/">用 GitHub Copilot Coding Agent 做前端 PR：任务边界比提示词更重要</a></h1>
+      <p class="index-excerpt"><a href="/2026/04/29/copilot-agent-mode-frontend-pr/">让 Copilot 背景处理 issue，但把验收权留在 PR。 Copilot coding agent 的核心价值不是“帮你写几行代码”，而是把明确的 issue 变成可审查 PR。但如果 issue 写得像口头需求，PR 也会像猜谜结果。前端场景里，PR 还会涉及状态、组件库、移动端、可访问性、埋点和接口兼容，不能只看 CI 是否绿色。 这篇重点讲：什么样的...</a></p>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2026-04-29 15:00" pubdate>2026-04-29</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> GitHub Copilot / 代码审查 / 前端工程</div></div>
     </article>
   </div>
-
-  <div class="row mx-auto index-card">
-    
-    
+<div class="row mx-auto index-card">
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/27/Node.js%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/"></a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/27/Node.js%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/">
-          
-          
-            
-          
-          Node.js 第三方包
-常用的 npm 第三方包使用说明. 总结如下
-
-1. cors 包
-作用
-cors是一个 node.js 软件包，用于提供跨域资源请求的中间件
-
-安装
-
-
-1npm i cors
-
-使用方法
-
-1234567891011121314var express = require(&#x27;express&#x27;)var cors = require(&#x27;cors
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-27 11:31" pubdate>
-              2021-02-27
-            </time>
-          </div>
-        
-        
-        
-      </div>
+      <h1 class="index-header"><a href="/2026/04/29/codex-cloud-parallel-frontend-refactor/">Codex 云端并行任务：前端重构可以拆成十分钟的小队列</a></h1>
+      <p class="index-excerpt"><a href="/2026/04/29/codex-cloud-parallel-frontend-refactor/">把长重构拆成多个可回滚分支，减少等待时间。 云端 Agent 最适合做并行任务，但前提是任务已经被拆清楚。前端重构一旦范围失控，AI 会同时碰到公共组件、样式 token、测试、文档和业务页面，最后生成一个没人敢 Review 的大 PR。 这篇把“云端并行”拆成一个可执行流程：如何判断重构是否适合 Agent，如何给每个 Agent 分配 ...</a></p>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2026-04-29 15:00" pubdate>2026-04-29</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> Codex / Agent / 重构</div></div>
     </article>
   </div>
-
-  <div class="row mx-auto index-card">
-    
-    
+<div class="row mx-auto index-card">
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/27/JWT%E5%92%8CSESSION%E7%9A%84%E5%8C%BA%E5%88%AB/"></a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/27/JWT%E5%92%8CSESSION%E7%9A%84%E5%8C%BA%E5%88%AB/">
-          
-          
-            
-          
-          JWT和SESSION的区别一 什么是jwtJWT（英文全称：JSON Web Token）是目前最流行的跨域认证解决方案。
-1234567891011121314151617181920jwt的优点：1. 可扩展性好应用程序分布式部署的情况下，session需要做多机数据共享，通常可以存在数据库或者redis里面。而jwt不需要。2. 无状态jwt不在服务端存储任何状态。RESTful API的
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-27 09:30" pubdate>
-              2021-02-27
-            </time>
-          </div>
-        
-        
-        
-      </div>
+      <h1 class="index-header"><a href="/2026/04/29/claude-code-terminal-frontend-skills/">Claude Code 在终端里的前端用法：把重复流程做成可复用技能</a></h1>
+      <p class="index-excerpt"><a href="/2026/04/29/claude-code-terminal-frontend-skills/">终端 Agent 的优势是贴近项目脚本、日志和 CI。 终端 Agent 的优势不在聊天，而在“贴近现场”：它能读日志、跑测试、看 diff、改文件。真正的问题是，很多人把错误日志扔给它后直接让它修，结果它可能删断言、改快照、绕过真实问题。 这篇把 Claude Code 这类终端 Agent 当作故障处理器来设计：先定位，再假设，再最小修复，再复跑测试...</a></p>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2026-04-29 15:00" pubdate>2026-04-29</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> Claude Code / 技能 / 终端</div></div>
     </article>
   </div>
-
-  <div class="row mx-auto index-card">
-    
-    
+<div class="row mx-auto index-card">
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/25/MySQL%20Workbench%20%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4/"></a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/25/MySQL%20Workbench%20%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4/">
-          
-          
-            
-          
-          MySQL Workbench 相关命令1.从数据库中查询数据 列入表名称为 users1select * from 表名称(users)
-2.如需获取名为 “username” 和 “password” 的列的内容（从名为 “users” 的数据库表）语法格式如下：1select username,password from 表名称(users)
-3.INSERT INTO 语句用于向数据表中插
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-25 10:34" pubdate>
-              2021-02-25
-            </time>
-          </div>
-        
-        
-        
-      </div>
+      <h1 class="index-header"><a href="/2026/04/29/cursor-background-agents-rules-mcp/">Cursor Background Agents、Rules 与 MCP：把设计、任务和代码连起来</a></h1>
+      <p class="index-excerpt"><a href="/2026/04/29/cursor-background-agents-rules-mcp/">远程 Agent 负责跑长任务，Rules 负责保持风格一致。 Cursor、Rules、MCP、Background Agents 组合起来很强，但也很容易乱。没有 Rules，Agent 会猜项目约定；MCP 接太多，权限和上下文会失控；后台任务写得开放，产物就会变成大量主观改动。 这篇讲一个更稳的顺序：先写项目规则，再接最少 MCP，再给后台 Agent ...</a></p>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2026-04-29 15:00" pubdate>2026-04-29</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> Cursor / MCP / Rules</div></div>
     </article>
   </div>
-
-  <div class="row mx-auto index-card">
-    
-    
+<div class="row mx-auto index-card">
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/22/%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F%EF%BC%8C%E5%88%A4%E6%96%AD%E8%BF%99%E4%B8%AA%E5%8F%98%E9%87%8F%E6%98%AF%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B/"></a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/22/%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F%EF%BC%8C%E5%88%A4%E6%96%AD%E8%BF%99%E4%B8%AA%E5%8F%98%E9%87%8F%E6%98%AF%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B/">
-          
-          
-            
-          
-          给定一个变量, 判断这个变量/值是属于什么类型的12345678910111213function IdentifyingDataTypes(data) &#123;    //此处使用typeof来判断是否为object,不是则返回    var type = typeof data;    if (type !== &#x27;object&#x27;) &#123;        retur
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-22 11:35" pubdate>
-              2021-02-22
-            </time>
-          </div>
-        
-        
-        
-      </div>
+      <h1 class="index-header"><a href="/2026/04/29/vercel-ai-sdk-6-frontend-ai-apps/">Vercel AI SDK 6：前端开发者构建 Agent 应用的新基线</a></h1>
+      <p class="index-excerpt"><a href="/2026/04/29/vercel-ai-sdk-6-frontend-ai-apps/">TypeScript、UI Streaming、MCP、DevTools 组合起来才是生产力。 AI 应用不是一个聊天框。生产环境里的前端要处理流式输出、工具调用、审批、失败、取消、重试、结构化结果和观测指标。如果这些状态没有被设计成清晰流程，模型越强，产品越不可控。 这篇从前端状态机角度重新梳理 AI 应用：什么时候让模型回答，什么时候调用工具，什么时候必须让用户确认，工具失败后如何回退。 ...</a></p>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2026-04-29 15:00" pubdate>2026-04-29</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> Vercel AI SDK / Next.js / AI应用</div></div>
     </article>
   </div>
-
-  <div class="row mx-auto index-card">
-    
-    
+<div class="row mx-auto index-card">
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/22/%E6%A8%A1%E5%9D%97%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"></a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/22/%E6%A8%A1%E5%9D%97%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
-          
-          
-            
-          
-          模块的加载机制1.优先从缓存中加载123模块在第一次加载后会被缓存。 这也意味着多次调用 require() 不会导致模块的代码被执行多次。注意：不论是内置模块、用户自定义模块、还是第三方模块，它们都会优先从缓存中加载，从而提高模块的加载效率。
-2.内置模块的加载机制123内置模块是由 Node.js 官方提供的模块，内置模块的加载优先级最高。例如，require(‘fs’) 始终返回内置的 fs
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-22 10:55" pubdate>
-              2021-02-22
-            </time>
-          </div>
-        
-        
-        
-      </div>
+      <h1 class="index-header"><a href="/2026/04/29/figma-mcp-make-design-to-code/">Figma MCP 与 Figma Make：前端如何把设计上下文交给 AI</a></h1>
+      <p class="index-excerpt"><a href="/2026/04/29/figma-mcp-make-design-to-code/">从截图生成代码，升级为读取组件、变量和布局语义。 设计转代码的失败，通常不是因为 AI 不会写 CSS，而是因为它只看到了截图，没有理解设计系统。一个按钮在 Figma 里不只是蓝色矩形，它可能对应组件库里的 Button、token、状态、可访问性和响应式规则。 这篇强调一个前置动作：先建立设计元素到代码组件的映射，再让 AI 写代码。没有映射表...</a></p>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2026-04-29 15:00" pubdate>2026-04-29</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> Figma / 设计系统 / MCP</div></div>
     </article>
   </div>
-
-  <div class="row mx-auto index-card">
-    
-    
+<div class="row mx-auto index-card">
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/22/npm%E5%91%BD%E4%BB%A4/"></a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/22/npm%E5%91%BD%E4%BB%A4/">
-          
-          
-            
-          
-          npm 相关的命令1.查看npm的版本信息1npm -v
-2.安装第三方包和卸载1234567npm install 包名          (会生成一个node_modules文件目录，所下载的包都放在这个目录里。)npm install 包名@xxx      (下载指定包版本)npm install               (一次性安装所有的依赖包)npm init -y        
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-22 10:51" pubdate>
-              2021-02-22
-            </time>
-          </div>
-        
-        
-        
-      </div>
+      <h1 class="index-header"><a href="/2026/04/29/storybook-mcp-agentic-ui-testing/">Storybook MCP：让 AI 前端代码先过组件和可访问性测试</a></h1>
+      <p class="index-excerpt"><a href="/2026/04/29/storybook-mcp-agentic-ui-testing/">让 Agent 用你的真实组件，而不是脑补一套 UI。 AI 写 UI 最大的问题是“看起来对”。它可能猜错组件 props，只实现成功态，漏掉 a11y 和长文本。Storybook MCP 的价值是让 Agent 先读组件文档、生成 stories、运行交互测试和可访问性检查，而不是凭经验硬写。 这篇用状态矩阵来约束 UI 生成：先查组件，后列状态，...</a></p>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2026-04-29 15:00" pubdate>2026-04-29</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> Storybook / 组件测试 / 可访问性</div></div>
     </article>
   </div>
+<div class="row mx-auto index-card">
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header"><a href="/2026/04/29/playwright-mcp-chrome-devtools-ai-debugging/">Playwright MCP + Chrome DevTools AI：前端调试从截图走向可执行上下文</a></h1>
+      <p class="index-excerpt"><a href="/2026/04/29/playwright-mcp-chrome-devtools-ai-debugging/">让 AI 真的操作页面、读取 DOM、分析性能和网络。 前端调试最怕“我这边复现不了”。AI 如果只看截图，仍然是在猜。Playwright MCP 和 DevTools AI 更适合组成一条证据链：复现路径、可访问性树、DOM、CSS、网络、性能和截图。 这篇把调试流程拆成可执行闭环：先复现，再收集证据，再让 AI 分析，再做最小修复，最后把 bug ...</a></p>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2026-04-29 15:00" pubdate>2026-04-29</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> Playwright / Chrome DevTools / 调试</div></div>
+    </article>
+  </div>
+<div class="row mx-auto index-card">
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header"><a href="/2026/04/29/ai-skills-agents-md-frontend-playbook/">把 AI 能力技能化：AGENTS.md、Rules、Instructions 的前端写法</a></h1>
+      <p class="index-excerpt"><a href="/2026/04/29/ai-skills-agents-md-frontend-playbook/">好提示词会过期，好流程可以复用。 AI 反复犯同一个错，通常不是模型问题，而是团队没有把约定写成可执行规则。老成员知道不能直接写 button、知道要复用 EmptyState、知道移动端不能横向滚动，但 Agent 不知道。 这篇讲如何把 Review 返工点变成 AGENTS.md、Rules 和技能卡，让 AI 每次开工前先读...</a></p>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2026-04-29 15:00" pubdate>2026-04-29</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> 技能 / AGENTS.md / 团队规范</div></div>
+    </article>
+  </div>
+<div class="row mx-auto index-card">
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header"><a href="/2026/04/29/secure-ai-coding-frontend-mcp/">前端使用 AI Agent 的安全清单：MCP、权限、提示注入与审查</a></h1>
+      <p class="index-excerpt"><a href="/2026/04/29/secure-ai-coding-frontend-mcp/">Agent 越能干，越需要边界、审批和日志。 当前端 Agent 能读 issue、网页、Figma、日志、源码，还能通过 MCP 调工具时，它就不是聊天助手，而是自动化系统。自动化系统必须有权限、审批、隔离和审计。 这篇不讲空泛安全口号，而是按真实场景拆：外部内容如何防提示注入，MCP 工具如何分级，AI PR 该审哪些安全点，哪些操作绝对不...</a></p>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2026-04-29 15:00" pubdate>2026-04-29</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> 安全 / MCP / 代码审查</div></div>
+    </article>
+  </div><div class="row mx-auto index-card"><article class="col-12 col-md-12 mx-auto index-info"><h1 class="index-header"><a href="/2021/04/16/%E9%80%9A%E4%BF%A1/">Vue 组件通信：父子、兄弟、插槽与动态组件</a></h1><p class="index-excerpt"><a href="/2021/04/16/%E9%80%9A%E4%BF%A1/">系统梳理 Vue 组件通信方式：props、emit、事件总线、插槽、作用域插槽、动态组件和 keep-alive，并补充使用场景和常见坑。 为什么要理解组件通信 Vue 项目写到一定规模后，问题往往不是“会不会写组件”，而是组件之间的数据流是否清晰。组件通信混乱会带来三个问题：状态来源不清楚、子组件偷偷改父组件数据、兄弟组件之间强耦合。一个可维护的组件体系，应该让数据从哪里来、...</a></p><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2021-04-16" pubdate>2021-04-16</time></div></div></article></div>
+<div class="row mx-auto index-card"><article class="col-12 col-md-12 mx-auto index-info"><h1 class="index-header"><a href="/2021/03/15/%E8%B7%AF%E7%94%B1%E7%AE%A1%E7%90%86%E6%8C%87%E4%BB%A4/">Vue Router 路由管理：从 routes 到导航守卫</a></h1><p class="index-excerpt"><a href="/2021/03/15/%E8%B7%AF%E7%94%B1%E7%AE%A1%E7%90%86%E6%8C%87%E4%BB%A4/">梳理 Vue Router 的核心概念：route、routes、router、router-link、router-view、动态路由、嵌套路由、编程式导航和导航守卫。 路由解决什么问题 单页应用只有一个 HTML 页面，但需要根据 URL 展示不同组件。Vue Router 的职责就是把 URL 和组件对应起来，并管理页面跳转、参数、权限和嵌套路由。 核心概念 route： 一条路由记录，描述 path ...</a></p><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2021-03-15" pubdate>2021-03-15</time></div></div></article></div>
+<div class="row mx-auto index-card"><article class="col-12 col-md-12 mx-auto index-info"><h1 class="index-header"><a href="/2021/02/27/Node.js%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/">Node.js 常用第三方包：从 cors 到 bcrypt</a></h1><p class="index-excerpt"><a href="/2021/02/27/Node.js%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85/">整理 Node.js 后端开发常见第三方包：cors、express、jsonwebtoken、bcryptjs、multer、joi、dotenv，并说明安装、使用场景和注意事项。 为什么要熟悉常用包 Node.js 生态依赖第三方包解决大量通用问题。熟悉常用包可以减少重复造轮子，但也要知道每个包解决什么问题、放在哪一层、有哪些安全风险。 cors：处理跨域 const cors = require('cors') a...</a></p><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2021-02-27" pubdate>2021-02-27</time></div></div></article></div>
+<div class="row mx-auto index-card"><article class="col-12 col-md-12 mx-auto index-info"><h1 class="index-header"><a href="/2021/02/27/JWT%E5%92%8CSESSION%E7%9A%84%E5%8C%BA%E5%88%AB/">JWT 和 Session 的区别：认证方案怎么选</a></h1><p class="index-excerpt"><a href="/2021/02/27/JWT%E5%92%8CSESSION%E7%9A%84%E5%8C%BA%E5%88%AB/">从存储位置、状态管理、扩展性、安全性、退出登录和适用场景对比 JWT 与 Session，帮助选择更合适的登录认证方案。 认证要解决什么问题 HTTP 是无状态协议。用户登录后，服务端需要知道后续请求来自谁。Session 和 JWT 都是在解决“如何识别用户身份”的问题，但思路不同。 Session 的工作方式 Session 通常由服务端保存用户状态，浏览...</a></p><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2021-02-27" pubdate>2021-02-27</time></div></div></article></div>
+<div class="row mx-auto index-card"><article class="col-12 col-md-12 mx-auto index-info"><h1 class="index-header"><a href="/2021/02/25/MySQL%20Workbench%20%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4/">MySQL Workbench 常用 SQL 命令整理</a></h1><p class="index-excerpt"><a href="/2021/02/25/MySQL%20Workbench%20%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4/">整理 MySQL Workbench 中最常用的查询、新增、修改、删除、排序、分页、条件查询和聚合统计命令，并补充 SQL 编写注意事项。 SQL 学习重点 SQL 不只是记命令，更重要的是理解数据表、字段、条件和结果集之间的关系。Workbench 只是图形化工具，核心仍然是 SQL。 基础查询 select * from users; select id, username...</a></p><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2021-02-25" pubdate>2021-02-25</time></div></div></article></div>
+<div class="row mx-auto index-card"><article class="col-12 col-md-12 mx-auto index-info"><h1 class="index-header"><a href="/2021/02/22/%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F%EF%BC%8C%E5%88%A4%E6%96%AD%E8%BF%99%E4%B8%AA%E5%8F%98%E9%87%8F%E6%98%AF%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B/">JavaScript 判断数据类型：typeof、toString 与 Array.isArray</a></h1><p class="index-excerpt"><a href="/2021/02/22/%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F%EF%BC%8C%E5%88%A4%E6%96%AD%E8%BF%99%E4%B8%AA%E5%8F%98%E9%87%8F%E6%98%AF%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B/">系统整理 JavaScript 数据类型判断方法：typeof、instanceof、Object.prototype.toString、Array.isArray，并给出通用实现。 JavaScript 有哪些类型 JavaScript 类型分为基本类型和引用类型。基本类型包括 string、number、boolean、undefined、symbol、bigint、null；引用类型包括 object、array、...</a></p><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2021-02-22" pubdate>2021-02-22</time></div></div></article></div>
+<div class="row mx-auto index-card"><article class="col-12 col-md-12 mx-auto index-info"><h1 class="index-header"><a href="/2021/02/22/%E6%A8%A1%E5%9D%97%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">Node.js 模块加载机制：缓存、路径与 node_modules 查找</a></h1><p class="index-excerpt"><a href="/2021/02/22/%E6%A8%A1%E5%9D%97%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">讲清 Node.js 模块加载机制：核心模块、自定义模块、第三方模块、缓存机制、文件扩展名查找和 package.json main 字段。 模块加载为什么重要 Node.js 项目由大量模块组成。理解 require 如何查找和缓存模块，可以帮助定位“为什么加载的不是我想要的文件”“为什么代码只执行一次”“为什么模块找不到”。 模块类型 核心模块： Node 内置模块，如 fs...</a></p><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2021-02-22" pubdate>2021-02-22</time></div></div></article></div>
+<div class="row mx-auto index-card"><article class="col-12 col-md-12 mx-auto index-info"><h1 class="index-header"><a href="/2021/02/22/npm%E5%91%BD%E4%BB%A4/">npm 常用命令：安装、卸载、脚本、版本与发布</a></h1><p class="index-excerpt"><a href="/2021/02/22/npm%E5%91%BD%E4%BB%A4/">整理 npm 日常开发最常用命令：init、install、uninstall、scripts、版本管理、镜像源、全局包、发布和排错。 npm 是什么 npm 是 Node.js 的包管理工具，负责安装依赖、运行脚本、管理版本和发布包。前端项目基本都离不开 npm 或兼容工具。 初始化项目 npm init npm init -y 执行后会生成 package.json，用...</a></p><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="2021-02-22" pubdate>2021-02-22</time></div></div></article></div></div></div></div></div></div>
 
+<a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
 
-
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
-    
+</main>
+<footer class="text-center mt-5 py-3"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></footer>
 
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-
-  
-
-  
-</footer>
-
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-
+<script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+<script>NProgress.configure({"showSpinner":false,"trickleSpeed":100});NProgress.start();window.addEventListener('load',function(){NProgress.done();});</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/events.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/js/lazyload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/local-search.js"></script>
+<script>(function(){var path="/local-search.xml";if(window.Fluid&&Fluid.plugins&&Fluid.plugins.search){Fluid.plugins.search(path);}})();</script>
 </body>
 </html>

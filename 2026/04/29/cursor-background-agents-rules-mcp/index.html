@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme="dark">
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.new.png">
+  <link rel="icon" type="image/png" href="/img/favicon.new.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="远程 Agent 负责跑长任务，Rules 负责保持风格一致。">
+  <meta name="author" content="Lch">
+  <meta name="keywords" content="前端,AI,提效,Agent,MCP">
+  <title>Cursor Background Agents、Rules 与 MCP：把设计、任务和代码连起来 - 岛屿木海</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/ai-posts.css" />
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+  <meta name="generator" content="Codex static enrichment">
+</head>
+<body>
+
+<header style="height: 70vh;">
+  
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li>
+        <li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li>
+        <li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <div class="banner" id="banner" parallax="true" style="background: url('/img/default.webp') no-repeat center center;background-size: cover;">
+    <div class="full-bg-img">
+      <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.45)">
+        <div class="page-header text-center fade-in-up">
+          <span class="h2" id="subtitle" title="Cursor Background Agents、Rules 与 MCP：把设计、任务和代码连起来">Cursor Background Agents、Rules 与 MCP：把设计、任务和代码连起来</span>
+          <p class="ai-banner-subtitle">远程 Agent 负责跑长任务，Rules 负责保持风格一致。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container-fluid nopadding-x">
+    <div class="row nomargin-x">
+      <div class="d-none d-lg-block col-lg-2"></div>
+      <div class="col-lg-8 nopadding-x-md">
+        <div class="container nopadding-x-md" id="board-ctn">
+          <div class="py-5" id="board">
+            <article class="post-content mx-auto ai-post">
+              <h1 style="display:none">Cursor Background Agents、Rules 与 MCP：把设计、任务和代码连起来</h1>
+              <div class="ai-post-meta">
+                <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
+                <span><i class="iconfont icon-chart"></i> 2765 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
+              </div>
+              <div class="ai-tags"><a class="ai-chip" href="/tags/Cursor/">Cursor</a><a class="ai-chip" href="/tags/MCP/">MCP</a><a class="ai-chip" href="/tags/Rules/">Rules</a></div>
+              <div class="markdown-body">
+                <figure class="ai-cover"><img src="/img/ai-posts/cursor-background-agents-rules-mcp.png" alt="Cursor Background Agents、Rules 与 MCP：把设计、任务和代码连起来 配图"></figure>
+                <p class="ai-note">这篇文章基于 2026-04-29 可公开访问的官方资料整理，面向前端工程师的日常提效场景。</p>
+                
+      <p>Cursor、Rules、MCP、Background Agents 组合起来很强，但也很容易乱。没有 Rules，Agent 会猜项目约定；MCP 接太多，权限和上下文会失控；后台任务写得开放，产物就会变成大量主观改动。</p>
+      <p>这篇讲一个更稳的顺序：先写项目规则，再接最少 MCP，再给后台 Agent 明确边界，最后用证据审查远程分支。</p>
+  
+      <h2>核心痛点</h2>
+      <ul class="ai-pain-list"><li>Cursor 能改代码，但没有 Rules 时会不断猜项目约定。</li><li>MCP 接太多工具，上下文变复杂，权限也变模糊。</li><li>Background Agent 任务写得开放，结果生成大量主观改动。</li><li>远程分支缺少证据，只给“完成了”的总结。</li></ul>
+      <h2>解决流程图</h2>
+      <div class="ai-decision-flow">
+    <div class="ai-flow-row">
+      <div class="ai-d-node start"><span>发现</span><strong>项目 Rules</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>判断</span><strong>是否适合进入 AI 流程?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>否</span><div class="ai-d-node muted"><span>先补齐</span><strong>选择 MCP / 人工判断</strong></div></div>
+      <div class="ai-branch-item yes"><span>是</span><div class="ai-d-node normal"><span>准备</span><strong>任务边界</strong></div></div>
+    </div>
+    <div class="ai-flow-row">
+      <div class="ai-d-node normal"><span>执行</span><strong>后台执行</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>验证</span><strong>生成分支 是否通过?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>失败</span><div class="ai-d-node muted"><span>回流</span><strong>带证据回到 任务边界</strong></div></div>
+      <div class="ai-branch-item yes"><span>通过</span><div class="ai-d-node normal"><span>审查</span><strong>证据审查</strong></div></div>
+    </div>
+    <div class="ai-flow-row ai-flow-end">
+      <div class="ai-d-node start"><span>沉淀</span><strong>规则更新</strong></div>
+    </div>
+  </div>
+      
+        <h2>详细解决方案：Rules 先行，MCP 精简，后台任务可验收</h2>
+        <p>Cursor 类工具的质量取决于上下文质量。先写 Rules，再接 MCP，最后才让 Background Agent 跑任务。否则它只是一个执行很快、但不懂你项目的新人。</p>
+        <h3>Rules 三层结构</h3>
+        <ul><li><strong>全局：</strong>框架、包管理器、禁止事项、测试命令。</li><li><strong>目录：</strong>pages、components、api、tests 的职责边界。</li><li><strong>任务：</strong>本次 issue 的目标、范围、验收和风险。</li></ul>
+        <h3>MCP 接入优先级</h3>
+        <p>第一批只接最能提升前端质量的工具：Figma 读设计、Storybook 读组件、Playwright 操作浏览器。工单、监控、部署等工具后接，并且要单独做权限控制。</p>
+        <pre><code>后台任务输出必须包含：
+- 修改文件列表
+- 运行过的命令
+- 未运行命令及原因
+- 截图或测试证据
+- 需要人工确认的风险</code></pre>
+      
+      
+      <h2>实战案例：设置页空状态后台实现</h2>
+      <p>先在 Rules 里写清组件复用和禁止事项，再让 Background Agent 查询 Storybook 中的 EmptyState、Button、Card 用法。</p>
+      <p>Agent 提交分支后必须附带文件列表、Storybook 预览路径和测试命令。没有证据的远程分支不进入 Review。</p>
+  
+  
+      <h2>进一步落地：先写规则，再交给后台 Agent</h2>
+      <p>Background Agent 适合处理耗时任务，但它不应该替你决定产品方向。把任务交出去前，先写规则：组件怎么复用，哪些目录不能碰，哪些工具可以用，失败时如何回报。</p>
+      <h2>Rules 示例</h2>
+      <pre><code># 前端 UI 规则
+业务页面不得直接写 button/input/modal，必须复用组件库。
+新增页面必须覆盖 loading、empty、error、success。
+移动端 375px 不允许横向滚动。
+不确定组件 props 时，先查 Storybook MCP。
+
+# Background Agent 限制
+不修改 package.json 和 lockfile。
+不修改部署配置。
+不访问生产环境。
+PR 描述必须包含测试结果。</code></pre>
+      <h2>MCP 接入策略</h2>
+      <p>最少接入原则：先接 Storybook 和 Figma，因为它们直接影响 UI 质量；再接 Playwright，因为它能验证真实交互；最后再考虑工单、监控和部署。每多接一个 MCP，就多一层权限和数据边界。</p>
+      <h2>后台任务验收</h2>
+      <p>后台分支必须给证据：截图、测试命令、失败说明、未覆盖风险。没有证据的“已完成”不能进入 Review。</p>
+    
+      <h2>Rules 是 Cursor 提效的地基</h2>
+      <p>如果没有 Rules，Background Agent 只能靠当次 prompt 猜项目习惯。前端项目的习惯又特别多：组件库怎么用，样式写在哪，接口层怎么封装，图标从哪里引入，哪些目录不能碰。把这些写成项目规则，Agent 才能像一个认真读过 onboarding 文档的新同事。</p>
+      <h2>一个前端 Rules 示例</h2>
+      <pre><code>所有页面组件放在 src/pages。
+共享 UI 放在 src/components，不要在页面中复制组件代码。
+样式优先使用 CSS variables 和 design tokens。
+新增表单必须覆盖校验错误、提交中、提交失败状态。
+任何涉及路由和权限的变更必须说明影响面。</code></pre>
+      <h2>MCP 连接什么最有价值</h2>
+      <p>前端最值得接的 MCP 通常是 Figma、Storybook、浏览器自动化和文档。Figma 解决设计上下文，Storybook 解决组件 API，Playwright/浏览器解决真实交互，官方文档解决 API 版本。不要为了“看起来先进”连接一堆工具，工具越多，权限和数据边界越复杂。</p>
+      <h2>Background Agent 的任务边界</h2>
+      <p>它适合跑比较久的任务，但不适合开放式探索。你可以让它“给设置页补三种状态并添加 story”，不要让它“优化设置页体验”。前者能验证，后者会产生大量主观改动。对于后台 Agent，最关键的提示词是“不确定先问，不要自行扩大范围”。</p>
+      <h2>审查远程分支</h2>
+      <p>远程 Agent 可能会自动 commit 或推分支。审查时先看是否新增了依赖、是否修改了锁文件、是否触碰了配置和脚本。再看 UI 是否使用了已有组件。最后运行本地验证，因为远程环境通过不等于你的开发环境和部署环境都通过。</p>
+  
+      <h2>Cursor 类文章常见结构：先搭环境，再写规则，再做任务</h2>
+      <p>高质量 Cursor 教程通常不会一开始就展示炫酷生成效果，而是先讲设置和规则。原因很简单：如果仓库索引、Rules、MCP、测试命令都没准备好，Agent 只能靠猜。前端项目的“猜”成本很高，最后会变成你手动收拾一堆不符合规范的代码。</p>
+      <h2>Rules 的三层写法</h2>
+      <ul>
+        <li><strong>全局层：</strong>语言、框架、包管理器、禁止事项。</li>
+        <li><strong>目录层：</strong>pages、components、api、tests 各自能做什么。</li>
+        <li><strong>任务层：</strong>当前 issue 的目标、范围和验收。</li>
+      </ul>
+      <pre><code>全局：项目使用 TypeScript，禁止 any 扩散。
+目录：src/components 不引入业务 API。
+任务：本次只修改用户设置页，不改全局导航。</code></pre>
+      <h2>MCP 不要一次接太多</h2>
+      <p>MCP 的价值是补上下文，不是堆功能。对前端来说，第一批只接三类就够：Figma 读设计，Storybook 读组件，Playwright 操作浏览器。等团队确认权限和日志没问题，再考虑接工单、监控、文档和部署。</p>
+      <h2>Background Agent 的验收方式</h2>
+      <p>远程 Agent 交付后，要求它写出“我修改了什么、为什么这么改、跑了哪些命令、哪些没跑、还剩什么风险”。如果 PR 描述只有泛泛总结，说明它没有形成可审查交付。你要的是工程证据，不是漂亮描述。</p>
+  
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.cursor.com/en/background-agents" target="_blank" rel="nofollow noopener">Cursor Background Agents</a></li><li><a href="https://docs.cursor.com/en/context/rules" target="_blank" rel="nofollow noopener">Cursor Rules</a></li><li><a href="https://docs.cursor.com/en/context/mcp" target="_blank" rel="nofollow noopener">Cursor Model Context Protocol</a></li><li><a href="https://cursor.com/blog/agent-computer-use" target="_blank" rel="nofollow noopener">Cursor agents can now control their own computers</a></li><li><a href="https://www.builder.io/m/explainers/best-cursor-ai-prompts-for-coding" target="_blank" rel="nofollow noopener">How to Write Cursor AI Prompts That Don't Waste Your Time</a></li></ul>
+              </div>
+              <hr>
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>
+              <div class="post-prevnext">
+                <article class="post-prev col-6"><a href="/2026/04/29/vercel-ai-sdk-6-frontend-ai-apps/"><i class="iconfont icon-arrowleft"></i><span class="hidden-mobile">Vercel AI SDK 6：前端开发者构建 Agent 应用的新基线</span><span class="visible-mobile">上一篇</span></a></article>
+                <article class="post-next col-6"><a href="/2026/04/29/claude-code-terminal-frontend-skills/"><span class="hidden-mobile">Claude Code 在终端里的前端用法：把重复流程做成可复用技能</span><span class="visible-mobile">下一篇</span><i class="iconfont icon-arrowright"></i></a></article>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div class="toc-body" id="toc-body"></div></div></div>
+    </div>
+  </div>
+
+<a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
+
+<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="text-center mt-5 py-3"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+<script>NProgress.configure({"showSpinner":false,"trickleSpeed":100});NProgress.start();window.addEventListener('load',function(){NProgress.done();});</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/events.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/js/lazyload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/local-search.js"></script>
+<script>(function(){var path="/local-search.xml";if(window.Fluid&&Fluid.plugins&&Fluid.plugins.search){Fluid.plugins.search(path);}})();</script>
+</body>
+</html>

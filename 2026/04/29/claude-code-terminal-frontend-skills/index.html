@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme="dark">
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.new.png">
+  <link rel="icon" type="image/png" href="/img/favicon.new.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="终端 Agent 的优势是贴近项目脚本、日志和 CI。">
+  <meta name="author" content="Lch">
+  <meta name="keywords" content="前端,AI,提效,Agent,MCP">
+  <title>Claude Code 在终端里的前端用法：把重复流程做成可复用技能 - 岛屿木海</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/ai-posts.css" />
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+  <meta name="generator" content="Codex static enrichment">
+</head>
+<body>
+
+<header style="height: 70vh;">
+  
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li>
+        <li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li>
+        <li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <div class="banner" id="banner" parallax="true" style="background: url('/img/default.webp') no-repeat center center;background-size: cover;">
+    <div class="full-bg-img">
+      <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.45)">
+        <div class="page-header text-center fade-in-up">
+          <span class="h2" id="subtitle" title="Claude Code 在终端里的前端用法：把重复流程做成可复用技能">Claude Code 在终端里的前端用法：把重复流程做成可复用技能</span>
+          <p class="ai-banner-subtitle">终端 Agent 的优势是贴近项目脚本、日志和 CI。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container-fluid nopadding-x">
+    <div class="row nomargin-x">
+      <div class="d-none d-lg-block col-lg-2"></div>
+      <div class="col-lg-8 nopadding-x-md">
+        <div class="container nopadding-x-md" id="board-ctn">
+          <div class="py-5" id="board">
+            <article class="post-content mx-auto ai-post">
+              <h1 style="display:none">Claude Code 在终端里的前端用法：把重复流程做成可复用技能</h1>
+              <div class="ai-post-meta">
+                <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
+                <span><i class="iconfont icon-chart"></i> 2719 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
+              </div>
+              <div class="ai-tags"><a class="ai-chip" href="/tags/Claude%20Code/">Claude Code</a><a class="ai-chip" href="/tags/%E6%8A%80%E8%83%BD/">技能</a><a class="ai-chip" href="/tags/%E7%BB%88%E7%AB%AF/">终端</a></div>
+              <div class="markdown-body">
+                <figure class="ai-cover"><img src="/img/ai-posts/claude-code-terminal-frontend-skills.png" alt="Claude Code 在终端里的前端用法：把重复流程做成可复用技能 配图"></figure>
+                <p class="ai-note">这篇文章基于 2026-04-29 可公开访问的官方资料整理，面向前端工程师的日常提效场景。</p>
+                
+      <p>终端 Agent 的优势不在聊天，而在“贴近现场”：它能读日志、跑测试、看 diff、改文件。真正的问题是，很多人把错误日志扔给它后直接让它修，结果它可能删断言、改快照、绕过真实问题。</p>
+      <p>这篇把 Claude Code 这类终端 Agent 当作故障处理器来设计：先定位，再假设，再最小修复，再复跑测试，最后把流程沉淀成技能卡。</p>
+  
+      <h2>核心痛点</h2>
+      <ul class="ai-pain-list"><li>终端报错很多，开发者把完整日志丢给 AI 后得到泛泛建议。</li><li>Agent 直接改测试，让红灯变绿但问题没有修。</li><li>重复流程没有沉淀，每次修测试都重新解释项目规则。</li><li>命令权限不清晰，安装依赖、改锁文件、部署容易失控。</li></ul>
+      <h2>解决流程图</h2>
+      <div class="ai-decision-flow">
+    <div class="ai-flow-row">
+      <div class="ai-d-node start"><span>发现</span><strong>粘贴完整日志</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>判断</span><strong>是否适合进入 AI 流程?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>否</span><div class="ai-d-node muted"><span>先补齐</span><strong>定位失败用例 / 人工判断</strong></div></div>
+      <div class="ai-branch-item yes"><span>是</span><div class="ai-d-node normal"><span>准备</span><strong>根因假设</strong></div></div>
+    </div>
+    <div class="ai-flow-row">
+      <div class="ai-d-node normal"><span>执行</span><strong>最小修复</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>验证</span><strong>单测复跑 是否通过?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>失败</span><div class="ai-d-node muted"><span>回流</span><strong>带证据回到 根因假设</strong></div></div>
+      <div class="ai-branch-item yes"><span>通过</span><div class="ai-d-node normal"><span>审查</span><strong>相关套件</strong></div></div>
+    </div>
+    <div class="ai-flow-row ai-flow-end">
+      <div class="ai-d-node start"><span>沉淀</span><strong>沉淀技能</strong></div>
+    </div>
+  </div>
+      
+        <h2>详细解决方案：把终端 Agent 用成故障处理器</h2>
+        <p>Claude Code 这类终端 Agent 的强项是读取日志、定位文件、运行命令。不要让它一上来“帮我修好”，而要让它按排障流程工作：先定位、再假设、再最小修复、最后复跑。</p>
+        <h3>测试失败技能卡</h3>
+        <pre><code>触发：Vitest/Playwright/Storybook 报错。
+步骤：
+1. 读取完整报错和失败用例。
+2. 找最近相关 diff，不直接改测试。
+3. 输出根因假设和候选文件。
+4. 做最小实现改动。
+5. 先跑单个测试，再跑相关套件。
+禁止：删除断言、扩大快照、无确认改锁文件。</code></pre>
+        <h3>权限边界</h3>
+        <p>允许自动执行只读命令和测试命令；安装依赖、修改锁文件、删除文件、执行部署必须人工确认。终端 Agent 能力越强，越要把命令边界写清楚。</p>
+      
+      
+      <h2>实战案例：Vitest 快照失败处理</h2>
+      <p>测试失败后不让 Agent 直接更新快照，而是先定位组件 props 变化和最近 diff。确认是样式 token 改动后，再更新实现而不是放宽断言。</p>
+      <p>最终只改组件样式映射和一条明确断言，快照没有被无脑扩大。这个流程可以沉淀成“修测试失败”技能。</p>
+  
+  
+      <h2>进一步落地：把一次排错变成技能</h2>
+      <p>终端 Agent 最有价值的场景不是生成新功能，而是处理失败现场。比如 Vitest 报错、Playwright 超时、构建失败、类型爆红。每次排错都应该沉淀为技能：输入是什么、先读什么、禁止做什么、如何验证。</p>
+      <h2>技能卡：修复 Playwright 超时</h2>
+      <pre><code>触发：Playwright 测试 timeout。
+步骤：
+1. 读取失败用例和 trace。
+2. 判断是选择器不稳定、接口未 mock、动画等待还是真实 bug。
+3. 不允许直接把 timeout 调大。
+4. 优先修等待条件或业务状态。
+5. 复跑单个用例，再跑同目录用例。</code></pre>
+      <h2>命令权限分级</h2>
+      <table><thead><tr><th>命令</th><th>是否可自动执行</th></tr></thead><tbody><tr><td>rg、sed、git diff、npm test 单用例</td><td>可以</td></tr><tr><td>npm install、改 lockfile</td><td>需要确认</td></tr><tr><td>部署、删除文件、清空缓存</td><td>禁止自动执行</td></tr></tbody></table>
+      <h2>质量要求</h2>
+      <p>修复完成后，Agent 必须说明：根因是什么、为什么这样改、改了哪些文件、跑了哪些命令、哪些命令没跑。没有这些信息，不能算完成。</p>
+    
+      <h2>终端 Agent 适合做什么</h2>
+      <p>Claude Code 这类终端 Agent 的优势是离工程现场很近。它能看到脚本、日志、测试输出、Git diff，也能在修改后马上运行命令。前端项目里，终端上下文往往比单纯聊天更重要，因为很多问题只有在构建、测试、浏览器截图或 CI 日志里才暴露。</p>
+      <h2>把技能写成流程，而不是知识点</h2>
+      <p>一个好技能应该回答四个问题：触发条件是什么，先读什么文件，允许改什么范围，如何验证完成。比如“修复样式回归”技能不能只写“注意响应式”，要写“先打开对应 story，再截图 375、768、1440 三个宽度，比较按钮、间距和换行”。</p>
+      <pre><code>技能：修复样式回归
+触发：截图、视觉测试、QA 反馈中出现布局异常。
+读取：相关组件、story、设计 token、最近 diff。
+限制：优先改局部样式，不改全局 reset。
+验证：运行 story 测试，至少检查移动端和桌面端。</code></pre>
+      <h2>Subagent 分工示例</h2>
+      <p>对于稍大的任务，可以让不同 subagent 承担不同视角：一个只看类型和测试，一个只看 UI 状态和 a11y，一个只看依赖和安全。这样比让一个 Agent 同时兼顾所有问题更稳。最后由主 Agent 或人类整合结论，避免多个子任务互相覆盖。</p>
+      <h2>Hooks 的实际价值</h2>
+      <p>Hooks 适合做团队底线，比如写文件前检查是否修改了锁文件、提交前提醒运行 lint、会话开始时自动加载 AGENTS.md。它不是为了制造复杂自动化，而是为了减少“每次都忘记说明”的环节。</p>
+      <h2>落地建议</h2>
+      <p>先给团队准备 3 个技能：修测试、补 Story、查生产报错。每个技能只服务一个明确场景。用两周时间观察哪些步骤经常返工，再把规则收紧。技能库不是越多越好，真正有用的是那些能稳定减少返工的流程。</p>
+  
+      <h2>终端文章的好写法：从一次失败日志开始</h2>
+      <p>我看到不少实用型文章都会从一个具体报错切入，而不是先介绍工具功能。Claude Code 这类终端 Agent 最适合这样写：先贴出测试失败或构建失败，再展示如何让 Agent 读日志、定位文件、做最小修复、重新运行命令。读者能直接把流程搬到自己的项目。</p>
+      <h2>测试失败处理流程</h2>
+      <pre><code>1. 粘贴完整错误，不要只写“测试挂了”。
+2. 让 Agent 找到失败用例和最近相关改动。
+3. 要求它复述根因假设，不允许先删断言。
+4. 只修一个失败点，重新运行单个测试。
+5. 单测通过后再跑相关测试套件。</code></pre>
+      <p>这个流程的重点是“先解释，再修改”。很多 Agent 会倾向于直接改测试，因为这是最快变绿的方法。前端项目里尤其要警惕快照测试，AI 可能把真实视觉回归变成一次无意义的 snapshot update。</p>
+      <h2>技能库怎么命名</h2>
+      <p>技能名称要按场景命名，而不是按工具命名。比如“修复 Vitest 失败”“补 Storybook 状态”“根据 Figma 实现组件”“排查线上白屏”。这样团队成员在需要时能直接调用，不需要知道背后用了哪个模型。</p>
+      <h2>终端 Agent 的边界</h2>
+      <ul>
+        <li>允许它运行只读命令和测试命令。</li>
+        <li>安装依赖、改锁文件、执行部署前必须确认。</li>
+        <li>涉及环境变量、密钥、生产地址时只分析不输出敏感值。</li>
+        <li>每次修改后必须给出文件列表和命令结果。</li>
+      </ul>
+      <p>终端 Agent 的优势是贴近真实工程环境，但这也是风险来源。它越能跑命令，越需要明确哪些命令可以自动执行，哪些必须停下来问。</p>
+  
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="nofollow noopener">Claude Code overview</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/mcp" target="_blank" rel="nofollow noopener">Connect Claude Code to tools via MCP</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents" target="_blank" rel="nofollow noopener">Claude Code subagents</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/hooks" target="_blank" rel="nofollow noopener">Claude Code hooks reference</a></li></ul>
+              </div>
+              <hr>
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>
+              <div class="post-prevnext">
+                <article class="post-prev col-6"><a href="/2026/04/29/cursor-background-agents-rules-mcp/"><i class="iconfont icon-arrowleft"></i><span class="hidden-mobile">Cursor Background Agents、Rules 与 MCP：把设计、任务和代码连起来</span><span class="visible-mobile">上一篇</span></a></article>
+                <article class="post-next col-6"><a href="/2026/04/29/codex-cloud-parallel-frontend-refactor/"><span class="hidden-mobile">Codex 云端并行任务：前端重构可以拆成十分钟的小队列</span><span class="visible-mobile">下一篇</span><i class="iconfont icon-arrowright"></i></a></article>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div class="toc-body" id="toc-body"></div></div></div>
+    </div>
+  </div>
+
+<a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
+
+<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="text-center mt-5 py-3"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+<script>NProgress.configure({"showSpinner":false,"trickleSpeed":100});NProgress.start();window.addEventListener('load',function(){NProgress.done();});</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/events.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/js/lazyload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/local-search.js"></script>
+<script>(function(){var path="/local-search.xml";if(window.Fluid&&Fluid.plugins&&Fluid.plugins.search){Fluid.plugins.search(path);}})();</script>
+</body>
+</html>

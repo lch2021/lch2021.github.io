@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme="dark">
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.new.png">
+  <link rel="icon" type="image/png" href="/img/favicon.new.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="TypeScript、UI Streaming、MCP、DevTools 组合起来才是生产力。">
+  <meta name="author" content="Lch">
+  <meta name="keywords" content="前端,AI,提效,Agent,MCP">
+  <title>Vercel AI SDK 6：前端开发者构建 Agent 应用的新基线 - 岛屿木海</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/ai-posts.css" />
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+  <meta name="generator" content="Codex static enrichment">
+</head>
+<body>
+
+<header style="height: 70vh;">
+  
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li>
+        <li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li>
+        <li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <div class="banner" id="banner" parallax="true" style="background: url('/img/default.webp') no-repeat center center;background-size: cover;">
+    <div class="full-bg-img">
+      <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.45)">
+        <div class="page-header text-center fade-in-up">
+          <span class="h2" id="subtitle" title="Vercel AI SDK 6：前端开发者构建 Agent 应用的新基线">Vercel AI SDK 6：前端开发者构建 Agent 应用的新基线</span>
+          <p class="ai-banner-subtitle">TypeScript、UI Streaming、MCP、DevTools 组合起来才是生产力。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container-fluid nopadding-x">
+    <div class="row nomargin-x">
+      <div class="d-none d-lg-block col-lg-2"></div>
+      <div class="col-lg-8 nopadding-x-md">
+        <div class="container nopadding-x-md" id="board-ctn">
+          <div class="py-5" id="board">
+            <article class="post-content mx-auto ai-post">
+              <h1 style="display:none">Vercel AI SDK 6：前端开发者构建 Agent 应用的新基线</h1>
+              <div class="ai-post-meta">
+                <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
+                <span><i class="iconfont icon-chart"></i> 2852 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
+              </div>
+              <div class="ai-tags"><a class="ai-chip" href="/tags/Vercel%20AI%20SDK/">Vercel AI SDK</a><a class="ai-chip" href="/tags/Next.js/">Next.js</a><a class="ai-chip" href="/tags/AI%E5%BA%94%E7%94%A8/">AI应用</a></div>
+              <div class="markdown-body">
+                <figure class="ai-cover"><img src="/img/ai-posts/vercel-ai-sdk-6-frontend-ai-apps.png" alt="Vercel AI SDK 6：前端开发者构建 Agent 应用的新基线 配图"></figure>
+                <p class="ai-note">这篇文章基于 2026-04-29 可公开访问的官方资料整理，面向前端工程师的日常提效场景。</p>
+                
+      <p>AI 应用不是一个聊天框。生产环境里的前端要处理流式输出、工具调用、审批、失败、取消、重试、结构化结果和观测指标。如果这些状态没有被设计成清晰流程，模型越强，产品越不可控。</p>
+      <p>这篇从前端状态机角度重新梳理 AI 应用：什么时候让模型回答，什么时候调用工具，什么时候必须让用户确认，工具失败后如何回退。</p>
+  
+      <h2>核心痛点</h2>
+      <ul class="ai-pain-list"><li>只做聊天框，没有把工具调用、审批、失败、取消做成状态机。</li><li>模型输出自由文本，前端靠字符串解析驱动 UI。</li><li>工具直接执行写操作，用户不知道影响范围。</li><li>没有观测指标，线上慢在哪里、失败在哪里都看不清。</li></ul>
+      <h2>解决流程图</h2>
+      <div class="ai-decision-flow">
+    <div class="ai-flow-row">
+      <div class="ai-d-node start"><span>发现</span><strong>用户意图</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>判断</span><strong>是否适合进入 AI 流程?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>否</span><div class="ai-d-node muted"><span>先补齐</span><strong>结构化输出 / 人工判断</strong></div></div>
+      <div class="ai-branch-item yes"><span>是</span><div class="ai-d-node normal"><span>准备</span><strong>工具选择</strong></div></div>
+    </div>
+    <div class="ai-flow-row">
+      <div class="ai-d-node normal"><span>执行</span><strong>审批 UI</strong></div>
+      <div class="ai-d-arrow">→</div>
+      <div class="ai-d-node decision"><span>验证</span><strong>执行工具 是否通过?</strong></div>
+    </div>
+    <div class="ai-flow-branch">
+      <div class="ai-branch-item no"><span>失败</span><div class="ai-d-node muted"><span>回流</span><strong>带证据回到 工具选择</strong></div></div>
+      <div class="ai-branch-item yes"><span>通过</span><div class="ai-d-node normal"><span>审查</span><strong>流式反馈</strong></div></div>
+    </div>
+    <div class="ai-flow-row ai-flow-end">
+      <div class="ai-d-node start"><span>沉淀</span><strong>结果归档</strong></div>
+    </div>
+  </div>
+      
+        <h2>详细解决方案：把 AI 应用做成可控状态机</h2>
+        <p>AI 应用的前端难点不是消息列表，而是状态。一个成熟的 AI 应用至少要处理：生成中、等待工具、等待审批、工具执行中、工具失败、取消、重试、完成。</p>
+        <h3>状态机设计</h3>
+        <pre><code>idle -> streaming -> tool_pending -> approval_required
+approval_required -> tool_running -> completed
+tool_running -> tool_failed -> retry | cancel
+streaming -> cancelled</code></pre>
+        <h3>工具审批 UI</h3>
+        <p>涉及写操作时，必须展示工具名称、参数摘要、影响范围和取消入口。例如“更新用户资料”要显示会修改哪些字段；“创建工单”要显示标题、接收人和内容摘要。</p>
+        <h3>结构化输出</h3>
+        <p>让模型输出 JSON 或 schema 化数据，前端用结构驱动 UI。不要从 Markdown 里找关键词来决定按钮和状态。</p>
+      
+      
+      <h2>实战案例：客服助手的工具审批</h2>
+      <p>用户要求“帮我修改收货地址”时，前端不能直接让模型调用写接口。先让模型输出结构化意图，再展示影响字段和确认按钮。</p>
+      <p>只有用户确认后才执行工具。工具失败时展示可重试状态，而不是继续让模型编一个看似成功的回复。</p>
+  
+  
+      <h2>进一步落地：把工具调用设计成用户看得懂的流程</h2>
+      <p>AI 应用里最容易被忽略的是“用户不知道 AI 正在做什么”。前端应该把工具调用拆成可见步骤：识别意图、准备工具、展示影响范围、等待确认、执行、展示结果、失败可重试。</p>
+      <h2>状态和 UI 对照表</h2>
+      <table><thead><tr><th>状态</th><th>UI 表现</th></tr></thead><tbody><tr><td>streaming</td><td>显示生成中，可取消</td></tr><tr><td>tool_pending</td><td>展示将调用的工具和参数摘要</td></tr><tr><td>approval_required</td><td>显示确认 / 取消按钮</td></tr><tr><td>tool_running</td><td>显示进度和不可重复提交</td></tr><tr><td>tool_failed</td><td>显示失败原因、重试和回退</td></tr><tr><td>completed</td><td>显示结构化结果和后续操作</td></tr></tbody></table>
+      <h2>结构化输出 Prompt</h2>
+      <pre><code>你必须返回 JSON：
+{
+  "intent": "update_profile" | "query" | "create_ticket",
+  "summary": "给用户看的摘要",
+  "requiresApproval": true,
+  "risk": "low" | "medium" | "high",
+  "fieldsChanged": [],
+  "nextActions": []
+}
+如果风险不确定，requiresApproval 必须为 true。</code></pre>
+      <p>这样前端就不需要从一段自然语言里猜按钮和状态，UI 会稳定很多。</p>
+    
+      <h2>前端 AI 应用的核心不是聊天框</h2>
+      <p>很多 AI 应用第一版都是聊天 UI，但真正复杂的是状态管理：模型正在思考、正在调用工具、等待用户确认、工具失败、重试、取消、恢复历史。这些状态如果只靠自然语言渲染，会很快变成不可维护的字符串解析。AI SDK 的价值在于把模型、工具、流式输出和 UI 状态放进统一的 TypeScript 结构里。</p>
+      <h2>工具调用的 UI 设计</h2>
+      <p>工具调用不要只显示“AI 正在处理”。更好的方式是把每个步骤展示成可理解的状态：读取订单、检查库存、生成方案、等待确认、执行修改。涉及写操作时，前端应该明确展示工具名称、影响范围和确认按钮。用户确认后再调用服务端工具，而不是让模型在后台直接写数据。</p>
+      <h2>结构化输出示例</h2>
+      <pre><code>{
+  "intent": "update_profile",
+  "summary": "准备更新用户昵称和头像",
+  "requiresApproval": true,
+  "fields": ["nickname", "avatar"],
+  "nextActions": ["confirm", "edit", "cancel"]
+}</code></pre>
+      <p>前端拿到这样的结构，就可以稳定渲染按钮、表单和风险提示。相比让模型输出一段 Markdown，再从里面找“确认”两个字，结构化输出更容易测试，也更适合国际化和埋点。</p>
+      <h2>调试和观测</h2>
+      <p>AI 产品上线后，问题经常不是“模型坏了”，而是某一步工具返回慢、上下文太长、提示词缺少边界、用户输入触发了异常路径。开发期要记录每一步耗时、token、工具参数和错误。用户界面也要提供取消和重试，不要让一次失败把整个会话锁死。</p>
+      <h2>前端安全边界</h2>
+      <p>密钥只放服务端。浏览器端只拿到会话状态和可展示数据。工具返回也要分层：给模型的摘要尽量少，给 UI 的数据按权限过滤。这样既能减少上下文污染，也能降低敏感数据被模型复述的风险。</p>
+  
+      <h2>AI 应用文章应该讲清楚状态机</h2>
+      <p>很多 AI 应用教程只展示流式聊天，很容易让人误以为前端只要渲染消息列表。生产环境完全不是这样。真正复杂的是状态机：模型生成中、工具调用中、等待审批、工具失败、用户取消、重试、上下文过长、权限不足。文章要把这些状态讲清楚，读者才知道怎么写一个能上线的 AI 应用。</p>
+      <h2>前端状态设计</h2>
+      <pre><code>idle：等待输入。
+streaming：模型正在输出。
+tool_pending：工具准备执行，展示影响范围。
+approval_required：需要用户确认。
+tool_running：工具执行中。
+tool_failed：可重试或回退。
+completed：任务完成，展示结构化结果。</code></pre>
+      <p>这些状态最好不要散落在组件里，而是集中在 hook 或状态机中。否则当工具数量增加时，按钮禁用、加载文案、错误提示会变得混乱。</p>
+      <h2>工具审批 UI</h2>
+      <p>涉及写操作时，前端必须展示工具名称、参数摘要、影响范围和取消入口。例如“更新用户资料”要展示将修改哪些字段；“创建工单”要展示标题、描述和接收人。不要让模型一句“我将帮你处理”就直接执行。</p>
+      <h2>调试指标</h2>
+      <ul>
+        <li>首 token 时间和完整响应时间。</li>
+        <li>每次工具调用耗时和失败率。</li>
+        <li>用户取消率和重试率。</li>
+        <li>审批通过率，判断工具是否设计得过于激进。</li>
+        <li>结构化输出解析失败率。</li>
+      </ul>
+      <p>前端工程师在 AI 应用里的价值，会越来越体现在“把不确定模型行为变成可理解、可取消、可恢复的产品体验”。</p>
+  
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://vercel.com/blog/ai-sdk-6/" target="_blank" rel="nofollow noopener">Vercel AI SDK 6</a></li><li><a href="https://platform.openai.com/docs/guides/tools-remote-mcp" target="_blank" rel="nofollow noopener">OpenAI Connectors and MCP servers</a></li></ul>
+              </div>
+              <hr>
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>
+              <div class="post-prevnext">
+                <article class="post-prev col-6"><a href="/2026/04/29/figma-mcp-make-design-to-code/"><i class="iconfont icon-arrowleft"></i><span class="hidden-mobile">Figma MCP 与 Figma Make：前端如何把设计上下文交给 AI</span><span class="visible-mobile">上一篇</span></a></article>
+                <article class="post-next col-6"><a href="/2026/04/29/cursor-background-agents-rules-mcp/"><span class="hidden-mobile">Cursor Background Agents、Rules 与 MCP：把设计、任务和代码连起来</span><span class="visible-mobile">下一篇</span><i class="iconfont icon-arrowright"></i></a></article>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div class="toc-body" id="toc-body"></div></div></div>
+    </div>
+  </div>
+
+<a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
+
+<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="text-center mt-5 py-3"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+<script>NProgress.configure({"showSpinner":false,"trickleSpeed":100});NProgress.start();window.addEventListener('load',function(){NProgress.done();});</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/events.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/js/lazyload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/local-search.js"></script>
+<script>(function(){var path="/local-search.xml";if(window.Fluid&&Fluid.plugins&&Fluid.plugins.search){Fluid.plugins.search(path);}})();</script>
+</body>
+</html>
