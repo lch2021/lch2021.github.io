@@ -72,7 +72,7 @@
               <h1 style="display:none">Storybook MCP：让 AI 前端代码先过组件和可访问性测试</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
-                <span><i class="iconfont icon-chart"></i> 2925 字</span>
+                <span><i class="iconfont icon-chart"></i> 3204 字</span>
                 <span><i class="iconfont icon-clock-fill"></i> 7 分钟</span>
               </div>
               <div class="ai-tags"><a class="ai-chip" href="/tags/Storybook/">Storybook</a><a class="ai-chip" href="/tags/%E7%BB%84%E4%BB%B6%E6%B5%8B%E8%AF%95/">组件测试</a><a class="ai-chip" href="/tags/%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7/">可访问性</a></div>
@@ -82,6 +82,10 @@
                 
       <p>AI 写 UI 最大的问题是“看起来对”。它可能猜错组件 props，只实现成功态，漏掉 a11y 和长文本。Storybook MCP 的价值是让 Agent 先读组件文档、生成 stories、运行交互测试和可访问性检查，而不是凭经验硬写。</p>
       <p>这篇用状态矩阵来约束 UI 生成：先查组件，后列状态，再写 story，最后用测试失败驱动修复。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a>：Storybook 本身就是用 stories、docs、tests 组织 UI 知识。让 Agent 先读组件文档再写页面，本质上是在复用这套工程资产。</li><li><a href="https://github.com/storybookjs/test-runner" target="_blank" rel="nofollow noopener">storybookjs/test-runner</a>：组件交互和 a11y 检查可以进入自动化流程。AI 写 UI 后必须面对测试失败，而不是只交一段 JSX。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>AI 写 UI 时猜组件 props，导致代码能编译但不符合组件库。</li><li>组件只有成功态，测试覆盖不了真实边界。</li><li>a11y 问题到 QA 或线上才暴露。</li><li>快照更新没有说明，视觉回归被悄悄吞掉。</li></ul>
@@ -172,7 +176,7 @@
 是否存在 a11y 风险：说明</code></pre>
       <p>当这些字段成为团队习惯后，AI 生成 UI 的质量会更稳定。Agent 不再只是写页面，而是在你的组件系统里补齐文档和测试。</p>
   
-                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://storybook.js.org/docs/ai/mcp/overview" target="_blank" rel="nofollow noopener">Storybook MCP server docs</a></li><li><a href="https://storybook.js.org/blog/storybook-10-3/" target="_blank" rel="nofollow noopener">Storybook 10.3</a></li></ul>
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://storybook.js.org/docs/ai/mcp/overview" target="_blank" rel="nofollow noopener">Storybook MCP server docs</a></li><li><a href="https://storybook.js.org/blog/storybook-10-3/" target="_blank" rel="nofollow noopener">Storybook 10.3</a></li><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a></li><li><a href="https://github.com/storybookjs/test-runner" target="_blank" rel="nofollow noopener">storybookjs/test-runner</a></li></ul>
               </div>
               <hr>
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>

@@ -72,7 +72,7 @@
               <h1 style="display:none">JWT 和 Session 的区别：认证方案怎么选</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2021-02-27</span>
-                <span><i class="iconfont icon-chart"></i> 1610 字</span>
+                <span><i class="iconfont icon-chart"></i> 1886 字</span>
                 <span><i class="iconfont icon-clock-fill"></i> 4 分钟</span>
               </div>
               <div class="markdown-body">
@@ -92,6 +92,10 @@
       <h2>怎么选</h2>
       <p>传统服务端渲染、强控制登录状态、需要随时踢下线，Session 更合适。前后端分离、多端登录、微服务调用，JWT 更常见。实际项目也可以组合使用：短期 access token + 可控 refresh token。</p>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/auth0/node-jsonwebtoken" target="_blank" rel="nofollow noopener">auth0/node-jsonwebtoken</a>：JWT 库提供签发和校验，但不替你解决注销、黑名单、刷新 token 和权限即时失效。方案设计必须补上这些业务边界。</li><li><a href="https://github.com/expressjs/session" target="_blank" rel="nofollow noopener">expressjs/session</a>：Session 中间件的配置项能提醒你关注 cookie、store、secret、rolling、resave 等细节。认证方案不是概念选择，而是配置和运维选择。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>只看“无状态”就选 JWT：</strong>忽略了退出登录、踢下线、权限即时变更这些需求。</li><li><strong>把敏感信息放进 token：</strong>JWT payload 只是编码，不等于加密。</li><li><strong>Session 分布式问题没设计：</strong>多台服务实例下，如果没有共享存储，用户状态会不稳定。</li><li><strong>token 过期策略混乱：</strong>access token 太长不安全，太短又影响体验。</li></ul>
       <h2>认证方案选择流程</h2>

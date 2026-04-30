@@ -72,7 +72,7 @@
               <h1 style="display:none">Playwright MCP + Chrome DevTools AI：前端调试从截图走向可执行上下文</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
-                <span><i class="iconfont icon-chart"></i> 2523 字</span>
+                <span><i class="iconfont icon-chart"></i> 2804 字</span>
                 <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
               </div>
               <div class="ai-tags"><a class="ai-chip" href="/tags/Playwright/">Playwright</a><a class="ai-chip" href="/tags/Chrome%20DevTools/">Chrome DevTools</a><a class="ai-chip" href="/tags/%E8%B0%83%E8%AF%95/">调试</a></div>
@@ -82,6 +82,10 @@
                 
       <p>前端调试最怕“我这边复现不了”。AI 如果只看截图，仍然是在猜。Playwright MCP 和 DevTools AI 更适合组成一条证据链：复现路径、可访问性树、DOM、CSS、网络、性能和截图。</p>
       <p>这篇把调试流程拆成可执行闭环：先复现，再收集证据，再让 AI 分析，再做最小修复，最后把 bug 固化成回归测试。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/microsoft/playwright-mcp" target="_blank" rel="nofollow noopener">microsoft/playwright-mcp</a>：Playwright MCP 强调用结构化可访问性快照操作页面，这比纯截图更适合生成稳定复现步骤。</li><li><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="nofollow noopener">ChromeDevTools/chrome-devtools-mcp</a>：Chrome DevTools MCP 把网络、性能、控制台和截图纳入 Agent 调试上下文。调试文章应围绕证据链，而不是围绕工具按钮。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>Bug 描述停留在“点不了”“卡了”，没有稳定复现步骤。</li><li>AI 只看截图，无法理解 DOM、网络、性能上下文。</li><li>修完没有补回归测试，同类问题反复出现。</li><li>浏览器自动化误用真实账号或生产数据。</li></ul>
@@ -175,7 +179,7 @@
       <h2>调试中的安全边界</h2>
       <p>浏览器自动化最容易碰到真实账号和真实数据。用于 Agent 的账号应该只在测试环境生效，且数据可重置。生产环境排查时，优先让 AI 分析截图、DOM 和网络元数据，不要让它执行写操作。</p>
   
-                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://playwright.dev/docs/getting-started-mcp" target="_blank" rel="nofollow noopener">Playwright MCP</a></li><li><a href="https://developer.chrome.com/docs/devtools/ai-assistance/performance" target="_blank" rel="nofollow noopener">Chrome DevTools AI assistance</a></li><li><a href="https://developer.chrome.com/blog/new-in-devtools-147/" target="_blank" rel="nofollow noopener">What's new in DevTools Chrome 147</a></li><li><a href="https://developer.chrome.com/docs/devtools/ai-assistance/code-generation" target="_blank" rel="nofollow noopener">Generate code in Console and Sources</a></li></ul>
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://playwright.dev/docs/getting-started-mcp" target="_blank" rel="nofollow noopener">Playwright MCP</a></li><li><a href="https://developer.chrome.com/docs/devtools/ai-assistance/performance" target="_blank" rel="nofollow noopener">Chrome DevTools AI assistance</a></li><li><a href="https://developer.chrome.com/blog/new-in-devtools-147/" target="_blank" rel="nofollow noopener">What's new in DevTools Chrome 147</a></li><li><a href="https://developer.chrome.com/docs/devtools/ai-assistance/code-generation" target="_blank" rel="nofollow noopener">Generate code in Console and Sources</a></li><li><a href="https://github.com/microsoft/playwright-mcp" target="_blank" rel="nofollow noopener">microsoft/playwright-mcp</a></li><li><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="nofollow noopener">ChromeDevTools/chrome-devtools-mcp</a></li></ul>
               </div>
               <hr>
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>

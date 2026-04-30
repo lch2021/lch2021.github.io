@@ -12,6 +12,9 @@
 .ai-note{border-left:4px solid #29d;padding:.8rem 1rem;background:rgba(41,157,221,.1);border-radius:0 6px 6px 0}
 .ai-pain-list{padding-left:1.25rem}
 .ai-pain-list li{margin:.55rem 0}
+.ai-github-list{padding-left:1.25rem;border-left:4px solid rgba(36,41,47,.18);background:rgba(127,127,127,.05);border-radius:0 8px 8px 0;padding-top:.7rem;padding-bottom:.7rem}
+.ai-github-list li{margin:.6rem 0}
+.ai-github-list a{font-weight:700}
 .ai-decision-flow{margin:1rem 0 1.75rem;padding:1rem;border:1px solid rgba(127,127,127,.22);border-radius:8px;background:rgba(127,127,127,.05);overflow-x:auto}
 .ai-flow-row{display:flex;align-items:center;justify-content:center;gap:.75rem;min-width:680px;margin:.35rem 0}
 .ai-flow-row.ai-flow-end{margin-top:.9rem}

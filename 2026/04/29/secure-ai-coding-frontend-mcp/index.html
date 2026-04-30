@@ -72,8 +72,8 @@
               <h1 style="display:none">前端使用 AI Agent 的安全清单：MCP、权限、提示注入与审查</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
-                <span><i class="iconfont icon-chart"></i> 2394 字</span>
-                <span><i class="iconfont icon-clock-fill"></i> 5 分钟</span>
+                <span><i class="iconfont icon-chart"></i> 2665 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
               </div>
               <div class="ai-tags"><a class="ai-chip" href="/tags/%E5%AE%89%E5%85%A8/">安全</a><a class="ai-chip" href="/tags/MCP/">MCP</a><a class="ai-chip" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5/">代码审查</a></div>
               <div class="markdown-body">
@@ -82,6 +82,10 @@
                 
       <p>当前端 Agent 能读 issue、网页、Figma、日志、源码，还能通过 MCP 调工具时，它就不是聊天助手，而是自动化系统。自动化系统必须有权限、审批、隔离和审计。</p>
       <p>这篇不讲空泛安全口号，而是按真实场景拆：外部内容如何防提示注入，MCP 工具如何分级，AI PR 该审哪些安全点，哪些操作绝对不能自动化。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel-labs/mcp-to-ai-sdk" target="_blank" rel="nofollow noopener">vercel-labs/mcp-to-ai-sdk</a>：这个项目明确把 MCP stub 生成和安全边界放在一起，提醒团队要防止远程工具新增危险能力后被 Agent 无感调用。</li><li><a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="nofollow noopener">modelcontextprotocol/servers</a>：MCP server 越多，供应链和权限面越大。前端接入 MCP 时要记录来源、版本、维护者和写操作范围。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>Agent 能读外部内容，却分不清数据和指令。</li><li>MCP 工具权限过大，读写边界不清晰。</li><li>AI PR 新增依赖、网络请求、配置改动没人重点看。</li><li>缺少审计记录，事后不知道它读了什么、改了什么、调用了什么。</li></ul>
@@ -166,7 +170,7 @@
       <h2>安全不是降低效率</h2>
       <p>安全边界清晰后，团队反而可以更放心地扩大 AI 使用范围。低风险任务可以自动化，高风险任务进入审批，敏感操作禁止自动执行。这样既不浪费 AI 能力，也不把项目交给不可控的自动化。</p>
   
-                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://genai.owasp.org/2026/03/17/owasp-genai-security-project-expands-ai-security-frameworks-ahead-of-rsa-2026-celebrates-continued-sponsor-support/" target="_blank" rel="nofollow noopener">OWASP GenAI Security Project 2026 update</a></li><li><a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices" target="_blank" rel="nofollow noopener">MCP Security Best Practices</a></li><li><a href="https://platform.openai.com/docs/guides/tools-remote-mcp" target="_blank" rel="nofollow noopener">OpenAI Connectors and MCP servers</a></li><li><a href="https://docs.cursor.com/en/background-agents" target="_blank" rel="nofollow noopener">Cursor Background Agents</a></li></ul>
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://genai.owasp.org/2026/03/17/owasp-genai-security-project-expands-ai-security-frameworks-ahead-of-rsa-2026-celebrates-continued-sponsor-support/" target="_blank" rel="nofollow noopener">OWASP GenAI Security Project 2026 update</a></li><li><a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices" target="_blank" rel="nofollow noopener">MCP Security Best Practices</a></li><li><a href="https://platform.openai.com/docs/guides/tools-remote-mcp" target="_blank" rel="nofollow noopener">OpenAI Connectors and MCP servers</a></li><li><a href="https://docs.cursor.com/en/background-agents" target="_blank" rel="nofollow noopener">Cursor Background Agents</a></li><li><a href="https://github.com/vercel-labs/mcp-to-ai-sdk" target="_blank" rel="nofollow noopener">vercel-labs/mcp-to-ai-sdk</a></li><li><a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="nofollow noopener">modelcontextprotocol/servers</a></li></ul>
               </div>
               <hr>
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>

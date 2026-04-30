@@ -72,8 +72,8 @@
               <h1 style="display:none">Vue 组件通信：父子、兄弟、插槽与动态组件</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2021-04-16</span>
-                <span><i class="iconfont icon-chart"></i> 2265 字</span>
-                <span><i class="iconfont icon-clock-fill"></i> 5 分钟</span>
+                <span><i class="iconfont icon-chart"></i> 2524 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
               </div>
               <div class="markdown-body">
       <h2>为什么要理解组件通信</h2>
@@ -109,6 +109,10 @@
       <h2>实践建议</h2>
       <ul><li>父传子用 props，子传父用 emit。</li><li>跨层级共享状态优先用状态管理，不要层层透传太多 props。</li><li>插槽用于结构扩展，不要把业务状态藏进插槽里。</li><li>keep-alive 下区分 mounted 和 activated。</li></ul>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vuejs/core" target="_blank" rel="nofollow noopener">vuejs/core</a>：阅读 Vue core 的 packages/runtime-core 能看到 props、emit、slots 在运行时如何被组织。理解底层模型后，更容易判断组件边界该放在哪里。</li><li><a href="https://github.com/vuejs/pinia" target="_blank" rel="nofollow noopener">vuejs/pinia</a>：跨层级共享状态不要靠事件总线硬连，Pinia 这类 store 更适合管理用户、权限、主题这类全局数据。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>props 一路透传：</strong>页面层级一深，父组件需要把很多字段传给孙组件、重孙组件，中间组件只是“搬运工”。</li><li><strong>子组件直接改父组件数据：</strong>短期看能跑，后期很难判断状态到底是谁改的。</li><li><strong>事件总线滥用：</strong>任意组件都能 emit，任意组件都能 on，排查问题时很难找到触发链路。</li><li><strong>插槽和状态混在一起：</strong>本来只是 UI 扩展点，却把业务判断藏在插槽内部，复用时容易失控。</li></ul>
       <h2>选择流程</h2>

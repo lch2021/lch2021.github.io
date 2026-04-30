@@ -72,7 +72,7 @@
               <h1 style="display:none">Node.js 模块加载机制：缓存、路径与 node_modules 查找</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2021-02-22</span>
-                <span><i class="iconfont icon-chart"></i> 1651 字</span>
+                <span><i class="iconfont icon-chart"></i> 1918 字</span>
                 <span><i class="iconfont icon-clock-fill"></i> 4 分钟</span>
               </div>
               <div class="markdown-body">
@@ -102,6 +102,10 @@ module.exports = { count: 1 }</code></pre>
       <h2>实践建议</h2>
       <ul><li>项目内文件使用相对路径或配置别名。</li><li>不要依赖模块顶层副作用执行多次。</li><li>包入口通过 package.json main 或 exports 明确声明。</li><li>遇到模块找不到，先检查路径、安装位置和包入口。</li></ul>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/nodejs/node" target="_blank" rel="nofollow noopener">nodejs/node</a>：Node 仓库的 lib/internal/modules 可以帮助理解 CommonJS 和 ESM 加载差异。模块缓存、解析路径、exports 都不是黑盒。</li><li><a href="https://github.com/browserify/resolve" target="_blank" rel="nofollow noopener">browserify/resolve</a>：resolve 这类实现展示了包入口、扩展名、node_modules 向上查找等规则。遇到模块找不到，要按解析流程排查。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>忘记写 ./：</strong>require('utils') 会去找核心模块或 node_modules，不会找当前目录 utils.js。</li><li><strong>误解模块缓存：</strong>以为每次 require 都会重新执行，结果状态被共享。</li><li><strong>包入口不清楚：</strong>package.json 的 main、exports、index.js 规则混在一起。</li><li><strong>依赖查找路径不明确：</strong>子目录能引用根目录依赖，但不知道 Node 是向上查找 node_modules。</li></ul>
       <h2>模块加载流程</h2>

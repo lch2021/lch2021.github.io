@@ -72,8 +72,8 @@
               <h1 style="display:none">Vercel AI SDK 6：前端开发者构建 Agent 应用的新基线</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
-                <span><i class="iconfont icon-chart"></i> 2852 字</span>
-                <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
+                <span><i class="iconfont icon-chart"></i> 3133 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 7 分钟</span>
               </div>
               <div class="ai-tags"><a class="ai-chip" href="/tags/Vercel%20AI%20SDK/">Vercel AI SDK</a><a class="ai-chip" href="/tags/Next.js/">Next.js</a><a class="ai-chip" href="/tags/AI%E5%BA%94%E7%94%A8/">AI应用</a></div>
               <div class="markdown-body">
@@ -82,6 +82,10 @@
                 
       <p>AI 应用不是一个聊天框。生产环境里的前端要处理流式输出、工具调用、审批、失败、取消、重试、结构化结果和观测指标。如果这些状态没有被设计成清晰流程，模型越强，产品越不可控。</p>
       <p>这篇从前端状态机角度重新梳理 AI 应用：什么时候让模型回答，什么时候调用工具，什么时候必须让用户确认，工具失败后如何回退。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a>：AI SDK 仓库把核心包、UI、examples、tools、skills 放在一起，适合说明 AI 应用要同时处理模型调用、界面状态、工具调用和 Agent 规则。</li><li><a href="https://github.com/vercel-labs/mcp-to-ai-sdk" target="_blank" rel="nofollow noopener">vercel-labs/mcp-to-ai-sdk</a>：把 MCP 工具转成 AI SDK stub 的思路很值得借鉴：不要把远程工具裸接进产品，先收窄参数、权限和上下文。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>只做聊天框，没有把工具调用、审批、失败、取消做成状态机。</li><li>模型输出自由文本，前端靠字符串解析驱动 UI。</li><li>工具直接执行写操作，用户不知道影响范围。</li><li>没有观测指标，线上慢在哪里、失败在哪里都看不清。</li></ul>
@@ -186,7 +190,7 @@ completed：任务完成，展示结构化结果。</code></pre>
       </ul>
       <p>前端工程师在 AI 应用里的价值，会越来越体现在“把不确定模型行为变成可理解、可取消、可恢复的产品体验”。</p>
   
-                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://vercel.com/blog/ai-sdk-6/" target="_blank" rel="nofollow noopener">Vercel AI SDK 6</a></li><li><a href="https://platform.openai.com/docs/guides/tools-remote-mcp" target="_blank" rel="nofollow noopener">OpenAI Connectors and MCP servers</a></li></ul>
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://vercel.com/blog/ai-sdk-6/" target="_blank" rel="nofollow noopener">Vercel AI SDK 6</a></li><li><a href="https://platform.openai.com/docs/guides/tools-remote-mcp" target="_blank" rel="nofollow noopener">OpenAI Connectors and MCP servers</a></li><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a></li><li><a href="https://github.com/vercel-labs/mcp-to-ai-sdk" target="_blank" rel="nofollow noopener">vercel-labs/mcp-to-ai-sdk</a></li></ul>
               </div>
               <hr>
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>

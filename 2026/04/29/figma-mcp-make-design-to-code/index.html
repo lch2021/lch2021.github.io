@@ -72,8 +72,8 @@
               <h1 style="display:none">Figma MCP 与 Figma Make：前端如何把设计上下文交给 AI</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
-                <span><i class="iconfont icon-chart"></i> 2916 字</span>
-                <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
+                <span><i class="iconfont icon-chart"></i> 3198 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 7 分钟</span>
               </div>
               <div class="ai-tags"><a class="ai-chip" href="/tags/Figma/">Figma</a><a class="ai-chip" href="/tags/%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F/">设计系统</a><a class="ai-chip" href="/tags/MCP/">MCP</a></div>
               <div class="markdown-body">
@@ -82,6 +82,10 @@
                 
       <p>设计转代码的失败，通常不是因为 AI 不会写 CSS，而是因为它只看到了截图，没有理解设计系统。一个按钮在 Figma 里不只是蓝色矩形，它可能对应组件库里的 Button、token、状态、可访问性和响应式规则。</p>
       <p>这篇强调一个前置动作：先建立设计元素到代码组件的映射，再让 AI 写代码。没有映射表，就不要进入实现阶段。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/figma/code-connect" target="_blank" rel="nofollow noopener">figma/code-connect</a>：Code Connect 的核心价值是建立设计组件和代码组件之间的映射。设计转代码前先做映射表，比让 AI 看截图直接写 CSS 更稳。</li><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a>：Storybook 的 stories 可以承接设计稿落地后的状态展示。Figma 负责设计语义，Storybook 负责工程里的组件状态。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>截图转代码只能看像不像，无法理解设计系统语义。</li><li>Agent 不知道组件映射，重复造 Button、Card、Modal。</li><li>只实现成功态，漏掉空态、错误态、长文本和移动端。</li><li>设计稿和代码 token 没对齐，后续维护成本高。</li></ul>
@@ -181,7 +185,7 @@ Filter Panel     Drawer              移动端改为底部弹层</code></pre>
       <h2>验收不只截图</h2>
       <p>截图对比只能发现视觉问题，不能发现键盘操作、屏幕阅读器、接口失败和长文本换行。建议设计稿实现完成后，至少补一个 story、两个 viewport 截图、一个长文本用例和一个错误态用例。这样 AI 生成的页面才真正进入工程体系。</p>
   
-                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server" target="_blank" rel="nofollow noopener">Guide to the Figma MCP server</a></li><li><a href="https://help.figma.com/hc/en-us/articles/39216419318551-Get-started-with-the-Figma-MCP-server" target="_blank" rel="nofollow noopener">Get started with the Figma MCP server</a></li><li><a href="https://www.figma.com/blog/figma-make-general-availability/" target="_blank" rel="nofollow noopener">Figma Make general availability</a></li></ul>
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server" target="_blank" rel="nofollow noopener">Guide to the Figma MCP server</a></li><li><a href="https://help.figma.com/hc/en-us/articles/39216419318551-Get-started-with-the-Figma-MCP-server" target="_blank" rel="nofollow noopener">Get started with the Figma MCP server</a></li><li><a href="https://www.figma.com/blog/figma-make-general-availability/" target="_blank" rel="nofollow noopener">Figma Make general availability</a></li><li><a href="https://github.com/figma/code-connect" target="_blank" rel="nofollow noopener">figma/code-connect</a></li><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a></li></ul>
               </div>
               <hr>
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>

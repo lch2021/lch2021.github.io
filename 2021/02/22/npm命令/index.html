@@ -72,8 +72,8 @@
               <h1 style="display:none">npm 常用命令：安装、卸载、脚本、版本与发布</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2021-02-22</span>
-                <span><i class="iconfont icon-chart"></i> 1826 字</span>
-                <span><i class="iconfont icon-clock-fill"></i> 4 分钟</span>
+                <span><i class="iconfont icon-chart"></i> 2092 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 5 分钟</span>
               </div>
               <div class="markdown-body">
       <h2>npm 是什么</h2>
@@ -120,6 +120,10 @@ npm publish</code></pre>
       <h2>常见排错</h2>
       <ul><li>安装失败：检查 Node 版本、网络、registry。</li><li>命令不存在：确认依赖是否安装，脚本是否写在 package.json。</li><li>依赖冲突：查看 peerDependencies 提示。</li><li>构建和本地不一致：检查 lockfile 和 Node 版本。</li></ul>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/npm/cli" target="_blank" rel="nofollow noopener">npm/cli</a>：npm CLI 仓库和 changelog 能看到命令行为会随版本变化。团队项目要固定 Node/npm 版本，并把 lockfile 当作重要产物。</li><li><a href="https://github.com/npm/rfcs" target="_blank" rel="nofollow noopener">npm/rfcs</a>：npm 新行为通常先在 RFC 中讨论。遇到 install、audit、publish 行为变化时，查 RFC 和 changelog 比搜索零散答案更可靠。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>dependencies 和 devDependencies 混用：</strong>运行环境安装了大量不需要的构建工具。</li><li><strong>lockfile 随手删除：</strong>团队成员安装出来的依赖树不一致，问题很难复现。</li><li><strong>全局包污染环境：</strong>本地命令能跑，别人电脑或 CI 上找不到。</li><li><strong>registry 切换后忘记恢复：</strong>发布包时还指向镜像源，导致发布失败。</li></ul>
       <h2>npm 使用流程</h2>

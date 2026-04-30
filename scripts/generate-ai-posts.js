@@ -37,6 +37,240 @@ const sources = {
   copilotSurvey: ["GitHub Copilot Developer Survey 2024", "https://github.blog/news-insights/research/survey-reveals-ais-impact-on-the-developer-experience/"],
 };
 
+const githubReferences = {
+  "ai-frontend-agent-workflow-2026": [
+    {
+      name: "vercel/ai",
+      url: "https://github.com/vercel/ai",
+      takeaway: "仓库里同时存在 AGENTS.md、CLAUDE.md、.cursor、examples、packages 和 skills，说明成熟 AI 工程不是只写 prompt，而是把规则、示例、包边界和 Agent 技能一起维护。",
+    },
+    {
+      name: "ChromeDevTools/chrome-devtools-mcp",
+      url: "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      takeaway: "DevTools MCP 把浏览器调试能力包装成 Agent 可调用工具，适合解释为什么前端 AI 工作流要包含“真实页面验证”，而不是停在代码生成。",
+    },
+  ],
+  "copilot-agent-mode-frontend-pr": [
+    {
+      name: "vercel/ai",
+      url: "https://github.com/vercel/ai",
+      takeaway: "大型开源仓库会把贡献规范、Agent 指令、CI、变更集和 examples 放在一起。写给 Copilot 的 issue 也应该像给开源维护者的任务说明一样清楚。",
+    },
+    {
+      name: "github/docs",
+      url: "https://github.com/github/docs",
+      takeaway: "文档型仓库的 PR 通常要求范围清晰、证据明确、Review 可追踪。Copilot PR 也要用同样标准审，而不是只看自动生成是否顺眼。",
+    },
+  ],
+  "codex-cloud-parallel-frontend-refactor": [
+    {
+      name: "vercel/ai",
+      url: "https://github.com/vercel/ai",
+      takeaway: "monorepo 的 packages、examples、content、tools 分层很适合作为拆任务参考：公共 API、示例、文档、工具链不要混在一个 Agent 任务里改。",
+    },
+    {
+      name: "storybookjs/storybook",
+      url: "https://github.com/storybookjs/storybook",
+      takeaway: "大型前端工具仓库通常按包、文档、测试、示例分区。云端并行重构也应该按 ownership 分区，降低冲突和 Review 成本。",
+    },
+  ],
+  "claude-code-terminal-frontend-skills": [
+    {
+      name: "vercel/ai skills",
+      url: "https://github.com/vercel/ai/tree/main/skills",
+      takeaway: "AI SDK 仓库提供 coding agents skill，说明“技能”可以随仓库版本演进。前端团队也可以把修测试、补 Story、查日志这类流程写成可复用卡片。",
+    },
+    {
+      name: "anthropics/claude-code-action",
+      url: "https://github.com/anthropics/claude-code-action",
+      takeaway: "把终端 Agent 接进 GitHub 工作流后，输入、权限和输出格式都要被约束；这能反推本地 CLI 使用时也要保留命令证据。",
+    },
+  ],
+  "cursor-background-agents-rules-mcp": [
+    {
+      name: "vercel/ai .cursor",
+      url: "https://github.com/vercel/ai/tree/main/.cursor",
+      takeaway: "真实仓库会把 Cursor 规则放在版本控制里，而不是靠个人编辑器记忆。规则文件越贴近目录和任务，后台 Agent 越少猜。",
+    },
+    {
+      name: "modelcontextprotocol/servers",
+      url: "https://github.com/modelcontextprotocol/servers",
+      takeaway: "MCP 生态里工具很多，但前端项目不该一口气全接。先接设计、组件、浏览器，再扩展工单和部署，权限边界更可控。",
+    },
+  ],
+  "vercel-ai-sdk-6-frontend-ai-apps": [
+    {
+      name: "vercel/ai",
+      url: "https://github.com/vercel/ai",
+      takeaway: "AI SDK 仓库把核心包、UI、examples、tools、skills 放在一起，适合说明 AI 应用要同时处理模型调用、界面状态、工具调用和 Agent 规则。",
+    },
+    {
+      name: "vercel-labs/mcp-to-ai-sdk",
+      url: "https://github.com/vercel-labs/mcp-to-ai-sdk",
+      takeaway: "把 MCP 工具转成 AI SDK stub 的思路很值得借鉴：不要把远程工具裸接进产品，先收窄参数、权限和上下文。",
+    },
+  ],
+  "figma-mcp-make-design-to-code": [
+    {
+      name: "figma/code-connect",
+      url: "https://github.com/figma/code-connect",
+      takeaway: "Code Connect 的核心价值是建立设计组件和代码组件之间的映射。设计转代码前先做映射表，比让 AI 看截图直接写 CSS 更稳。",
+    },
+    {
+      name: "storybookjs/storybook",
+      url: "https://github.com/storybookjs/storybook",
+      takeaway: "Storybook 的 stories 可以承接设计稿落地后的状态展示。Figma 负责设计语义，Storybook 负责工程里的组件状态。",
+    },
+  ],
+  "storybook-mcp-agentic-ui-testing": [
+    {
+      name: "storybookjs/storybook",
+      url: "https://github.com/storybookjs/storybook",
+      takeaway: "Storybook 本身就是用 stories、docs、tests 组织 UI 知识。让 Agent 先读组件文档再写页面，本质上是在复用这套工程资产。",
+    },
+    {
+      name: "storybookjs/test-runner",
+      url: "https://github.com/storybookjs/test-runner",
+      takeaway: "组件交互和 a11y 检查可以进入自动化流程。AI 写 UI 后必须面对测试失败，而不是只交一段 JSX。",
+    },
+  ],
+  "playwright-mcp-chrome-devtools-ai-debugging": [
+    {
+      name: "microsoft/playwright-mcp",
+      url: "https://github.com/microsoft/playwright-mcp",
+      takeaway: "Playwright MCP 强调用结构化可访问性快照操作页面，这比纯截图更适合生成稳定复现步骤。",
+    },
+    {
+      name: "ChromeDevTools/chrome-devtools-mcp",
+      url: "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      takeaway: "Chrome DevTools MCP 把网络、性能、控制台和截图纳入 Agent 调试上下文。调试文章应围绕证据链，而不是围绕工具按钮。",
+    },
+  ],
+  "ai-skills-agents-md-frontend-playbook": [
+    {
+      name: "openai/codex AGENTS.md",
+      url: "https://github.com/openai/codex/blob/main/AGENTS.md",
+      takeaway: "AGENTS.md 应该像工程接口一样说明构建、测试、风格和限制。规则短、硬、可验证，比口号式规范更容易被 Agent 遵守。",
+    },
+    {
+      name: "vercel/ai AGENTS.md",
+      url: "https://github.com/vercel/ai/blob/main/AGENTS.md",
+      takeaway: "大型仓库会把 Agent 可执行的约束放在根目录，方便本地、云端和不同编辑器复用同一套规则。",
+    },
+  ],
+  "secure-ai-coding-frontend-mcp": [
+    {
+      name: "vercel-labs/mcp-to-ai-sdk",
+      url: "https://github.com/vercel-labs/mcp-to-ai-sdk",
+      takeaway: "这个项目明确把 MCP stub 生成和安全边界放在一起，提醒团队要防止远程工具新增危险能力后被 Agent 无感调用。",
+    },
+    {
+      name: "modelcontextprotocol/servers",
+      url: "https://github.com/modelcontextprotocol/servers",
+      takeaway: "MCP server 越多，供应链和权限面越大。前端接入 MCP 时要记录来源、版本、维护者和写操作范围。",
+    },
+  ],
+};
+
+const legacyGithubReferences = {
+  "Vue 组件通信：父子、兄弟、插槽与动态组件": [
+    {
+      name: "vuejs/core",
+      url: "https://github.com/vuejs/core",
+      takeaway: "阅读 Vue core 的 packages/runtime-core 能看到 props、emit、slots 在运行时如何被组织。理解底层模型后，更容易判断组件边界该放在哪里。",
+    },
+    {
+      name: "vuejs/pinia",
+      url: "https://github.com/vuejs/pinia",
+      takeaway: "跨层级共享状态不要靠事件总线硬连，Pinia 这类 store 更适合管理用户、权限、主题这类全局数据。",
+    },
+  ],
+  "Vue Router 路由管理：从 routes 到导航守卫": [
+    {
+      name: "vuejs/router",
+      url: "https://github.com/vuejs/router",
+      takeaway: "官方路由仓库能看到 Vue Router 4 的包结构、测试和文档组织。学习路由时不要只背 API，要关注 history、matcher、navigation guard 的职责拆分。",
+    },
+    {
+      name: "vuejs/vue-router",
+      url: "https://github.com/vuejs/vue-router",
+      takeaway: "Vue 2 项目仍常见 vue-router 3。维护老项目时要分清版本差异，特别是路由创建方式和组合式 API 支持。",
+    },
+  ],
+  "Node.js 常用第三方包：从 cors 到 bcrypt": [
+    {
+      name: "expressjs/cors",
+      url: "https://github.com/expressjs/cors",
+      takeaway: "cors 看似只是几行中间件，生产配置却必须收窄 origin、credentials 和预检响应。安全边界应该写进配置，而不是散落在业务代码里。",
+    },
+    {
+      name: "auth0/node-jsonwebtoken",
+      url: "https://github.com/auth0/node-jsonwebtoken",
+      takeaway: "jsonwebtoken 的 README 明确区分 sign、verify、错误类型和算法。使用安全包时要读官方仓库说明，不要只复制最短示例。",
+    },
+  ],
+  "JWT 和 Session 的区别：认证方案怎么选": [
+    {
+      name: "auth0/node-jsonwebtoken",
+      url: "https://github.com/auth0/node-jsonwebtoken",
+      takeaway: "JWT 库提供签发和校验，但不替你解决注销、黑名单、刷新 token 和权限即时失效。方案设计必须补上这些业务边界。",
+    },
+    {
+      name: "expressjs/session",
+      url: "https://github.com/expressjs/session",
+      takeaway: "Session 中间件的配置项能提醒你关注 cookie、store、secret、rolling、resave 等细节。认证方案不是概念选择，而是配置和运维选择。",
+    },
+  ],
+  "MySQL Workbench 常用 SQL 命令整理": [
+    {
+      name: "mysql/mysql-server",
+      url: "https://github.com/mysql/mysql-server",
+      takeaway: "MySQL 本身是大型数据库系统。学习 SQL 命令时要意识到每条查询背后都有优化器、索引、事务和锁，而不仅是 Workbench 按钮。",
+    },
+    {
+      name: "mysqljs/mysql",
+      url: "https://github.com/mysqljs/mysql",
+      takeaway: "Node 连接 MySQL 的驱动示例能补充参数化查询、连接池和错误处理。写 SQL 时不要只会命令，还要考虑应用层如何安全执行。",
+    },
+  ],
+  "JavaScript 判断数据类型：typeof、toString 与 Array.isArray": [
+    {
+      name: "lodash/lodash",
+      url: "https://github.com/lodash/lodash",
+      takeaway: "lodash 里有大量 isArray、isPlainObject、isDate、isNil 这类工具函数。它提醒我们类型判断最好封装成语义函数，而不是业务里到处写临时判断。",
+    },
+    {
+      name: "tc39/ecma262",
+      url: "https://github.com/tc39/ecma262",
+      takeaway: "想理解 typeof、Array.isArray、Object.prototype.toString 的边界，最终要回到 ECMAScript 规范。面试题背后是语言运行时行为。",
+    },
+  ],
+  "Node.js 模块加载机制：缓存、路径与 node_modules 查找": [
+    {
+      name: "nodejs/node",
+      url: "https://github.com/nodejs/node",
+      takeaway: "Node 仓库的 lib/internal/modules 可以帮助理解 CommonJS 和 ESM 加载差异。模块缓存、解析路径、exports 都不是黑盒。",
+    },
+    {
+      name: "browserify/resolve",
+      url: "https://github.com/browserify/resolve",
+      takeaway: "resolve 这类实现展示了包入口、扩展名、node_modules 向上查找等规则。遇到模块找不到，要按解析流程排查。",
+    },
+  ],
+  "npm 常用命令：安装、卸载、脚本、版本与发布": [
+    {
+      name: "npm/cli",
+      url: "https://github.com/npm/cli",
+      takeaway: "npm CLI 仓库和 changelog 能看到命令行为会随版本变化。团队项目要固定 Node/npm 版本，并把 lockfile 当作重要产物。",
+    },
+    {
+      name: "npm/rfcs",
+      url: "https://github.com/npm/rfcs",
+      takeaway: "npm 新行为通常先在 RFC 中讨论。遇到 install、audit、publish 行为变化时，查 RFC 和 changelog 比搜索零散答案更可靠。",
+    },
+  ],
+};
+
 const posts = [
   {
     slug: "ai-frontend-agent-workflow-2026",
@@ -829,8 +1063,23 @@ const articleLeads = {
 };
 
 posts.forEach((post) => {
-  post.content = `${articleLeads[post.slug] || ""}${playbookSection(post)}${expansionSection(post.slug)}${detailSections[post.slug] || ""}${deepSections[post.slug] || ""}`;
+  post.sources = [...post.sources, ...githubSourceTuples(post.slug)];
+  post.content = `${articleLeads[post.slug] || ""}${githubContextSection(post.slug)}${playbookSection(post)}${expansionSection(post.slug)}${detailSections[post.slug] || ""}${deepSections[post.slug] || ""}`;
 });
+
+function githubSourceTuples(slug) {
+  return (githubReferences[slug] || []).map((item) => [item.name, item.url]);
+}
+
+function githubContextSection(slug) {
+  const refs = githubReferences[slug] || [];
+  if (!refs.length) return "";
+  return `
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list">${refs.map((item) => `<li><a href="${item.url}" target="_blank" rel="nofollow noopener">${esc(item.name)}</a>：${esc(item.takeaway)}</li>`).join("")}</ul>
+  `;
+}
 
 function expansionSection(slug) {
   const sections = {
@@ -1804,7 +2053,17 @@ const express = require('express')</code></pre>
 };
 
 function legacyContent(post) {
-  return `${post.content}${legacyEnhancements[post.title] || ""}`;
+  return `${post.content}${legacyGithubContext(post.title)}${legacyEnhancements[post.title] || ""}`;
+}
+
+function legacyGithubContext(title) {
+  const refs = legacyGithubReferences[title] || [];
+  if (!refs.length) return "";
+  return `
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list">${refs.map((item) => `<li><a href="${item.url}" target="_blank" rel="nofollow noopener">${esc(item.name)}</a>：${esc(item.takeaway)}</li>`).join("")}</ul>
+  `;
 }
 
 function esc(value) {
@@ -2190,6 +2449,9 @@ function writeCss() {
 .ai-note{border-left:4px solid #29d;padding:.8rem 1rem;background:rgba(41,157,221,.1);border-radius:0 6px 6px 0}
 .ai-pain-list{padding-left:1.25rem}
 .ai-pain-list li{margin:.55rem 0}
+.ai-github-list{padding-left:1.25rem;border-left:4px solid rgba(36,41,47,.18);background:rgba(127,127,127,.05);border-radius:0 8px 8px 0;padding-top:.7rem;padding-bottom:.7rem}
+.ai-github-list li{margin:.6rem 0}
+.ai-github-list a{font-weight:700}
 .ai-decision-flow{margin:1rem 0 1.75rem;padding:1rem;border:1px solid rgba(127,127,127,.22);border-radius:8px;background:rgba(127,127,127,.05);overflow-x:auto}
 .ai-flow-row{display:flex;align-items:center;justify-content:center;gap:.75rem;min-width:680px;margin:.35rem 0}
 .ai-flow-row.ai-flow-end{margin-top:.9rem}

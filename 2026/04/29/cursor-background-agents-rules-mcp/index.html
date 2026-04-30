@@ -72,8 +72,8 @@
               <h1 style="display:none">Cursor Background Agents、Rules 与 MCP：把设计、任务和代码连起来</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
-                <span><i class="iconfont icon-chart"></i> 2765 字</span>
-                <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
+                <span><i class="iconfont icon-chart"></i> 3031 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 7 分钟</span>
               </div>
               <div class="ai-tags"><a class="ai-chip" href="/tags/Cursor/">Cursor</a><a class="ai-chip" href="/tags/MCP/">MCP</a><a class="ai-chip" href="/tags/Rules/">Rules</a></div>
               <div class="markdown-body">
@@ -82,6 +82,10 @@
                 
       <p>Cursor、Rules、MCP、Background Agents 组合起来很强，但也很容易乱。没有 Rules，Agent 会猜项目约定；MCP 接太多，权限和上下文会失控；后台任务写得开放，产物就会变成大量主观改动。</p>
       <p>这篇讲一个更稳的顺序：先写项目规则，再接最少 MCP，再给后台 Agent 明确边界，最后用证据审查远程分支。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai/tree/main/.cursor" target="_blank" rel="nofollow noopener">vercel/ai .cursor</a>：真实仓库会把 Cursor 规则放在版本控制里，而不是靠个人编辑器记忆。规则文件越贴近目录和任务，后台 Agent 越少猜。</li><li><a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="nofollow noopener">modelcontextprotocol/servers</a>：MCP 生态里工具很多，但前端项目不该一口气全接。先接设计、组件、浏览器，再扩展工单和部署，权限边界更可控。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>Cursor 能改代码，但没有 Rules 时会不断猜项目约定。</li><li>MCP 接太多工具，上下文变复杂，权限也变模糊。</li><li>Background Agent 任务写得开放，结果生成大量主观改动。</li><li>远程分支缺少证据，只给“完成了”的总结。</li></ul>
@@ -179,7 +183,7 @@ PR 描述必须包含测试结果。</code></pre>
       <h2>Background Agent 的验收方式</h2>
       <p>远程 Agent 交付后，要求它写出“我修改了什么、为什么这么改、跑了哪些命令、哪些没跑、还剩什么风险”。如果 PR 描述只有泛泛总结，说明它没有形成可审查交付。你要的是工程证据，不是漂亮描述。</p>
   
-                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.cursor.com/en/background-agents" target="_blank" rel="nofollow noopener">Cursor Background Agents</a></li><li><a href="https://docs.cursor.com/en/context/rules" target="_blank" rel="nofollow noopener">Cursor Rules</a></li><li><a href="https://docs.cursor.com/en/context/mcp" target="_blank" rel="nofollow noopener">Cursor Model Context Protocol</a></li><li><a href="https://cursor.com/blog/agent-computer-use" target="_blank" rel="nofollow noopener">Cursor agents can now control their own computers</a></li><li><a href="https://www.builder.io/m/explainers/best-cursor-ai-prompts-for-coding" target="_blank" rel="nofollow noopener">How to Write Cursor AI Prompts That Don't Waste Your Time</a></li></ul>
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.cursor.com/en/background-agents" target="_blank" rel="nofollow noopener">Cursor Background Agents</a></li><li><a href="https://docs.cursor.com/en/context/rules" target="_blank" rel="nofollow noopener">Cursor Rules</a></li><li><a href="https://docs.cursor.com/en/context/mcp" target="_blank" rel="nofollow noopener">Cursor Model Context Protocol</a></li><li><a href="https://cursor.com/blog/agent-computer-use" target="_blank" rel="nofollow noopener">Cursor agents can now control their own computers</a></li><li><a href="https://www.builder.io/m/explainers/best-cursor-ai-prompts-for-coding" target="_blank" rel="nofollow noopener">How to Write Cursor AI Prompts That Don't Waste Your Time</a></li><li><a href="https://github.com/vercel/ai/tree/main/.cursor" target="_blank" rel="nofollow noopener">vercel/ai .cursor</a></li><li><a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="nofollow noopener">modelcontextprotocol/servers</a></li></ul>
               </div>
               <hr>
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>

@@ -72,7 +72,7 @@
               <h1 style="display:none">Codex 云端并行任务：前端重构可以拆成十分钟的小队列</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
-                <span><i class="iconfont icon-chart"></i> 2951 字</span>
+                <span><i class="iconfont icon-chart"></i> 3240 字</span>
                 <span><i class="iconfont icon-clock-fill"></i> 7 分钟</span>
               </div>
               <div class="ai-tags"><a class="ai-chip" href="/tags/Codex/">Codex</a><a class="ai-chip" href="/tags/Agent/">Agent</a><a class="ai-chip" href="/tags/%E9%87%8D%E6%9E%84/">重构</a></div>
@@ -82,6 +82,10 @@
                 
       <p>云端 Agent 最适合做并行任务，但前提是任务已经被拆清楚。前端重构一旦范围失控，AI 会同时碰到公共组件、样式 token、测试、文档和业务页面，最后生成一个没人敢 Review 的大 PR。</p>
       <p>这篇把“云端并行”拆成一个可执行流程：如何判断重构是否适合 Agent，如何给每个 Agent 分配 ownership，如何合并多个分支，如何避免单分支通过但集成失败。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a>：monorepo 的 packages、examples、content、tools 分层很适合作为拆任务参考：公共 API、示例、文档、工具链不要混在一个 Agent 任务里改。</li><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a>：大型前端工具仓库通常按包、文档、测试、示例分区。云端并行重构也应该按 ownership 分区，降低冲突和 Review 成本。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>重构范围一大，AI 改动分散，Review 成本超过手写。</li><li>多个 Agent 同时改公共组件，最后冲突和行为回归一起出现。</li><li>云端环境跑过，不代表本地、CI、浏览器都通过。</li><li>没有拆分策略，长任务变成不可回滚的大 PR。</li></ul>
@@ -172,7 +176,7 @@
       <h2>什么时候不该用云端 Agent</h2>
       <p>如果任务需要频繁问产品、依赖设计确认、涉及灰度策略、需要访问私有生产数据，云端 Agent 只能做辅助分析。真正的改动应该在人类掌控下完成。云端能力越强，越要把任务卡写得像测试用例一样明确。</p>
   
-                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://openai.com/index/introducing-the-codex-app/" target="_blank" rel="nofollow noopener">Introducing the Codex app</a></li><li><a href="https://platform.openai.com/docs/codex" target="_blank" rel="nofollow noopener">Codex cloud</a></li><li><a href="https://platform.openai.com/docs/docs-mcp" target="_blank" rel="nofollow noopener">OpenAI Docs MCP</a></li></ul>
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://openai.com/index/introducing-the-codex-app/" target="_blank" rel="nofollow noopener">Introducing the Codex app</a></li><li><a href="https://platform.openai.com/docs/codex" target="_blank" rel="nofollow noopener">Codex cloud</a></li><li><a href="https://platform.openai.com/docs/docs-mcp" target="_blank" rel="nofollow noopener">OpenAI Docs MCP</a></li><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a></li><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a></li></ul>
               </div>
               <hr>
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>

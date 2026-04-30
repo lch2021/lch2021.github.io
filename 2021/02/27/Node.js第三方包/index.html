@@ -72,8 +72,8 @@
               <h1 style="display:none">Node.js 常用第三方包：从 cors 到 bcrypt</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2021-02-27</span>
-                <span><i class="iconfont icon-chart"></i> 1939 字</span>
-                <span><i class="iconfont icon-clock-fill"></i> 4 分钟</span>
+                <span><i class="iconfont icon-chart"></i> 2217 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 5 分钟</span>
               </div>
               <div class="markdown-body">
       <h2>为什么要熟悉常用包</h2>
@@ -110,6 +110,10 @@ const port = process.env.PORT || 3000</code></pre>
       <h2>选择第三方包的标准</h2>
       <ul><li>是否仍在维护。</li><li>下载量和社区使用情况。</li><li>安全漏洞记录。</li><li>API 是否简单稳定。</li><li>是否真的需要引入，而不是几行原生代码可解决。</li></ul>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/expressjs/cors" target="_blank" rel="nofollow noopener">expressjs/cors</a>：cors 看似只是几行中间件，生产配置却必须收窄 origin、credentials 和预检响应。安全边界应该写进配置，而不是散落在业务代码里。</li><li><a href="https://github.com/auth0/node-jsonwebtoken" target="_blank" rel="nofollow noopener">auth0/node-jsonwebtoken</a>：jsonwebtoken 的 README 明确区分 sign、verify、错误类型和算法。使用安全包时要读官方仓库说明，不要只复制最短示例。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>包装了功能但不知道风险：</strong>例如 cors 全开放、JWT 密钥写死、上传目录不限制。</li><li><strong>所有依赖都装进 dependencies：</strong>构建工具、测试工具和运行依赖混在一起，部署体积变大。</li><li><strong>参数校验只放前端：</strong>接口被脚本直接调用时，后端没有兜底。</li><li><strong>密码处理不规范：</strong>明文保存或使用普通加密，安全风险很高。</li></ul>
       <h2>后端依赖选择流程</h2>

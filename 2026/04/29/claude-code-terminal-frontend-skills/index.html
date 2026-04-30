@@ -72,8 +72,8 @@
               <h1 style="display:none">Claude Code 在终端里的前端用法：把重复流程做成可复用技能</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
-                <span><i class="iconfont icon-chart"></i> 2719 字</span>
-                <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
+                <span><i class="iconfont icon-chart"></i> 3016 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 7 分钟</span>
               </div>
               <div class="ai-tags"><a class="ai-chip" href="/tags/Claude%20Code/">Claude Code</a><a class="ai-chip" href="/tags/%E6%8A%80%E8%83%BD/">技能</a><a class="ai-chip" href="/tags/%E7%BB%88%E7%AB%AF/">终端</a></div>
               <div class="markdown-body">
@@ -82,6 +82,10 @@
                 
       <p>终端 Agent 的优势不在聊天，而在“贴近现场”：它能读日志、跑测试、看 diff、改文件。真正的问题是，很多人把错误日志扔给它后直接让它修，结果它可能删断言、改快照、绕过真实问题。</p>
       <p>这篇把 Claude Code 这类终端 Agent 当作故障处理器来设计：先定位，再假设，再最小修复，再复跑测试，最后把流程沉淀成技能卡。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai/tree/main/skills" target="_blank" rel="nofollow noopener">vercel/ai skills</a>：AI SDK 仓库提供 coding agents skill，说明“技能”可以随仓库版本演进。前端团队也可以把修测试、补 Story、查日志这类流程写成可复用卡片。</li><li><a href="https://github.com/anthropics/claude-code-action" target="_blank" rel="nofollow noopener">anthropics/claude-code-action</a>：把终端 Agent 接进 GitHub 工作流后，输入、权限和输出格式都要被约束；这能反推本地 CLI 使用时也要保留命令证据。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>终端报错很多，开发者把完整日志丢给 AI 后得到泛泛建议。</li><li>Agent 直接改测试，让红灯变绿但问题没有修。</li><li>重复流程没有沉淀，每次修测试都重新解释项目规则。</li><li>命令权限不清晰，安装依赖、改锁文件、部署容易失控。</li></ul>
@@ -181,7 +185,7 @@
       </ul>
       <p>终端 Agent 的优势是贴近真实工程环境，但这也是风险来源。它越能跑命令，越需要明确哪些命令可以自动执行，哪些必须停下来问。</p>
   
-                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="nofollow noopener">Claude Code overview</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/mcp" target="_blank" rel="nofollow noopener">Connect Claude Code to tools via MCP</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents" target="_blank" rel="nofollow noopener">Claude Code subagents</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/hooks" target="_blank" rel="nofollow noopener">Claude Code hooks reference</a></li></ul>
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="nofollow noopener">Claude Code overview</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/mcp" target="_blank" rel="nofollow noopener">Connect Claude Code to tools via MCP</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents" target="_blank" rel="nofollow noopener">Claude Code subagents</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/hooks" target="_blank" rel="nofollow noopener">Claude Code hooks reference</a></li><li><a href="https://github.com/vercel/ai/tree/main/skills" target="_blank" rel="nofollow noopener">vercel/ai skills</a></li><li><a href="https://github.com/anthropics/claude-code-action" target="_blank" rel="nofollow noopener">anthropics/claude-code-action</a></li></ul>
               </div>
               <hr>
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>

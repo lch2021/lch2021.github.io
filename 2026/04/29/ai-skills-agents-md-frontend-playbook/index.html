@@ -72,7 +72,7 @@
               <h1 style="display:none">把 AI 能力技能化：AGENTS.md、Rules、Instructions 的前端写法</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
-                <span><i class="iconfont icon-chart"></i> 2508 字</span>
+                <span><i class="iconfont icon-chart"></i> 2763 字</span>
                 <span><i class="iconfont icon-clock-fill"></i> 6 分钟</span>
               </div>
               <div class="ai-tags"><a class="ai-chip" href="/tags/%E6%8A%80%E8%83%BD/">技能</a><a class="ai-chip" href="/tags/AGENTS.md/">AGENTS.md</a><a class="ai-chip" href="/tags/%E5%9B%A2%E9%98%9F%E8%A7%84%E8%8C%83/">团队规范</a></div>
@@ -82,6 +82,10 @@
                 
       <p>AI 反复犯同一个错，通常不是模型问题，而是团队没有把约定写成可执行规则。老成员知道不能直接写 button、知道要复用 EmptyState、知道移动端不能横向滚动，但 Agent 不知道。</p>
       <p>这篇讲如何把 Review 返工点变成 AGENTS.md、Rules 和技能卡，让 AI 每次开工前先读规则，而不是每次都靠你口头纠正。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/openai/codex/blob/main/AGENTS.md" target="_blank" rel="nofollow noopener">openai/codex AGENTS.md</a>：AGENTS.md 应该像工程接口一样说明构建、测试、风格和限制。规则短、硬、可验证，比口号式规范更容易被 Agent 遵守。</li><li><a href="https://github.com/vercel/ai/blob/main/AGENTS.md" target="_blank" rel="nofollow noopener">vercel/ai AGENTS.md</a>：大型仓库会把 Agent 可执行的约束放在根目录，方便本地、云端和不同编辑器复用同一套规则。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>团队约定只在老成员脑子里，AI 每次都猜错。</li><li>规则文档写成口号，无法验证也无法执行。</li><li>不同工具各写一套提示词，维护成本高。</li><li>Review 中反复指出同一类问题，却没有沉淀成规则。</li></ul>
@@ -192,7 +196,7 @@ tests:
 5. 输出文件列表和验证结果。</code></pre>
       <p>技能卡的价值是让团队少说重复话。只要流程稳定，就能让不同人、不同 Agent 都按同一套质量底线交付。</p>
   
-                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://platform.openai.com/docs/docs-mcp" target="_blank" rel="nofollow noopener">OpenAI Docs MCP</a></li><li><a href="https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot" target="_blank" rel="nofollow noopener">Adding repository custom instructions for GitHub Copilot</a></li><li><a href="https://docs.cursor.com/en/context/rules" target="_blank" rel="nofollow noopener">Cursor Rules</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents" target="_blank" rel="nofollow noopener">Claude Code subagents</a></li><li><a href="https://www.builder.io/m/explainers/best-cursor-ai-prompts-for-coding" target="_blank" rel="nofollow noopener">How to Write Cursor AI Prompts That Don't Waste Your Time</a></li></ul>
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://platform.openai.com/docs/docs-mcp" target="_blank" rel="nofollow noopener">OpenAI Docs MCP</a></li><li><a href="https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot" target="_blank" rel="nofollow noopener">Adding repository custom instructions for GitHub Copilot</a></li><li><a href="https://docs.cursor.com/en/context/rules" target="_blank" rel="nofollow noopener">Cursor Rules</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents" target="_blank" rel="nofollow noopener">Claude Code subagents</a></li><li><a href="https://www.builder.io/m/explainers/best-cursor-ai-prompts-for-coding" target="_blank" rel="nofollow noopener">How to Write Cursor AI Prompts That Don't Waste Your Time</a></li><li><a href="https://github.com/openai/codex/blob/main/AGENTS.md" target="_blank" rel="nofollow noopener">openai/codex AGENTS.md</a></li><li><a href="https://github.com/vercel/ai/blob/main/AGENTS.md" target="_blank" rel="nofollow noopener">vercel/ai AGENTS.md</a></li></ul>
               </div>
               <hr>
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>

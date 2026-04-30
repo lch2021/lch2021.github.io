@@ -72,7 +72,7 @@
               <h1 style="display:none">用 GitHub Copilot Coding Agent 做前端 PR：任务边界比提示词更重要</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
-                <span><i class="iconfont icon-chart"></i> 3448 字</span>
+                <span><i class="iconfont icon-chart"></i> 3725 字</span>
                 <span><i class="iconfont icon-clock-fill"></i> 8 分钟</span>
               </div>
               <div class="ai-tags"><a class="ai-chip" href="/tags/GitHub%20Copilot/">GitHub Copilot</a><a class="ai-chip" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5/">代码审查</a><a class="ai-chip" href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B/">前端工程</a></div>
@@ -82,6 +82,10 @@
                 
       <p>Copilot coding agent 的核心价值不是“帮你写几行代码”，而是把明确的 issue 变成可审查 PR。但如果 issue 写得像口头需求，PR 也会像猜谜结果。前端场景里，PR 还会涉及状态、组件库、移动端、可访问性、埋点和接口兼容，不能只看 CI 是否绿色。</p>
       <p>这篇重点讲：什么样的 issue 适合交给 Copilot，PR 里应该审什么，如何让 Copilot 按 Review 继续迭代，以及如何防止 AI 为了通过测试而修改错误的地方。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a>：大型开源仓库会把贡献规范、Agent 指令、CI、变更集和 examples 放在一起。写给 Copilot 的 issue 也应该像给开源维护者的任务说明一样清楚。</li><li><a href="https://github.com/github/docs" target="_blank" rel="nofollow noopener">github/docs</a>：文档型仓库的 PR 通常要求范围清晰、证据明确、Review 可追踪。Copilot PR 也要用同样标准审，而不是只看自动生成是否顺眼。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>Issue 写得太泛，Copilot 只能按字面猜业务意图。</li><li>PR 看起来能跑，但漏掉权限、错误态、埋点或移动端。</li><li>Agent 为了通过测试修改快照或删除断言。</li><li>仓库没有 instructions，导致每次都重复解释组件规范。</li></ul>
@@ -198,7 +202,7 @@ PR 描述必须写明：性能改动点、测试结果、未覆盖风险。</cod
       <h2>给团队的落地建议</h2>
       <p>可以先建立一个“Copilot 可接任务”标签。只有具备明确范围、验收命令和低风险边界的 issue 才打这个标签。这样比让所有 issue 都自动分配给 Agent 更稳，也方便团队总结哪些任务真的提效。</p>
   
-                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.github.com/en/copilot/concepts/coding-agent/about-copilot-coding-agent" target="_blank" rel="nofollow noopener">About GitHub Copilot coding agent</a></li><li><a href="https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot" target="_blank" rel="nofollow noopener">Adding repository custom instructions for GitHub Copilot</a></li><li><a href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode" target="_blank" rel="nofollow noopener">VS Code Chat and agent mode overview</a></li></ul>
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.github.com/en/copilot/concepts/coding-agent/about-copilot-coding-agent" target="_blank" rel="nofollow noopener">About GitHub Copilot coding agent</a></li><li><a href="https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot" target="_blank" rel="nofollow noopener">Adding repository custom instructions for GitHub Copilot</a></li><li><a href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode" target="_blank" rel="nofollow noopener">VS Code Chat and agent mode overview</a></li><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a></li><li><a href="https://github.com/github/docs" target="_blank" rel="nofollow noopener">github/docs</a></li></ul>
               </div>
               <hr>
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>

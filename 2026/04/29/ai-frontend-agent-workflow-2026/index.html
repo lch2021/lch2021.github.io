@@ -72,8 +72,8 @@
               <h1 style="display:none">2026 前端 AI 提效总览：从代码补全到多代理交付</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2026年4月29日 下午</span>
-                <span><i class="iconfont icon-chart"></i> 3643 字</span>
-                <span><i class="iconfont icon-clock-fill"></i> 8 分钟</span>
+                <span><i class="iconfont icon-chart"></i> 3978 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 9 分钟</span>
               </div>
               <div class="ai-tags"><a class="ai-chip" href="/tags/AI%E6%8F%90%E6%95%88/">AI提效</a><a class="ai-chip" href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B/">前端工程</a><a class="ai-chip" href="/tags/Agent/">Agent</a></div>
               <div class="markdown-body">
@@ -82,6 +82,10 @@
                 
       <p>前端团队用 AI 最容易踩的坑，是把它当成一个“更会写代码的搜索框”。真实项目里，AI 生成的代码如果没有上下文、范围、验证和审查，很快就会变成返工。更靠谱的方式，是把 AI 放进工程流程：先判断任务是否适合交给 Agent，再准备上下文，再让它做小范围改动，最后用测试和人工审查兜底。</p>
       <p>这篇不再罗列工具名，而是从前端工作流本身出发：哪些痛点适合 AI，哪些不能交给 AI，如何设计流程图，如何把一次 AI 改动变成可合并、可回滚、可复盘的工程交付。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a>：仓库里同时存在 AGENTS.md、CLAUDE.md、.cursor、examples、packages 和 skills，说明成熟 AI 工程不是只写 prompt，而是把规则、示例、包边界和 Agent 技能一起维护。</li><li><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="nofollow noopener">ChromeDevTools/chrome-devtools-mcp</a>：DevTools MCP 把浏览器调试能力包装成 Agent 可调用工具，适合解释为什么前端 AI 工作流要包含“真实页面验证”，而不是停在代码生成。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>把 AI 当聊天框，一句“帮我优化页面”只会得到无法验收的建议。</li><li>上下文缺失，Agent 不知道组件库、路由、接口错误态和移动端断点。</li><li>任务过大，一次要求它重构整个模块，最后 diff 很大但没人敢合。</li><li>没有质量闭环，生成代码后不跑测试、不看截图、不补回归用例。</li></ul>
@@ -194,7 +198,7 @@
 输出：实现摘要、测试结果、风险、需要人工确认的点。</code></pre>
       <p>这个模板看起来比一句 prompt 麻烦，但它能显著减少返工。因为 Agent 最怕的不是任务难，而是不知道边界。边界越清楚，AI 生成的代码越像工程结果，而不是随机灵感。</p>
   
-                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://openai.com/index/introducing-the-codex-app/" target="_blank" rel="nofollow noopener">Introducing the Codex app</a></li><li><a href="https://platform.openai.com/docs/codex" target="_blank" rel="nofollow noopener">Codex cloud</a></li><li><a href="https://docs.github.com/en/copilot/concepts/coding-agent/about-copilot-coding-agent" target="_blank" rel="nofollow noopener">About GitHub Copilot coding agent</a></li><li><a href="https://cursor.com/blog/agent-computer-use" target="_blank" rel="nofollow noopener">Cursor agents can now control their own computers</a></li><li><a href="https://github.blog/news-insights/research/survey-reveals-ais-impact-on-the-developer-experience/" target="_blank" rel="nofollow noopener">GitHub Copilot Developer Survey 2024</a></li></ul>
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://openai.com/index/introducing-the-codex-app/" target="_blank" rel="nofollow noopener">Introducing the Codex app</a></li><li><a href="https://platform.openai.com/docs/codex" target="_blank" rel="nofollow noopener">Codex cloud</a></li><li><a href="https://docs.github.com/en/copilot/concepts/coding-agent/about-copilot-coding-agent" target="_blank" rel="nofollow noopener">About GitHub Copilot coding agent</a></li><li><a href="https://cursor.com/blog/agent-computer-use" target="_blank" rel="nofollow noopener">Cursor agents can now control their own computers</a></li><li><a href="https://github.blog/news-insights/research/survey-reveals-ais-impact-on-the-developer-experience/" target="_blank" rel="nofollow noopener">GitHub Copilot Developer Survey 2024</a></li><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a></li><li><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="nofollow noopener">ChromeDevTools/chrome-devtools-mcp</a></li></ul>
               </div>
               <hr>
               <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>

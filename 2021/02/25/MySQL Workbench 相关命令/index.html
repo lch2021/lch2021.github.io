@@ -72,8 +72,8 @@
               <h1 style="display:none">MySQL Workbench 常用 SQL 命令整理</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2021-02-25</span>
-                <span><i class="iconfont icon-chart"></i> 1888 字</span>
-                <span><i class="iconfont icon-clock-fill"></i> 4 分钟</span>
+                <span><i class="iconfont icon-chart"></i> 2149 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 5 分钟</span>
               </div>
               <div class="markdown-body">
       <h2>SQL 学习重点</h2>
@@ -105,6 +105,10 @@ select max(age), min(age), avg(age) from users;</code></pre>
       <h2>实践建议</h2>
       <p>写 SQL 时先写 select 验证结果，再写 update/delete。重要操作开启事务，确认无误后 commit，出错 rollback。</p>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/mysql/mysql-server" target="_blank" rel="nofollow noopener">mysql/mysql-server</a>：MySQL 本身是大型数据库系统。学习 SQL 命令时要意识到每条查询背后都有优化器、索引、事务和锁，而不仅是 Workbench 按钮。</li><li><a href="https://github.com/mysqljs/mysql" target="_blank" rel="nofollow noopener">mysqljs/mysql</a>：Node 连接 MySQL 的驱动示例能补充参数化查询、连接池和错误处理。写 SQL 时不要只会命令，还要考虑应用层如何安全执行。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>update/delete 忘记 where：</strong>学习阶段最容易出现的高风险操作。</li><li><strong>只会 select *：</strong>字段越多越慢，也容易把密码、token 等敏感字段查出来。</li><li><strong>分页越往后越慢：</strong>大 offset 会扫描并丢弃大量数据。</li><li><strong>不知道事务怎么兜底：</strong>多条相关写操作中途失败后，数据可能半成功半失败。</li></ul>
       <h2>SQL 编写流程</h2>

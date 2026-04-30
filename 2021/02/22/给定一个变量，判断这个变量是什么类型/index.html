@@ -72,8 +72,8 @@
               <h1 style="display:none">JavaScript 判断数据类型：typeof、toString 与 Array.isArray</h1>
               <div class="ai-post-meta">
                 <span><i class="iconfont icon-date-fill"></i> 2021-02-22</span>
-                <span><i class="iconfont icon-chart"></i> 1978 字</span>
-                <span><i class="iconfont icon-clock-fill"></i> 4 分钟</span>
+                <span><i class="iconfont icon-chart"></i> 2275 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 5 分钟</span>
               </div>
               <div class="markdown-body">
       <h2>JavaScript 有哪些类型</h2>
@@ -110,6 +110,10 @@ Object.prototype.toString.call(null)      // [object Null]</code></pre>
       <h2>实践建议</h2>
       <ul><li>判断数组用 Array.isArray。</li><li>判断基本类型用 typeof。</li><li>写工具函数时用 Object.prototype.toString。</li><li>判断 null 要单独处理。</li></ul>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/lodash/lodash" target="_blank" rel="nofollow noopener">lodash/lodash</a>：lodash 里有大量 isArray、isPlainObject、isDate、isNil 这类工具函数。它提醒我们类型判断最好封装成语义函数，而不是业务里到处写临时判断。</li><li><a href="https://github.com/tc39/ecma262" target="_blank" rel="nofollow noopener">tc39/ecma262</a>：想理解 typeof、Array.isArray、Object.prototype.toString 的边界，最终要回到 ECMAScript 规范。面试题背后是语言运行时行为。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>typeof null 返回 object：</strong>这是历史遗留问题，面试和真实业务里都容易踩坑。</li><li><strong>数组和对象混淆：</strong>typeof [] 和 typeof {} 都是 object。</li><li><strong>instanceof 跨环境失效：</strong>iframe 或不同 JS 上下文里，原型链可能不是同一份。</li><li><strong>工具函数不统一：</strong>项目里到处写临时判断，后续边界越来越多。</li></ul>
       <h2>类型判断流程</h2>

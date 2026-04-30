@@ -8,6 +8,10 @@
       <p>前端团队用 AI 最容易踩的坑，是把它当成一个“更会写代码的搜索框”。真实项目里，AI 生成的代码如果没有上下文、范围、验证和审查，很快就会变成返工。更靠谱的方式，是把 AI 放进工程流程：先判断任务是否适合交给 Agent，再准备上下文，再让它做小范围改动，最后用测试和人工审查兜底。</p>
       <p>这篇不再罗列工具名，而是从前端工作流本身出发：哪些痛点适合 AI，哪些不能交给 AI，如何设计流程图，如何把一次 AI 改动变成可合并、可回滚、可复盘的工程交付。</p>
   
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a>：仓库里同时存在 AGENTS.md、CLAUDE.md、.cursor、examples、packages 和 skills，说明成熟 AI 工程不是只写 prompt，而是把规则、示例、包边界和 Agent 技能一起维护。</li><li><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="nofollow noopener">ChromeDevTools/chrome-devtools-mcp</a>：DevTools MCP 把浏览器调试能力包装成 Agent 可调用工具，适合解释为什么前端 AI 工作流要包含“真实页面验证”，而不是停在代码生成。</li></ul>
+  
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>把 AI 当聊天框，一句“帮我优化页面”只会得到无法验收的建议。</li><li>上下文缺失，Agent 不知道组件库、路由、接口错误态和移动端断点。</li><li>任务过大，一次要求它重构整个模块，最后 diff 很大但没人敢合。</li><li>没有质量闭环，生成代码后不跑测试、不看截图、不补回归用例。</li></ul>
       <h2>解决流程图</h2>
@@ -118,7 +122,7 @@
 验收：命令、截图尺寸、浏览器、测试账号。
 输出：实现摘要、测试结果、风险、需要人工确认的点。</code></pre>
       <p>这个模板看起来比一句 prompt 麻烦，但它能显著减少返工。因为 Agent 最怕的不是任务难，而是不知道边界。边界越清楚，AI 生成的代码越像工程结果，而不是随机灵感。</p>
-  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://openai.com/index/introducing-the-codex-app/" target="_blank" rel="nofollow noopener">Introducing the Codex app</a></li><li><a href="https://platform.openai.com/docs/codex" target="_blank" rel="nofollow noopener">Codex cloud</a></li><li><a href="https://docs.github.com/en/copilot/concepts/coding-agent/about-copilot-coding-agent" target="_blank" rel="nofollow noopener">About GitHub Copilot coding agent</a></li><li><a href="https://cursor.com/blog/agent-computer-use" target="_blank" rel="nofollow noopener">Cursor agents can now control their own computers</a></li><li><a href="https://github.blog/news-insights/research/survey-reveals-ais-impact-on-the-developer-experience/" target="_blank" rel="nofollow noopener">GitHub Copilot Developer Survey 2024</a></li></ul>]]></content>
+  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://openai.com/index/introducing-the-codex-app/" target="_blank" rel="nofollow noopener">Introducing the Codex app</a></li><li><a href="https://platform.openai.com/docs/codex" target="_blank" rel="nofollow noopener">Codex cloud</a></li><li><a href="https://docs.github.com/en/copilot/concepts/coding-agent/about-copilot-coding-agent" target="_blank" rel="nofollow noopener">About GitHub Copilot coding agent</a></li><li><a href="https://cursor.com/blog/agent-computer-use" target="_blank" rel="nofollow noopener">Cursor agents can now control their own computers</a></li><li><a href="https://github.blog/news-insights/research/survey-reveals-ais-impact-on-the-developer-experience/" target="_blank" rel="nofollow noopener">GitHub Copilot Developer Survey 2024</a></li><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a></li><li><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="nofollow noopener">ChromeDevTools/chrome-devtools-mcp</a></li></ul>]]></content>
   </entry>
 <entry>
     <title>用 GitHub Copilot Coding Agent 做前端 PR：任务边界比提示词更重要</title>
@@ -127,6 +131,10 @@
     <content type="html"><![CDATA[
       <p>Copilot coding agent 的核心价值不是“帮你写几行代码”，而是把明确的 issue 变成可审查 PR。但如果 issue 写得像口头需求，PR 也会像猜谜结果。前端场景里，PR 还会涉及状态、组件库、移动端、可访问性、埋点和接口兼容，不能只看 CI 是否绿色。</p>
       <p>这篇重点讲：什么样的 issue 适合交给 Copilot，PR 里应该审什么，如何让 Copilot 按 Review 继续迭代，以及如何防止 AI 为了通过测试而修改错误的地方。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a>：大型开源仓库会把贡献规范、Agent 指令、CI、变更集和 examples 放在一起。写给 Copilot 的 issue 也应该像给开源维护者的任务说明一样清楚。</li><li><a href="https://github.com/github/docs" target="_blank" rel="nofollow noopener">github/docs</a>：文档型仓库的 PR 通常要求范围清晰、证据明确、Review 可追踪。Copilot PR 也要用同样标准审，而不是只看自动生成是否顺眼。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>Issue 写得太泛，Copilot 只能按字面猜业务意图。</li><li>PR 看起来能跑，但漏掉权限、错误态、埋点或移动端。</li><li>Agent 为了通过测试修改快照或删除断言。</li><li>仓库没有 instructions，导致每次都重复解释组件规范。</li></ul>
@@ -242,7 +250,7 @@ PR 描述必须写明：性能改动点、测试结果、未覆盖风险。</cod
       </ul>
       <h2>给团队的落地建议</h2>
       <p>可以先建立一个“Copilot 可接任务”标签。只有具备明确范围、验收命令和低风险边界的 issue 才打这个标签。这样比让所有 issue 都自动分配给 Agent 更稳，也方便团队总结哪些任务真的提效。</p>
-  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.github.com/en/copilot/concepts/coding-agent/about-copilot-coding-agent" target="_blank" rel="nofollow noopener">About GitHub Copilot coding agent</a></li><li><a href="https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot" target="_blank" rel="nofollow noopener">Adding repository custom instructions for GitHub Copilot</a></li><li><a href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode" target="_blank" rel="nofollow noopener">VS Code Chat and agent mode overview</a></li></ul>]]></content>
+  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.github.com/en/copilot/concepts/coding-agent/about-copilot-coding-agent" target="_blank" rel="nofollow noopener">About GitHub Copilot coding agent</a></li><li><a href="https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot" target="_blank" rel="nofollow noopener">Adding repository custom instructions for GitHub Copilot</a></li><li><a href="https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode" target="_blank" rel="nofollow noopener">VS Code Chat and agent mode overview</a></li><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a></li><li><a href="https://github.com/github/docs" target="_blank" rel="nofollow noopener">github/docs</a></li></ul>]]></content>
   </entry>
 <entry>
     <title>Codex 云端并行任务：前端重构可以拆成十分钟的小队列</title>
@@ -251,6 +259,10 @@ PR 描述必须写明：性能改动点、测试结果、未覆盖风险。</cod
     <content type="html"><![CDATA[
       <p>云端 Agent 最适合做并行任务，但前提是任务已经被拆清楚。前端重构一旦范围失控，AI 会同时碰到公共组件、样式 token、测试、文档和业务页面，最后生成一个没人敢 Review 的大 PR。</p>
       <p>这篇把“云端并行”拆成一个可执行流程：如何判断重构是否适合 Agent，如何给每个 Agent 分配 ownership，如何合并多个分支，如何避免单分支通过但集成失败。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a>：monorepo 的 packages、examples、content、tools 分层很适合作为拆任务参考：公共 API、示例、文档、工具链不要混在一个 Agent 任务里改。</li><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a>：大型前端工具仓库通常按包、文档、测试、示例分区。云端并行重构也应该按 ownership 分区，降低冲突和 Review 成本。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>重构范围一大，AI 改动分散，Review 成本超过手写。</li><li>多个 Agent 同时改公共组件，最后冲突和行为回归一起出现。</li><li>云端环境跑过，不代表本地、CI、浏览器都通过。</li><li>没有拆分策略，长任务变成不可回滚的大 PR。</li></ul>
@@ -340,7 +352,7 @@ PR 描述必须写明：性能改动点、测试结果、未覆盖风险。</cod
       <p>并行任务完成后，不要按完成时间直接合并。先合并公共 API 或文档，再合并调用点，再合并测试。每合并一个分支都运行一次 typecheck，避免多个 Agent 各自通过、合起来失败。对于视觉改动，最好用同一套截图基线，不要让每个 Agent 自己判断“差不多”。</p>
       <h2>什么时候不该用云端 Agent</h2>
       <p>如果任务需要频繁问产品、依赖设计确认、涉及灰度策略、需要访问私有生产数据，云端 Agent 只能做辅助分析。真正的改动应该在人类掌控下完成。云端能力越强，越要把任务卡写得像测试用例一样明确。</p>
-  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://openai.com/index/introducing-the-codex-app/" target="_blank" rel="nofollow noopener">Introducing the Codex app</a></li><li><a href="https://platform.openai.com/docs/codex" target="_blank" rel="nofollow noopener">Codex cloud</a></li><li><a href="https://platform.openai.com/docs/docs-mcp" target="_blank" rel="nofollow noopener">OpenAI Docs MCP</a></li></ul>]]></content>
+  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://openai.com/index/introducing-the-codex-app/" target="_blank" rel="nofollow noopener">Introducing the Codex app</a></li><li><a href="https://platform.openai.com/docs/codex" target="_blank" rel="nofollow noopener">Codex cloud</a></li><li><a href="https://platform.openai.com/docs/docs-mcp" target="_blank" rel="nofollow noopener">OpenAI Docs MCP</a></li><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a></li><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a></li></ul>]]></content>
   </entry>
 <entry>
     <title>Claude Code 在终端里的前端用法：把重复流程做成可复用技能</title>
@@ -349,6 +361,10 @@ PR 描述必须写明：性能改动点、测试结果、未覆盖风险。</cod
     <content type="html"><![CDATA[
       <p>终端 Agent 的优势不在聊天，而在“贴近现场”：它能读日志、跑测试、看 diff、改文件。真正的问题是，很多人把错误日志扔给它后直接让它修，结果它可能删断言、改快照、绕过真实问题。</p>
       <p>这篇把 Claude Code 这类终端 Agent 当作故障处理器来设计：先定位，再假设，再最小修复，再复跑测试，最后把流程沉淀成技能卡。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai/tree/main/skills" target="_blank" rel="nofollow noopener">vercel/ai skills</a>：AI SDK 仓库提供 coding agents skill，说明“技能”可以随仓库版本演进。前端团队也可以把修测试、补 Story、查日志这类流程写成可复用卡片。</li><li><a href="https://github.com/anthropics/claude-code-action" target="_blank" rel="nofollow noopener">anthropics/claude-code-action</a>：把终端 Agent 接进 GitHub 工作流后，输入、权限和输出格式都要被约束；这能反推本地 CLI 使用时也要保留命令证据。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>终端报错很多，开发者把完整日志丢给 AI 后得到泛泛建议。</li><li>Agent 直接改测试，让红灯变绿但问题没有修。</li><li>重复流程没有沉淀，每次修测试都重新解释项目规则。</li><li>命令权限不清晰，安装依赖、改锁文件、部署容易失控。</li></ul>
@@ -447,7 +463,7 @@ PR 描述必须写明：性能改动点、测试结果、未覆盖风险。</cod
         <li>每次修改后必须给出文件列表和命令结果。</li>
       </ul>
       <p>终端 Agent 的优势是贴近真实工程环境，但这也是风险来源。它越能跑命令，越需要明确哪些命令可以自动执行，哪些必须停下来问。</p>
-  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="nofollow noopener">Claude Code overview</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/mcp" target="_blank" rel="nofollow noopener">Connect Claude Code to tools via MCP</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents" target="_blank" rel="nofollow noopener">Claude Code subagents</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/hooks" target="_blank" rel="nofollow noopener">Claude Code hooks reference</a></li></ul>]]></content>
+  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="nofollow noopener">Claude Code overview</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/mcp" target="_blank" rel="nofollow noopener">Connect Claude Code to tools via MCP</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents" target="_blank" rel="nofollow noopener">Claude Code subagents</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/hooks" target="_blank" rel="nofollow noopener">Claude Code hooks reference</a></li><li><a href="https://github.com/vercel/ai/tree/main/skills" target="_blank" rel="nofollow noopener">vercel/ai skills</a></li><li><a href="https://github.com/anthropics/claude-code-action" target="_blank" rel="nofollow noopener">anthropics/claude-code-action</a></li></ul>]]></content>
   </entry>
 <entry>
     <title>Cursor Background Agents、Rules 与 MCP：把设计、任务和代码连起来</title>
@@ -456,6 +472,10 @@ PR 描述必须写明：性能改动点、测试结果、未覆盖风险。</cod
     <content type="html"><![CDATA[
       <p>Cursor、Rules、MCP、Background Agents 组合起来很强，但也很容易乱。没有 Rules，Agent 会猜项目约定；MCP 接太多，权限和上下文会失控；后台任务写得开放，产物就会变成大量主观改动。</p>
       <p>这篇讲一个更稳的顺序：先写项目规则，再接最少 MCP，再给后台 Agent 明确边界，最后用证据审查远程分支。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai/tree/main/.cursor" target="_blank" rel="nofollow noopener">vercel/ai .cursor</a>：真实仓库会把 Cursor 规则放在版本控制里，而不是靠个人编辑器记忆。规则文件越贴近目录和任务，后台 Agent 越少猜。</li><li><a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="nofollow noopener">modelcontextprotocol/servers</a>：MCP 生态里工具很多，但前端项目不该一口气全接。先接设计、组件、浏览器，再扩展工单和部署，权限边界更可控。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>Cursor 能改代码，但没有 Rules 时会不断猜项目约定。</li><li>MCP 接太多工具，上下文变复杂，权限也变模糊。</li><li>Background Agent 任务写得开放，结果生成大量主观改动。</li><li>远程分支缺少证据，只给“完成了”的总结。</li></ul>
@@ -552,7 +572,7 @@ PR 描述必须包含测试结果。</code></pre>
       <p>MCP 的价值是补上下文，不是堆功能。对前端来说，第一批只接三类就够：Figma 读设计，Storybook 读组件，Playwright 操作浏览器。等团队确认权限和日志没问题，再考虑接工单、监控、文档和部署。</p>
       <h2>Background Agent 的验收方式</h2>
       <p>远程 Agent 交付后，要求它写出“我修改了什么、为什么这么改、跑了哪些命令、哪些没跑、还剩什么风险”。如果 PR 描述只有泛泛总结，说明它没有形成可审查交付。你要的是工程证据，不是漂亮描述。</p>
-  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.cursor.com/en/background-agents" target="_blank" rel="nofollow noopener">Cursor Background Agents</a></li><li><a href="https://docs.cursor.com/en/context/rules" target="_blank" rel="nofollow noopener">Cursor Rules</a></li><li><a href="https://docs.cursor.com/en/context/mcp" target="_blank" rel="nofollow noopener">Cursor Model Context Protocol</a></li><li><a href="https://cursor.com/blog/agent-computer-use" target="_blank" rel="nofollow noopener">Cursor agents can now control their own computers</a></li><li><a href="https://www.builder.io/m/explainers/best-cursor-ai-prompts-for-coding" target="_blank" rel="nofollow noopener">How to Write Cursor AI Prompts That Don't Waste Your Time</a></li></ul>]]></content>
+  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://docs.cursor.com/en/background-agents" target="_blank" rel="nofollow noopener">Cursor Background Agents</a></li><li><a href="https://docs.cursor.com/en/context/rules" target="_blank" rel="nofollow noopener">Cursor Rules</a></li><li><a href="https://docs.cursor.com/en/context/mcp" target="_blank" rel="nofollow noopener">Cursor Model Context Protocol</a></li><li><a href="https://cursor.com/blog/agent-computer-use" target="_blank" rel="nofollow noopener">Cursor agents can now control their own computers</a></li><li><a href="https://www.builder.io/m/explainers/best-cursor-ai-prompts-for-coding" target="_blank" rel="nofollow noopener">How to Write Cursor AI Prompts That Don't Waste Your Time</a></li><li><a href="https://github.com/vercel/ai/tree/main/.cursor" target="_blank" rel="nofollow noopener">vercel/ai .cursor</a></li><li><a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="nofollow noopener">modelcontextprotocol/servers</a></li></ul>]]></content>
   </entry>
 <entry>
     <title>Vercel AI SDK 6：前端开发者构建 Agent 应用的新基线</title>
@@ -561,6 +581,10 @@ PR 描述必须包含测试结果。</code></pre>
     <content type="html"><![CDATA[
       <p>AI 应用不是一个聊天框。生产环境里的前端要处理流式输出、工具调用、审批、失败、取消、重试、结构化结果和观测指标。如果这些状态没有被设计成清晰流程，模型越强，产品越不可控。</p>
       <p>这篇从前端状态机角度重新梳理 AI 应用：什么时候让模型回答，什么时候调用工具，什么时候必须让用户确认，工具失败后如何回退。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a>：AI SDK 仓库把核心包、UI、examples、tools、skills 放在一起，适合说明 AI 应用要同时处理模型调用、界面状态、工具调用和 Agent 规则。</li><li><a href="https://github.com/vercel-labs/mcp-to-ai-sdk" target="_blank" rel="nofollow noopener">vercel-labs/mcp-to-ai-sdk</a>：把 MCP 工具转成 AI SDK stub 的思路很值得借鉴：不要把远程工具裸接进产品，先收窄参数、权限和上下文。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>只做聊天框，没有把工具调用、审批、失败、取消做成状态机。</li><li>模型输出自由文本，前端靠字符串解析驱动 UI。</li><li>工具直接执行写操作，用户不知道影响范围。</li><li>没有观测指标，线上慢在哪里、失败在哪里都看不清。</li></ul>
@@ -664,7 +688,7 @@ completed：任务完成，展示结构化结果。</code></pre>
         <li>结构化输出解析失败率。</li>
       </ul>
       <p>前端工程师在 AI 应用里的价值，会越来越体现在“把不确定模型行为变成可理解、可取消、可恢复的产品体验”。</p>
-  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://vercel.com/blog/ai-sdk-6/" target="_blank" rel="nofollow noopener">Vercel AI SDK 6</a></li><li><a href="https://platform.openai.com/docs/guides/tools-remote-mcp" target="_blank" rel="nofollow noopener">OpenAI Connectors and MCP servers</a></li></ul>]]></content>
+  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://vercel.com/blog/ai-sdk-6/" target="_blank" rel="nofollow noopener">Vercel AI SDK 6</a></li><li><a href="https://platform.openai.com/docs/guides/tools-remote-mcp" target="_blank" rel="nofollow noopener">OpenAI Connectors and MCP servers</a></li><li><a href="https://github.com/vercel/ai" target="_blank" rel="nofollow noopener">vercel/ai</a></li><li><a href="https://github.com/vercel-labs/mcp-to-ai-sdk" target="_blank" rel="nofollow noopener">vercel-labs/mcp-to-ai-sdk</a></li></ul>]]></content>
   </entry>
 <entry>
     <title>Figma MCP 与 Figma Make：前端如何把设计上下文交给 AI</title>
@@ -673,6 +697,10 @@ completed：任务完成，展示结构化结果。</code></pre>
     <content type="html"><![CDATA[
       <p>设计转代码的失败，通常不是因为 AI 不会写 CSS，而是因为它只看到了截图，没有理解设计系统。一个按钮在 Figma 里不只是蓝色矩形，它可能对应组件库里的 Button、token、状态、可访问性和响应式规则。</p>
       <p>这篇强调一个前置动作：先建立设计元素到代码组件的映射，再让 AI 写代码。没有映射表，就不要进入实现阶段。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/figma/code-connect" target="_blank" rel="nofollow noopener">figma/code-connect</a>：Code Connect 的核心价值是建立设计组件和代码组件之间的映射。设计转代码前先做映射表，比让 AI 看截图直接写 CSS 更稳。</li><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a>：Storybook 的 stories 可以承接设计稿落地后的状态展示。Figma 负责设计语义，Storybook 负责工程里的组件状态。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>截图转代码只能看像不像，无法理解设计系统语义。</li><li>Agent 不知道组件映射，重复造 Button、Card、Modal。</li><li>只实现成功态，漏掉空态、错误态、长文本和移动端。</li><li>设计稿和代码 token 没对齐，后续维护成本高。</li></ul>
@@ -771,7 +799,7 @@ Filter Panel     Drawer              移动端改为底部弹层</code></pre>
       <p>映射表能提前暴露问题：如果 Agent 找不到对应组件，它应该停下来问，而不是自己写一个“看起来像”的新组件。</p>
       <h2>验收不只截图</h2>
       <p>截图对比只能发现视觉问题，不能发现键盘操作、屏幕阅读器、接口失败和长文本换行。建议设计稿实现完成后，至少补一个 story、两个 viewport 截图、一个长文本用例和一个错误态用例。这样 AI 生成的页面才真正进入工程体系。</p>
-  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server" target="_blank" rel="nofollow noopener">Guide to the Figma MCP server</a></li><li><a href="https://help.figma.com/hc/en-us/articles/39216419318551-Get-started-with-the-Figma-MCP-server" target="_blank" rel="nofollow noopener">Get started with the Figma MCP server</a></li><li><a href="https://www.figma.com/blog/figma-make-general-availability/" target="_blank" rel="nofollow noopener">Figma Make general availability</a></li></ul>]]></content>
+  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server" target="_blank" rel="nofollow noopener">Guide to the Figma MCP server</a></li><li><a href="https://help.figma.com/hc/en-us/articles/39216419318551-Get-started-with-the-Figma-MCP-server" target="_blank" rel="nofollow noopener">Get started with the Figma MCP server</a></li><li><a href="https://www.figma.com/blog/figma-make-general-availability/" target="_blank" rel="nofollow noopener">Figma Make general availability</a></li><li><a href="https://github.com/figma/code-connect" target="_blank" rel="nofollow noopener">figma/code-connect</a></li><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a></li></ul>]]></content>
   </entry>
 <entry>
     <title>Storybook MCP：让 AI 前端代码先过组件和可访问性测试</title>
@@ -780,6 +808,10 @@ Filter Panel     Drawer              移动端改为底部弹层</code></pre>
     <content type="html"><![CDATA[
       <p>AI 写 UI 最大的问题是“看起来对”。它可能猜错组件 props，只实现成功态，漏掉 a11y 和长文本。Storybook MCP 的价值是让 Agent 先读组件文档、生成 stories、运行交互测试和可访问性检查，而不是凭经验硬写。</p>
       <p>这篇用状态矩阵来约束 UI 生成：先查组件，后列状态，再写 story，最后用测试失败驱动修复。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a>：Storybook 本身就是用 stories、docs、tests 组织 UI 知识。让 Agent 先读组件文档再写页面，本质上是在复用这套工程资产。</li><li><a href="https://github.com/storybookjs/test-runner" target="_blank" rel="nofollow noopener">storybookjs/test-runner</a>：组件交互和 a11y 检查可以进入自动化流程。AI 写 UI 后必须面对测试失败，而不是只交一段 JSX。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>AI 写 UI 时猜组件 props，导致代码能编译但不符合组件库。</li><li>组件只有成功态，测试覆盖不了真实边界。</li><li>a11y 问题到 QA 或线上才暴露。</li><li>快照更新没有说明，视觉回归被悄悄吞掉。</li></ul>
@@ -869,7 +901,7 @@ Filter Panel     Drawer              移动端改为底部弹层</code></pre>
 是否检查移动端：375px / 768px / 1440px
 是否存在 a11y 风险：说明</code></pre>
       <p>当这些字段成为团队习惯后，AI 生成 UI 的质量会更稳定。Agent 不再只是写页面，而是在你的组件系统里补齐文档和测试。</p>
-  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://storybook.js.org/docs/ai/mcp/overview" target="_blank" rel="nofollow noopener">Storybook MCP server docs</a></li><li><a href="https://storybook.js.org/blog/storybook-10-3/" target="_blank" rel="nofollow noopener">Storybook 10.3</a></li></ul>]]></content>
+  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://storybook.js.org/docs/ai/mcp/overview" target="_blank" rel="nofollow noopener">Storybook MCP server docs</a></li><li><a href="https://storybook.js.org/blog/storybook-10-3/" target="_blank" rel="nofollow noopener">Storybook 10.3</a></li><li><a href="https://github.com/storybookjs/storybook" target="_blank" rel="nofollow noopener">storybookjs/storybook</a></li><li><a href="https://github.com/storybookjs/test-runner" target="_blank" rel="nofollow noopener">storybookjs/test-runner</a></li></ul>]]></content>
   </entry>
 <entry>
     <title>Playwright MCP + Chrome DevTools AI：前端调试从截图走向可执行上下文</title>
@@ -878,6 +910,10 @@ Filter Panel     Drawer              移动端改为底部弹层</code></pre>
     <content type="html"><![CDATA[
       <p>前端调试最怕“我这边复现不了”。AI 如果只看截图，仍然是在猜。Playwright MCP 和 DevTools AI 更适合组成一条证据链：复现路径、可访问性树、DOM、CSS、网络、性能和截图。</p>
       <p>这篇把调试流程拆成可执行闭环：先复现，再收集证据，再让 AI 分析，再做最小修复，最后把 bug 固化成回归测试。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/microsoft/playwright-mcp" target="_blank" rel="nofollow noopener">microsoft/playwright-mcp</a>：Playwright MCP 强调用结构化可访问性快照操作页面，这比纯截图更适合生成稳定复现步骤。</li><li><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="nofollow noopener">ChromeDevTools/chrome-devtools-mcp</a>：Chrome DevTools MCP 把网络、性能、控制台和截图纳入 Agent 调试上下文。调试文章应围绕证据链，而不是围绕工具按钮。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>Bug 描述停留在“点不了”“卡了”，没有稳定复现步骤。</li><li>AI 只看截图，无法理解 DOM、网络、性能上下文。</li><li>修完没有补回归测试，同类问题反复出现。</li><li>浏览器自动化误用真实账号或生产数据。</li></ul>
@@ -970,7 +1006,7 @@ Filter Panel     Drawer              移动端改为底部弹层</code></pre>
       <p>如果修复的是遮挡问题，就补可见性和可点击测试；如果修复的是请求竞态，就补等待逻辑和 mock；如果修复的是性能问题，就至少补一个轻量性能断言或 trace 检查。否则同类 bug 下次还会回来。</p>
       <h2>调试中的安全边界</h2>
       <p>浏览器自动化最容易碰到真实账号和真实数据。用于 Agent 的账号应该只在测试环境生效，且数据可重置。生产环境排查时，优先让 AI 分析截图、DOM 和网络元数据，不要让它执行写操作。</p>
-  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://playwright.dev/docs/getting-started-mcp" target="_blank" rel="nofollow noopener">Playwright MCP</a></li><li><a href="https://developer.chrome.com/docs/devtools/ai-assistance/performance" target="_blank" rel="nofollow noopener">Chrome DevTools AI assistance</a></li><li><a href="https://developer.chrome.com/blog/new-in-devtools-147/" target="_blank" rel="nofollow noopener">What's new in DevTools Chrome 147</a></li><li><a href="https://developer.chrome.com/docs/devtools/ai-assistance/code-generation" target="_blank" rel="nofollow noopener">Generate code in Console and Sources</a></li></ul>]]></content>
+  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://playwright.dev/docs/getting-started-mcp" target="_blank" rel="nofollow noopener">Playwright MCP</a></li><li><a href="https://developer.chrome.com/docs/devtools/ai-assistance/performance" target="_blank" rel="nofollow noopener">Chrome DevTools AI assistance</a></li><li><a href="https://developer.chrome.com/blog/new-in-devtools-147/" target="_blank" rel="nofollow noopener">What's new in DevTools Chrome 147</a></li><li><a href="https://developer.chrome.com/docs/devtools/ai-assistance/code-generation" target="_blank" rel="nofollow noopener">Generate code in Console and Sources</a></li><li><a href="https://github.com/microsoft/playwright-mcp" target="_blank" rel="nofollow noopener">microsoft/playwright-mcp</a></li><li><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp" target="_blank" rel="nofollow noopener">ChromeDevTools/chrome-devtools-mcp</a></li></ul>]]></content>
   </entry>
 <entry>
     <title>把 AI 能力技能化：AGENTS.md、Rules、Instructions 的前端写法</title>
@@ -979,6 +1015,10 @@ Filter Panel     Drawer              移动端改为底部弹层</code></pre>
     <content type="html"><![CDATA[
       <p>AI 反复犯同一个错，通常不是模型问题，而是团队没有把约定写成可执行规则。老成员知道不能直接写 button、知道要复用 EmptyState、知道移动端不能横向滚动，但 Agent 不知道。</p>
       <p>这篇讲如何把 Review 返工点变成 AGENTS.md、Rules 和技能卡，让 AI 每次开工前先读规则，而不是每次都靠你口头纠正。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/openai/codex/blob/main/AGENTS.md" target="_blank" rel="nofollow noopener">openai/codex AGENTS.md</a>：AGENTS.md 应该像工程接口一样说明构建、测试、风格和限制。规则短、硬、可验证，比口号式规范更容易被 Agent 遵守。</li><li><a href="https://github.com/vercel/ai/blob/main/AGENTS.md" target="_blank" rel="nofollow noopener">vercel/ai AGENTS.md</a>：大型仓库会把 Agent 可执行的约束放在根目录，方便本地、云端和不同编辑器复用同一套规则。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>团队约定只在老成员脑子里，AI 每次都猜错。</li><li>规则文档写成口号，无法验证也无法执行。</li><li>不同工具各写一套提示词，维护成本高。</li><li>Review 中反复指出同一类问题，却没有沉淀成规则。</li></ul>
@@ -1088,7 +1128,7 @@ tests:
 4. 补 story 或测试。
 5. 输出文件列表和验证结果。</code></pre>
       <p>技能卡的价值是让团队少说重复话。只要流程稳定，就能让不同人、不同 Agent 都按同一套质量底线交付。</p>
-  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://platform.openai.com/docs/docs-mcp" target="_blank" rel="nofollow noopener">OpenAI Docs MCP</a></li><li><a href="https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot" target="_blank" rel="nofollow noopener">Adding repository custom instructions for GitHub Copilot</a></li><li><a href="https://docs.cursor.com/en/context/rules" target="_blank" rel="nofollow noopener">Cursor Rules</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents" target="_blank" rel="nofollow noopener">Claude Code subagents</a></li><li><a href="https://www.builder.io/m/explainers/best-cursor-ai-prompts-for-coding" target="_blank" rel="nofollow noopener">How to Write Cursor AI Prompts That Don't Waste Your Time</a></li></ul>]]></content>
+  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://platform.openai.com/docs/docs-mcp" target="_blank" rel="nofollow noopener">OpenAI Docs MCP</a></li><li><a href="https://docs.github.com/en/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot" target="_blank" rel="nofollow noopener">Adding repository custom instructions for GitHub Copilot</a></li><li><a href="https://docs.cursor.com/en/context/rules" target="_blank" rel="nofollow noopener">Cursor Rules</a></li><li><a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents" target="_blank" rel="nofollow noopener">Claude Code subagents</a></li><li><a href="https://www.builder.io/m/explainers/best-cursor-ai-prompts-for-coding" target="_blank" rel="nofollow noopener">How to Write Cursor AI Prompts That Don't Waste Your Time</a></li><li><a href="https://github.com/openai/codex/blob/main/AGENTS.md" target="_blank" rel="nofollow noopener">openai/codex AGENTS.md</a></li><li><a href="https://github.com/vercel/ai/blob/main/AGENTS.md" target="_blank" rel="nofollow noopener">vercel/ai AGENTS.md</a></li></ul>]]></content>
   </entry>
 <entry>
     <title>前端使用 AI Agent 的安全清单：MCP、权限、提示注入与审查</title>
@@ -1097,6 +1137,10 @@ tests:
     <content type="html"><![CDATA[
       <p>当前端 Agent 能读 issue、网页、Figma、日志、源码，还能通过 MCP 调工具时，它就不是聊天助手，而是自动化系统。自动化系统必须有权限、审批、隔离和审计。</p>
       <p>这篇不讲空泛安全口号，而是按真实场景拆：外部内容如何防提示注入，MCP 工具如何分级，AI PR 该审哪些安全点，哪些操作绝对不能自动化。</p>
+  
+      <h2>GitHub 源码观察</h2>
+      <p>这次重写特意参考了 GitHub 上的真实仓库。它们的价值不只是提供链接，而是能把文章从“概念说明”拉回到“工程现场”：目录怎么分、规则怎么写、测试怎么放、工具权限怎么收。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vercel-labs/mcp-to-ai-sdk" target="_blank" rel="nofollow noopener">vercel-labs/mcp-to-ai-sdk</a>：这个项目明确把 MCP stub 生成和安全边界放在一起，提醒团队要防止远程工具新增危险能力后被 Agent 无感调用。</li><li><a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="nofollow noopener">modelcontextprotocol/servers</a>：MCP server 越多，供应链和权限面越大。前端接入 MCP 时要记录来源、版本、维护者和写操作范围。</li></ul>
   
       <h2>核心痛点</h2>
       <ul class="ai-pain-list"><li>Agent 能读外部内容，却分不清数据和指令。</li><li>MCP 工具权限过大，读写边界不清晰。</li><li>AI PR 新增依赖、网络请求、配置改动没人重点看。</li><li>缺少审计记录，事后不知道它读了什么、改了什么、调用了什么。</li></ul>
@@ -1180,7 +1224,7 @@ tests:
       <p>团队至少要能回答三个问题：Agent 读了什么，调用了什么工具，改了哪些文件。没有审计记录，就很难排查泄露、误操作和越权访问。对于 MCP server，也要记录来源、版本、权限范围和维护者。</p>
       <h2>安全不是降低效率</h2>
       <p>安全边界清晰后，团队反而可以更放心地扩大 AI 使用范围。低风险任务可以自动化，高风险任务进入审批，敏感操作禁止自动执行。这样既不浪费 AI 能力，也不把项目交给不可控的自动化。</p>
-  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://genai.owasp.org/2026/03/17/owasp-genai-security-project-expands-ai-security-frameworks-ahead-of-rsa-2026-celebrates-continued-sponsor-support/" target="_blank" rel="nofollow noopener">OWASP GenAI Security Project 2026 update</a></li><li><a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices" target="_blank" rel="nofollow noopener">MCP Security Best Practices</a></li><li><a href="https://platform.openai.com/docs/guides/tools-remote-mcp" target="_blank" rel="nofollow noopener">OpenAI Connectors and MCP servers</a></li><li><a href="https://docs.cursor.com/en/background-agents" target="_blank" rel="nofollow noopener">Cursor Background Agents</a></li></ul>]]></content>
+  <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://genai.owasp.org/2026/03/17/owasp-genai-security-project-expands-ai-security-frameworks-ahead-of-rsa-2026-celebrates-continued-sponsor-support/" target="_blank" rel="nofollow noopener">OWASP GenAI Security Project 2026 update</a></li><li><a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices" target="_blank" rel="nofollow noopener">MCP Security Best Practices</a></li><li><a href="https://platform.openai.com/docs/guides/tools-remote-mcp" target="_blank" rel="nofollow noopener">OpenAI Connectors and MCP servers</a></li><li><a href="https://docs.cursor.com/en/background-agents" target="_blank" rel="nofollow noopener">Cursor Background Agents</a></li><li><a href="https://github.com/vercel-labs/mcp-to-ai-sdk" target="_blank" rel="nofollow noopener">vercel-labs/mcp-to-ai-sdk</a></li><li><a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="nofollow noopener">modelcontextprotocol/servers</a></li></ul>]]></content>
   </entry>
 <entry>
     <title>Vue 组件通信：父子、兄弟、插槽与动态组件</title>
@@ -1220,6 +1264,10 @@ tests:
       <h2>实践建议</h2>
       <ul><li>父传子用 props，子传父用 emit。</li><li>跨层级共享状态优先用状态管理，不要层层透传太多 props。</li><li>插槽用于结构扩展，不要把业务状态藏进插槽里。</li><li>keep-alive 下区分 mounted 和 activated。</li></ul>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vuejs/core" target="_blank" rel="nofollow noopener">vuejs/core</a>：阅读 Vue core 的 packages/runtime-core 能看到 props、emit、slots 在运行时如何被组织。理解底层模型后，更容易判断组件边界该放在哪里。</li><li><a href="https://github.com/vuejs/pinia" target="_blank" rel="nofollow noopener">vuejs/pinia</a>：跨层级共享状态不要靠事件总线硬连，Pinia 这类 store 更适合管理用户、权限、主题这类全局数据。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>props 一路透传：</strong>页面层级一深，父组件需要把很多字段传给孙组件、重孙组件，中间组件只是“搬运工”。</li><li><strong>子组件直接改父组件数据：</strong>短期看能跑，后期很难判断状态到底是谁改的。</li><li><strong>事件总线滥用：</strong>任意组件都能 emit，任意组件都能 on，排查问题时很难找到触发链路。</li><li><strong>插槽和状态混在一起：</strong>本来只是 UI 扩展点，却把业务判断藏在插槽内部，复用时容易失控。</li></ul>
       <h2>选择流程</h2>
@@ -1285,6 +1333,10 @@ this.$router.go(-1)</code></pre>
       <h2>实践建议</h2>
       <p>路由表不要只写 path 和 component，建议补充 name、meta.title、meta.requiresAuth。这样后续做权限、面包屑、标签页和页面标题会更容易。</p>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/vuejs/router" target="_blank" rel="nofollow noopener">vuejs/router</a>：官方路由仓库能看到 Vue Router 4 的包结构、测试和文档组织。学习路由时不要只背 API，要关注 history、matcher、navigation guard 的职责拆分。</li><li><a href="https://github.com/vuejs/vue-router" target="_blank" rel="nofollow noopener">vuejs/vue-router</a>：Vue 2 项目仍常见 vue-router 3。维护老项目时要分清版本差异，特别是路由创建方式和组合式 API 支持。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>路由表越写越乱：</strong>path、name、meta 缺少统一规范，后续权限和面包屑很难维护。</li><li><strong>导航守卫死循环：</strong>未登录跳登录页，但登录页本身又被守卫拦截。</li><li><strong>详情页切换不刷新：</strong>同一个组件从 /user/1 到 /user/2，组件被复用，mounted 不会重新执行。</li><li><strong>history 模式刷新 404：</strong>前端路由正常，服务器没有 fallback 到 index.html。</li></ul>
       <h2>路由设计流程</h2>
@@ -1357,6 +1409,10 @@ const port = process.env.PORT || 3000</code></pre>
       <h2>选择第三方包的标准</h2>
       <ul><li>是否仍在维护。</li><li>下载量和社区使用情况。</li><li>安全漏洞记录。</li><li>API 是否简单稳定。</li><li>是否真的需要引入，而不是几行原生代码可解决。</li></ul>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/expressjs/cors" target="_blank" rel="nofollow noopener">expressjs/cors</a>：cors 看似只是几行中间件，生产配置却必须收窄 origin、credentials 和预检响应。安全边界应该写进配置，而不是散落在业务代码里。</li><li><a href="https://github.com/auth0/node-jsonwebtoken" target="_blank" rel="nofollow noopener">auth0/node-jsonwebtoken</a>：jsonwebtoken 的 README 明确区分 sign、verify、错误类型和算法。使用安全包时要读官方仓库说明，不要只复制最短示例。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>包装了功能但不知道风险：</strong>例如 cors 全开放、JWT 密钥写死、上传目录不限制。</li><li><strong>所有依赖都装进 dependencies：</strong>构建工具、测试工具和运行依赖混在一起，部署体积变大。</li><li><strong>参数校验只放前端：</strong>接口被脚本直接调用时，后端没有兜底。</li><li><strong>密码处理不规范：</strong>明文保存或使用普通加密，安全风险很高。</li></ul>
       <h2>后端依赖选择流程</h2>
@@ -1403,6 +1459,10 @@ const port = process.env.PORT || 3000</code></pre>
       <h2>怎么选</h2>
       <p>传统服务端渲染、强控制登录状态、需要随时踢下线，Session 更合适。前后端分离、多端登录、微服务调用，JWT 更常见。实际项目也可以组合使用：短期 access token + 可控 refresh token。</p>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/auth0/node-jsonwebtoken" target="_blank" rel="nofollow noopener">auth0/node-jsonwebtoken</a>：JWT 库提供签发和校验，但不替你解决注销、黑名单、刷新 token 和权限即时失效。方案设计必须补上这些业务边界。</li><li><a href="https://github.com/expressjs/session" target="_blank" rel="nofollow noopener">expressjs/session</a>：Session 中间件的配置项能提醒你关注 cookie、store、secret、rolling、resave 等细节。认证方案不是概念选择，而是配置和运维选择。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>只看“无状态”就选 JWT：</strong>忽略了退出登录、踢下线、权限即时变更这些需求。</li><li><strong>把敏感信息放进 token：</strong>JWT payload 只是编码，不等于加密。</li><li><strong>Session 分布式问题没设计：</strong>多台服务实例下，如果没有共享存储，用户状态会不稳定。</li><li><strong>token 过期策略混乱：</strong>access token 太长不安全，太短又影响体验。</li></ul>
       <h2>认证方案选择流程</h2>
@@ -1460,6 +1520,10 @@ select max(age), min(age), avg(age) from users;</code></pre>
       <h2>实践建议</h2>
       <p>写 SQL 时先写 select 验证结果，再写 update/delete。重要操作开启事务，确认无误后 commit，出错 rollback。</p>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/mysql/mysql-server" target="_blank" rel="nofollow noopener">mysql/mysql-server</a>：MySQL 本身是大型数据库系统。学习 SQL 命令时要意识到每条查询背后都有优化器、索引、事务和锁，而不仅是 Workbench 按钮。</li><li><a href="https://github.com/mysqljs/mysql" target="_blank" rel="nofollow noopener">mysqljs/mysql</a>：Node 连接 MySQL 的驱动示例能补充参数化查询、连接池和错误处理。写 SQL 时不要只会命令，还要考虑应用层如何安全执行。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>update/delete 忘记 where：</strong>学习阶段最容易出现的高风险操作。</li><li><strong>只会 select *：</strong>字段越多越慢，也容易把密码、token 等敏感字段查出来。</li><li><strong>分页越往后越慢：</strong>大 offset 会扫描并丢弃大量数据。</li><li><strong>不知道事务怎么兜底：</strong>多条相关写操作中途失败后，数据可能半成功半失败。</li></ul>
       <h2>SQL 编写流程</h2>
@@ -1524,6 +1588,10 @@ Object.prototype.toString.call(null)      // [object Null]</code></pre>
       <h2>实践建议</h2>
       <ul><li>判断数组用 Array.isArray。</li><li>判断基本类型用 typeof。</li><li>写工具函数时用 Object.prototype.toString。</li><li>判断 null 要单独处理。</li></ul>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/lodash/lodash" target="_blank" rel="nofollow noopener">lodash/lodash</a>：lodash 里有大量 isArray、isPlainObject、isDate、isNil 这类工具函数。它提醒我们类型判断最好封装成语义函数，而不是业务里到处写临时判断。</li><li><a href="https://github.com/tc39/ecma262" target="_blank" rel="nofollow noopener">tc39/ecma262</a>：想理解 typeof、Array.isArray、Object.prototype.toString 的边界，最终要回到 ECMAScript 规范。面试题背后是语言运行时行为。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>typeof null 返回 object：</strong>这是历史遗留问题，面试和真实业务里都容易踩坑。</li><li><strong>数组和对象混淆：</strong>typeof [] 和 typeof {} 都是 object。</li><li><strong>instanceof 跨环境失效：</strong>iframe 或不同 JS 上下文里，原型链可能不是同一份。</li><li><strong>工具函数不统一：</strong>项目里到处写临时判断，后续边界越来越多。</li></ul>
       <h2>类型判断流程</h2>
@@ -1581,6 +1649,10 @@ module.exports = { count: 1 }</code></pre>
       <h2>实践建议</h2>
       <ul><li>项目内文件使用相对路径或配置别名。</li><li>不要依赖模块顶层副作用执行多次。</li><li>包入口通过 package.json main 或 exports 明确声明。</li><li>遇到模块找不到，先检查路径、安装位置和包入口。</li></ul>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/nodejs/node" target="_blank" rel="nofollow noopener">nodejs/node</a>：Node 仓库的 lib/internal/modules 可以帮助理解 CommonJS 和 ESM 加载差异。模块缓存、解析路径、exports 都不是黑盒。</li><li><a href="https://github.com/browserify/resolve" target="_blank" rel="nofollow noopener">browserify/resolve</a>：resolve 这类实现展示了包入口、扩展名、node_modules 向上查找等规则。遇到模块找不到，要按解析流程排查。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>忘记写 ./：</strong>require('utils') 会去找核心模块或 node_modules，不会找当前目录 utils.js。</li><li><strong>误解模块缓存：</strong>以为每次 require 都会重新执行，结果状态被共享。</li><li><strong>包入口不清楚：</strong>package.json 的 main、exports、index.js 规则混在一起。</li><li><strong>依赖查找路径不明确：</strong>子目录能引用根目录依赖，但不知道 Node 是向上查找 node_modules。</li></ul>
       <h2>模块加载流程</h2>
@@ -1650,6 +1722,10 @@ npm publish</code></pre>
       <h2>常见排错</h2>
       <ul><li>安装失败：检查 Node 版本、网络、registry。</li><li>命令不存在：确认依赖是否安装，脚本是否写在 package.json。</li><li>依赖冲突：查看 peerDependencies 提示。</li><li>构建和本地不一致：检查 lockfile 和 Node 版本。</li></ul>
     
+      <h2>GitHub 源码补充</h2>
+      <p>这篇旧文也补了 GitHub 视角：不要只记 API 和命令，还要看真实仓库如何组织代码、文档、测试和配置。这样知识点会从“会背”变成“能排查、能落地”。</p>
+      <ul class="ai-github-list"><li><a href="https://github.com/npm/cli" target="_blank" rel="nofollow noopener">npm/cli</a>：npm CLI 仓库和 changelog 能看到命令行为会随版本变化。团队项目要固定 Node/npm 版本，并把 lockfile 当作重要产物。</li><li><a href="https://github.com/npm/rfcs" target="_blank" rel="nofollow noopener">npm/rfcs</a>：npm 新行为通常先在 RFC 中讨论。遇到 install、audit、publish 行为变化时，查 RFC 和 changelog 比搜索零散答案更可靠。</li></ul>
+  
       <h2>常见痛点</h2>
       <ul class="ai-pain-list"><li><strong>dependencies 和 devDependencies 混用：</strong>运行环境安装了大量不需要的构建工具。</li><li><strong>lockfile 随手删除：</strong>团队成员安装出来的依赖树不一致，问题很难复现。</li><li><strong>全局包污染环境：</strong>本地命令能跑，别人电脑或 CI 上找不到。</li><li><strong>registry 切换后忘记恢复：</strong>发布包时还指向镜像源，导致发布失败。</li></ul>
       <h2>npm 使用流程</h2>
