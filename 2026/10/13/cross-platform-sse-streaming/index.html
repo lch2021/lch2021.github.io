@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme="dark">
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.new.png">
+  <link rel="icon" type="image/png" href="/img/favicon.new.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一次匿名化工程复盘：解决分块解码、事件边界、取消竞态与打字机积压。">
+  <meta name="author" content="Lch">
+  <meta name="keywords" content="前端,AI,提效,Agent,MCP">
+  <title>从字节流到界面状态：多端 SSE 流式交互的十个关键问题 - 岛屿木海</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/ai-posts.css" />
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"qq919710247.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/color-schema.js"></script>
+  <meta name="generator" content="Codex static enrichment">
+</head>
+<body>
+
+<header style="height: 70vh;">
+  
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>岛屿木海</strong>&nbsp;</a>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        <li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li>
+        <li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li>
+        <li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <div class="banner" id="banner" parallax="true" style="background: url('/img/default.webp') no-repeat center center;background-size: cover;">
+    <div class="full-bg-img">
+      <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.45)">
+        <div class="page-header text-center fade-in-up">
+          <span class="h2" id="subtitle" title="从字节流到界面状态：多端 SSE 流式交互的十个关键问题">从字节流到界面状态：多端 SSE 流式交互的十个关键问题</span>
+          <p class="ai-banner-subtitle">一次匿名化工程复盘：解决分块解码、事件边界、取消竞态与打字机积压。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container-fluid nopadding-x">
+    <div class="row nomargin-x">
+      <div class="d-none d-lg-block col-lg-2"></div>
+      <div class="col-lg-8 nopadding-x-md">
+        <div class="container nopadding-x-md" id="board-ctn">
+          <div class="py-5" id="board">
+            <article class="post-content mx-auto ai-post">
+              <h1 style="display:none">从字节流到界面状态：多端 SSE 流式交互的十个关键问题</h1>
+              <div class="ai-post-meta">
+                <span><i class="iconfont icon-date-fill"></i> 2026年10月13日</span>
+                <span><i class="iconfont icon-chart"></i> 5134 字</span>
+                <span><i class="iconfont icon-clock-fill"></i> 11 分钟</span>
+              </div>
+              <div class="ai-tags"><a class="ai-chip" href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B/">前端工程</a><a class="ai-chip" href="/tags/SSE/">SSE</a><a class="ai-chip" href="/tags/%E5%A4%9A%E7%AB%AF%E5%85%BC%E5%AE%B9/">多端兼容</a></div>
+              <div class="markdown-body">
+                <figure class="ai-cover"><img src="/img/ai-posts/cross-platform-sse-streaming.svg" alt="从字节流到界面状态：多端 SSE 流式交互的十个关键问题 配图"></figure>
+                <p class="ai-note">本文来自匿名化的多端前端工程实践；示例接口、业务名和标识符均为通用写法。</p>
+                <p>流式回答的演示往往只有几行代码：发起请求，收到一段文本，就把它追加到页面上。真正落到多端应用，问题会立刻变成另一种形状：小程序收到的是二进制分块，浏览器读的是 <code>ReadableStream</code>，旧容器可能只能通过 XHR 观察不断增长的 <code>responseText</code>；用户关闭弹层后，网络回调却仍可能抵达；服务端已经结束，打字机动画还没有播放完。</p>
+
+<p>这篇文章来自一套多端应用的匿名化工程实践。所有接口、业务名、标识符和示例数据都已替换。讨论的核心不是某个框架的 API，而是一个更通用的问题：<strong>如何把不稳定到达的字节流，转换成可验证、可取消、不会串到下一次会话的界面状态。</strong></p>
+
+<h2>一、先把“流”拆成五层</h2>
+
+<p>排查流式问题时，最容易犯的错误是直接盯着页面上的文字。页面是最后一层；前面任一层出错，都可能表现成“少字”“乱码”“重复”“一直转圈”。我把链路拆成五层：</p>
+
+<table><thead><tr><th>层次</th><th>输入与输出</th><th>典型故障</th></tr></thead><tbody>
+<tr><td>传输</td><td>HTTP 响应 → 二进制块或增量文本</td><td>平台不支持、请求被缓存、取消失效</td></tr>
+<tr><td>解码</td><td>字节块 → 连续的 UTF-8 文本</td><td>汉字跨块后出现替换字符</td></tr>
+<tr><td>协议</td><td>文本流 → 完整 SSE 事件</td><td>半条事件被提前消费、CRLF 解析失败</td></tr>
+<tr><td>会话</td><td>事件 → 当前请求的状态变更</td><td>旧请求回写新页面、结束与取消重复触发</td></tr>
+<tr><td>呈现</td><td>待显示文本 → 可见文字</td><td>逐字动画积压、滚动抖动、完成态过早出现</td></tr>
+</tbody></table>
+
+<p>这张表也给出了排错顺序：先检查网络是否真的分块，再看解码后的文本，再看事件边界，最后才看组件渲染。否则很容易用一个 UI 补丁掩盖协议层的问题。</p>
+
+<h2>二、平台分叉只留在传输层</h2>
+
+<p>同一份业务代码运行在浏览器、小程序和内嵌 WebView 时，不能假设它们都以同一种方式提供增量响应。工程里采用了三条接收路径：小程序请求任务开启分块并监听块回调；现代 H5 使用 <code>fetch</code> 读取 <code>response.body</code>；兼容路径使用 XHR，根据上次读取位置取出新增长的文本。</p>
+
+<pre><code>平台适配器
+  ├─ 小程序：request({ enableChunked: true }) → ArrayBuffer
+  ├─ H5：fetch() → ReadableStream&lt;Uint8Array&gt;
+  └─ 兼容 H5：XHR responseText → 新增的字符串片段
+                         ↓
+                 统一的协议解析器
+                         ↓
+                 统一的会话状态机</code></pre>
+
+<p>关键在于接口边界：适配器只负责“产生增量内容”和“中止请求”，不理解业务事件，也不直接修改页面。GET 参数拼接、POST 请求体、请求头、超时和取消都在适配器内完成。这样同一种 SSE 帧只需解析一次，页面也不必知道它来自哪一种容器。</p>
+
+<p>这里还有一个常被忽略的细节：浏览器原生 <code>EventSource</code> 的使用模型与带自定义请求体的 POST 流不同。若接口要求 POST、认证头或特殊参数，就不能把原生 <code>EventSource</code> 当作现成的替换品；使用 <code>fetch</code> 读取事件流时，断线重连和 <code>retry</code> 语义也要由应用自己设计。</p>
+
+<h2>三、传输块不是字符边界，更不是事件边界</h2>
+
+<p>假设服务端发出 <code>data: 你好\n\n</code>。一个三字节 UTF-8 汉字可能被拆在两个网络块之间，甚至 <code>\n\n</code> 也可能被拆开。因此下面两种写法都不可靠：</p>
+
+<pre><code>// 错误一：每个块都创建新解码器，跨块汉字会损坏
+const text = new TextDecoder().decode(chunk);
+
+// 错误二：把一个块当成一个完整事件
+onMessage(text.slice(6));</code></pre>
+
+<p>正确的顺序是<strong>每条连接保留一个解码器，再保留一个未完成文本缓冲区</strong>。解码器负责跨字节块拼好字符；协议缓冲区负责跨文本块拼好事件。二者处理的边界不同，不能合并成一个“字符串追加”步骤。</p>
+
+<pre><code>const decoder = new TextDecoder('utf-8');
+let pending = '';
+
+function receiveBytes(bytes) {
+  pending += decoder.decode(bytes, { stream: true });
+  drainCompleteFrames();
+}
+
+function endBytes() {
+  pending += decoder.decode(); // 冲洗解码器里剩余的字节
+  drainCompleteFrames();
+  // 不把未以空行结束的半条事件当成完整事件发布
+}</code></pre>
+
+<p>小程序端尤其要注意：若每次 <code>onChunkReceived</code> 都独立解码一个 <code>ArrayBuffer</code>，只要汉字恰好跨块，就可能出现 <code>�</code>。实际工程里已经有分块接收和文本缓冲的骨架；把解码器提升为“单次连接级别”的状态，是进一步加固中文内容完整性的关键。</p>
+
+<h2>四、SSE 解析要按“行”和“空行”工作</h2>
+
+<p>SSE 是文本协议，而非“每块一段 JSON”。一条事件可以有 <code>event:</code>、<code>id:</code>、多行 <code>data:</code> 和 <code>retry:</code>；空行才表示事件结束。协议允许 LF、CRLF 或 CR 作为行尾，冒号开头的行是注释。只按 <code>\n\n</code> 切分，可以覆盖受控服务端的一部分输出，却不能覆盖所有合法帧。</p>
+
+<pre><code>: keep-alive
+event: delta
+id: 17
+data: 第一行
+data: 第二行
+
+event: complete
+data: {"ok":true}
+
+</code></pre>
+
+<p>解析器应当增量读取“完整的行”，在空行处派发事件。连续的 <code>data:</code> 行按换行拼接；没有 <code>data:</code> 的心跳或注释不应成为内容消息；服务端给出的 <code>retry:</code> 只是建议重连间隔，不会让自定义 <code>fetch</code> 客户端自动重连。若业务还约定 <code>[DONE]</code> 之类结束标记，应把它明确标为<strong>应用层约定</strong>，不要误认为 SSE 标准字段。</p>
+
+<p>解析器的输出最好是结构化事件，例如 <code>{ type, data, id }</code>。页面消费 <code>delta</code>、<code>error</code>、<code>complete</code> 等语义，不接触原始字符串。这样服务端增加心跳或统计事件时，不会把它们误加到回答内容里。</p>
+
+<h2>五、真正难的是“当前请求”这件事</h2>
+
+<p>传输能跑通后，最隐蔽的错误通常来自异步时序。用户可能连续点击生成、关闭再打开弹层、切换消息、离开页面，或在网络超时后重试。旧请求的回调到达时，组件实例可能还活着，但显示的已经是另一条内容。只靠一个布尔值 <code>loading</code> 无法证明回调属于当前会话。</p>
+
+<p>工程里已经能看到两道重要防线：发起请求前做重复请求拦截；关闭弹层时中止流，并在消息回调里检查可见状态。进一步稳妥的做法，是给每次请求分配单调递增的代号，并让所有回调先验证代号：</p>
+
+<pre><code>let generation = 0;
+let activeTransport = null;
+
+function start() {
+  activeTransport?.abort();
+  const mine = ++generation;
+  activeTransport = openStream({
+    onEvent(event) {
+      if (mine !== generation) return;
+      applyEvent(event);
+    },
+    onError(error) {
+      if (mine !== generation) return;
+      finish('failed', error);
+    },
+  });
+}
+
+function close() {
+  ++generation;           // 先使旧回调失效
+  activeTransport?.abort();
+  activeTransport = null;
+}</code></pre>
+
+<p>“先使旧回调失效，再取消请求”是顺序上的小细节。取消本身也可能触发错误回调；先换代号，旧回调即使迟到也不能写入新状态。<code>sessionId</code>、消息 ID 或请求代号应当有清晰职责：服务端会话标识用于续传和排查，本地代号用于隔离组件里的异步回调，二者不应混用。</p>
+
+<h2>六、把结束、失败、取消做成互斥终态</h2>
+
+<p>流式请求至少有 <code>idle → connecting → streaming</code>，终态则分为 <code>completed</code>、<code>failed</code>、<code>cancelled</code>。三种终态不能都走同一个“完成”回调：用户主动关闭不应显示“生成失败”；HTTP 非 2xx 不能被当成正常结束；服务端 <code>error</code> 事件也不能因为连接随后关闭而被覆盖成成功。</p>
+
+<table><thead><tr><th>触发</th><th>应进入的终态</th><th>页面动作</th></tr></thead><tbody>
+<tr><td>业务完成事件或明确的结束标记</td><td>completed</td><td>保存完整结果，等待呈现队列清空</td></tr>
+<tr><td>HTTP 错误、超时、协议错误</td><td>failed</td><td>保留已收到内容，给出可重试状态</td></tr>
+<tr><td>用户关闭、切换对象、离开页面</td><td>cancelled</td><td>中止网络和动画，忽略迟到回调</td></tr>
+<tr><td>没有明确完成语义的意外断流</td><td>failed 或待恢复</td><td>按服务端契约决定是否可续传</td></tr>
+</tbody></table>
+
+<p>状态迁移集中在一个 <code>finish(reason)</code> 函数里，可以确保计时器、请求句柄和防重复标记只清理一次。重试前还要回答一个协议问题：服务端是否支持按事件 ID 或业务游标续传？如果不支持，自动重连可能把已经显示的内容再追加一遍。此时“允许用户手动重试”比盲目自动重连更可靠。</p>
+
+<h2>七、接收速度和显示速度要解耦</h2>
+
+<p>流式数据到达的节奏由网络和服务端决定，打字机效果的节奏由界面决定。一个实用做法是：网络回调只把文本追加到 <code>pendingText</code>；单独的计时器从队列中取字符更新可见文本。这样一次到达很大的片段，页面也不会瞬间跳到末尾。</p>
+
+<p>但解耦后会出现新的结束条件：<strong>网络完成 ≠ 用户已经看完</strong>。网络已经收完时，队列里可能还有几百个字符。若立即把按钮恢复、缓存最终文本或隐藏加载态，界面会出现“已完成但还在打字”的矛盾。更清楚的状态是 <code>streaming → draining → completed</code>：传输结束进入 <code>draining</code>，队列清空后才进入视觉完成态。</p>
+
+<p>还要设置积压策略。若队列增长速度长期高于播放速度，就应动态加快每次消费量，或者在用户滚动到历史消息、关闭弹层时直接一次性冲洗剩余文本。否则一段 2000 字的回答按每 100 毫秒一个字播放，需要 200 秒，网络早已结束，体验却像系统卡住。</p>
+
+<h2>八、用切块测试验证，而不是只用顺畅网络验证</h2>
+
+<p>最有价值的测试不是“输入一句话后出现文字”，而是把同一份字节流以不同边界喂给解析器，观察输出是否一致。下面这组用例足以暴露多数隐藏问题：</p>
+
+<ol>
+  <li>把一个汉字的三个 UTF-8 字节拆成三个块，结果仍应是原字。</li>
+  <li>把 <code>\r\n\r\n</code> 拆在四个块中，事件只派发一次。</li>
+  <li>把 <code>data:</code> 字段名拆开，再把多行 <code>data:</code> 拼成一条事件。</li>
+  <li>注释行、空数据、未知事件类型不会混入可见回答。</li>
+  <li>请求 A 结束前启动请求 B，A 的迟到回调不能修改 B。</li>
+  <li>用户主动取消后，不触发成功、失败提示或重复扣减动作。</li>
+  <li>模拟 HTTP 错误、超时、正常结束和意外断流，终态各不相同。</li>
+</ol>
+
+<p>可以做一个确定性的“所有切分点”测试：给定一条短 SSE 样本，在每个字节位置切成两段分别输入；再覆盖若干三段切法。断言每次得到完全相同的事件序列。它不依赖真实网络，运行快，却正好验证流式处理最薄弱的边界。</p>
+
+<h2>九、观测指标也要围绕这五层设计</h2>
+
+<p>排查线上问题时，不宜记录原始回答、令牌或完整请求体。更有用的是非敏感指标：连接建立耗时、首个字节耗时、首个完整事件耗时、接收块数量、解码错误次数、事件数量、队列最大长度、取消原因、终态及耗时。用本地请求代号关联一次交互内部的日志即可，避免把用户内容当作排查材料。</p>
+
+<p>例如“文字迟迟不出现”可以由三个时间点定位：请求很快建连，但首字节慢，说明服务端或代理没有及时输出；字节到了而完整事件迟迟没有，说明帧没有及时以空行结束；事件到了而可见文字慢，说明是打字机队列或渲染频率问题。每一层都能给出不同的修复方向。</p>
+
+<h2>十、这次实践留下的工程判断</h2>
+
+<p>流式交互真正需要守住的不是“尽快把字符放到屏幕上”，而是四个不变量：<strong>一个字节不丢，一个事件不重，一个旧请求不串，一个终态只发生一次。</strong>围绕这四点组织代码，平台差异才能被收在传输层，协议解析才能被独立测试，页面也才能放心处理打字、滚动和重试。</p>
+
+<p>现有工程实践提供了跨端传输、事件缓冲、请求取消和显示队列的完整观察样本。本文进一步提出的连接级 UTF-8 解码、完整行解析、代号隔离和终态状态机，是基于这些边界整理出的加固方案；它们是可复用的设计方法，不表示原工程已经逐项实现。以后再遇到“偶发乱码”“关了弹层还更新”“结束后一直转圈”，从五层链路定位，通常比继续给页面加布尔值更快找到根因。</p>
+
+                <h2>参考资料</h2><ul class="ai-source-list"><li><a href="https://html.spec.whatwg.org/multipage/server-sent-events.html" target="_blank" rel="nofollow noopener">WHATWG HTML Standard: Server-sent events</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/decode" target="_blank" rel="nofollow noopener">MDN: TextDecoder.decode()</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamDefaultReader/read" target="_blank" rel="nofollow noopener">MDN: ReadableStreamDefaultReader.read()</a></li></ul>
+              </div>
+              <hr>
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a>，转载请注明出处。</p>
+              <div class="post-prevnext">
+                <article class="post-prev col-6"><a href="/2026/04/29/ai-frontend-agent-workflow-2026/"><i class="iconfont icon-arrowleft"></i><span class="hidden-mobile">2026 前端 AI 提效总览：从代码补全到多代理交付</span><span class="visible-mobile">上一篇</span></a></article>
+                <article class="post-next col-6"></article>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div class="toc-body" id="toc-body"></div></div></div>
+    </div>
+  </div>
+
+<a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a>
+
+<div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<footer class="text-center mt-5 py-3"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+<script>NProgress.configure({"showSpinner":false,"trickleSpeed":100});NProgress.start();window.addEventListener('load',function(){NProgress.done();});</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+<script src="/js/debouncer.js"></script>
+<script src="/js/events.js"></script>
+<script src="/js/plugins.js"></script>
+<script src="/js/lazyload.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/local-search.js"></script>
+<script>(function(){var path="/local-search.xml";if(window.Fluid&&Fluid.plugins&&Fluid.plugins.search){Fluid.plugins.search(path);}})();</script>
+</body>
+</html>

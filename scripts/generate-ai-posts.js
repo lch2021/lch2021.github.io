@@ -273,6 +273,25 @@ const legacyGithubReferences = {
 
 const posts = [
   {
+    slug: "cross-platform-sse-streaming",
+    date: "2026-10-13",
+    readableDate: "2026年10月13日",
+    title: "从字节流到界面状态：多端 SSE 流式交互的十个关键问题",
+    subtitle: "一次匿名化工程复盘：解决分块解码、事件边界、取消竞态与打字机积压。",
+    note: "本文来自匿名化的多端前端工程实践；示例接口、业务名和标识符均为通用写法。",
+    tags: ["前端工程", "SSE", "多端兼容"],
+    category: "前端工程实践",
+    accent: ["#0d9488", "#1d4ed8", "#67e8f9"],
+    coverExtension: "svg",
+    manualContent: true,
+    sources: [
+      ["WHATWG HTML Standard: Server-sent events", "https://html.spec.whatwg.org/multipage/server-sent-events.html"],
+      ["MDN: TextDecoder.decode()", "https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/decode"],
+      ["MDN: ReadableStreamDefaultReader.read()", "https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamDefaultReader/read"],
+    ],
+    content: fs.readFileSync(path.join(__dirname, "posts/cross-platform-sse-streaming.html"), "utf8"),
+  },
+  {
     slug: "ai-frontend-agent-workflow-2026",
     title: "2026 前端 AI 提效总览：从代码补全到多代理交付",
     subtitle: "把 AI 当作可审查的工程同事，而不是万能聊天框。",
@@ -1063,6 +1082,7 @@ const articleLeads = {
 };
 
 posts.forEach((post) => {
+  if (post.manualContent) return;
   post.sources = [...post.sources, ...githubSourceTuples(post.slug)];
   post.content = `${articleLeads[post.slug] || ""}${githubContextSection(post.slug)}${playbookSection(post)}${expansionSection(post.slug)}${detailSections[post.slug] || ""}${deepSections[post.slug] || ""}`;
 });
@@ -2079,7 +2099,8 @@ function strip(html) {
 }
 
 function postUrl(post) {
-  return `/2026/04/29/${post.slug}/`;
+  const [year, month, day] = (post.date || date).split("-");
+  return `/${year}/${month}/${day}/${post.slug}/`;
 }
 
 function mkdirFor(file) {
@@ -2218,7 +2239,7 @@ function sourceList(post) {
 }
 
 function articlePage(post, index) {
-  const image = `/img/ai-posts/${post.slug}.png`;
+  const image = `/img/ai-posts/${post.slug}.${post.coverExtension || "png"}`;
   const minutes = Math.max(4, Math.round(strip(post.content).length / 450));
   const tags = post.tags.map((tag) => `<a class="ai-chip" href="/tags/${encodeURIComponent(tag)}/">${esc(tag)}</a>`).join("");
   const prev = posts[index + 1];
@@ -2236,14 +2257,14 @@ ${banner(post.title, "/img/default.webp", "70vh", post.subtitle)}
             <article class="post-content mx-auto ai-post">
               <h1 style="display:none">${esc(post.title)}</h1>
               <div class="ai-post-meta">
-                <span><i class="iconfont icon-date-fill"></i> ${readableDate}</span>
+                <span><i class="iconfont icon-date-fill"></i> ${post.readableDate || readableDate}</span>
                 <span><i class="iconfont icon-chart"></i> ${strip(post.content).length} 字</span>
                 <span><i class="iconfont icon-clock-fill"></i> ${minutes} 分钟</span>
               </div>
               <div class="ai-tags">${tags}</div>
               <div class="markdown-body">
                 <figure class="ai-cover"><img src="${image}" alt="${esc(post.title)} 配图"></figure>
-                <p class="ai-note">这篇文章基于 2026-04-29 可公开访问的官方资料整理，面向前端工程师的日常提效场景。</p>
+                <p class="ai-note">${esc(post.note || "这篇文章基于 2026-04-29 可公开访问的官方资料整理，面向前端工程师的日常提效场景。")}</p>
                 ${post.content}
                 ${sourceList(post)}
               </div>
@@ -2351,11 +2372,12 @@ function wrapText(text, max) {
 }
 
 function indexCard(post) {
+  const published = post.date || date;
   return `<div class="row mx-auto index-card">
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header"><a href="${postUrl(post)}">${esc(post.title)}</a></h1>
       <p class="index-excerpt"><a href="${postUrl(post)}">${esc(post.subtitle)} ${esc(strip(post.content).slice(0, 150))}...</a></p>
-      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="${date} 15:00" pubdate>${date}</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> ${post.tags.map(esc).join(" / ")}</div></div>
+      <div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i><time datetime="${published} 15:00" pubdate>${published}</time></div><div class="post-meta"><i class="iconfont icon-tags-fill"></i> ${post.tags.map(esc).join(" / ")}</div></div>
     </article>
   </div>`;
 }
@@ -2389,7 +2411,10 @@ ${footer()}`);
 }
 
 function archiveList(includeOld = true) {
-  const newest = `<p class="h5">2026</p>` + posts.map((post) => `<a href="${postUrl(post)}" class="list-group-item list-group-item-action"><span class="archive-post-title">${esc(post.title)}</span><time style="float:right;">04-29</time></a>`).join("");
+  const newest = `<p class="h5">2026</p>` + posts.map((post) => {
+    const published = post.date || date;
+    return `<a href="${postUrl(post)}" class="list-group-item list-group-item-action"><span class="archive-post-title">${esc(post.title)}</span><time style="float:right;">${published.slice(5)}</time></a>`;
+  }).join("");
   const old = includeOld ? `<p class="h5 mt-4">2021</p>` + oldPosts.map((post) => `<a href="${post.url}" class="list-group-item list-group-item-action"><span class="archive-post-title">${esc(post.title)}</span><time style="float:right;">${post.md}</time></a>`).join("") : "";
   return `<div class="list-group"><p class="h4">共计 ${posts.length + (includeOld ? oldPosts.length : 0)} 篇文章</p><hr>${newest}${old}</div>`;
 }
@@ -2397,19 +2422,28 @@ function archiveList(includeOld = true) {
 function writeArchives() {
   write("archives/index.html", listingPage("归档", archiveList(true)));
   write("archives/2026/index.html", listingPage("2026", archiveList(false)));
-  write("archives/2026/04/index.html", listingPage("2026/04", archiveList(false)));
+  for (const month of [...new Set(posts.map((post) => (post.date || date).slice(0, 7)))]) {
+    const monthPosts = posts.filter((post) => (post.date || date).startsWith(month));
+    const inner = `<div class="list-group"><p class="h4">共计 ${monthPosts.length} 篇文章</p><hr>${monthPosts.map((post) => `<a href="${postUrl(post)}" class="list-group-item list-group-item-action"><span class="archive-post-title">${esc(post.title)}</span><time style="float:right;">${(post.date || date).slice(5)}</time></a>`).join("")}</div>`;
+    write(`archives/${month.replace("-", "/")}/index.html`, listingPage(month.replace("-", "/"), inner));
+  }
 }
 
 function writeTaxonomy() {
-  const categories = `<div class="category-list"><a class="category-list-link ai-tax-link" href="/categories/${encodeURIComponent("前端 AI 提效")}/">前端 AI 提效 <span>${posts.length}</span></a></div>`;
+  const categoryNames = [...new Set(posts.map((post) => post.category))];
+  const categories = `<div class="category-list">${categoryNames.map((category) => `<a class="category-list-link ai-tax-link" href="/categories/${encodeURIComponent(category)}/">${esc(category)} <span>${posts.filter((post) => post.category === category).length}</span></a>`).join("")}</div>`;
   write("categories/index.html", listingPage("分类", categories));
-  write(`categories/${encodeURIComponent("前端 AI 提效")}/index.html`, listingPage("前端 AI 提效", archiveList(false)));
+  categoryNames.forEach((category) => {
+    const selected = posts.filter((post) => post.category === category);
+    const inner = `<div class="list-group"><p class="h4">${esc(category)}：${selected.length} 篇文章</p><hr>${selected.map((post) => `<a href="${postUrl(post)}" class="list-group-item list-group-item-action"><span class="archive-post-title">${esc(post.title)}</span><time style="float:right;">${(post.date || date).slice(5)}</time></a>`).join("")}</div>`;
+    write(`categories/${encodeURIComponent(category)}/index.html`, listingPage(category, inner));
+  });
   const tagSet = [...new Set(posts.flatMap((post) => post.tags))];
   const tags = `<div class="text-center tagcloud">${tagSet.map((tag) => `<a class="ai-tagcloud" href="/tags/${encodeURIComponent(tag)}/">${esc(tag)}</a>`).join("")}</div>`;
   write("tags/index.html", listingPage("标签", tags, "80vh"));
   tagSet.forEach((tag) => {
     const tagged = posts.filter((post) => post.tags.includes(tag));
-    const list = `<div class="list-group"><p class="h4">${esc(tag)}：${tagged.length} 篇文章</p><hr>${tagged.map((post) => `<a href="${postUrl(post)}" class="list-group-item list-group-item-action"><span class="archive-post-title">${esc(post.title)}</span><time style="float:right;">04-29</time></a>`).join("")}</div>`;
+    const list = `<div class="list-group"><p class="h4">${esc(tag)}：${tagged.length} 篇文章</p><hr>${tagged.map((post) => `<a href="${postUrl(post)}" class="list-group-item list-group-item-action"><span class="archive-post-title">${esc(post.title)}</span><time style="float:right;">${(post.date || date).slice(5)}</time></a>`).join("")}</div>`;
     write(`tags/${encodeURIComponent(tag)}/index.html`, listingPage(tag, list));
   });
 }
@@ -2477,7 +2511,8 @@ function writeCss() {
 
 function main() {
   posts.forEach((post, index) => {
-    write(`2026/04/29/${post.slug}/index.html`, articlePage(post, index));
+    write(`${postUrl(post).replace(/^\//, "")}index.html`, articlePage(post, index));
+    if (post.coverExtension === "svg") write(`img/ai-posts/${post.slug}.svg`, coverSvg(post));
   });
   oldPosts.forEach((post) => {
     const file = `${decodeURI(post.url).replace(/^\//, "")}index.html`;
