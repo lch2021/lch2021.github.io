@@ -282,7 +282,9 @@ const posts = [
     tags: ["前端工程", "SSE", "多端兼容"],
     category: "前端工程实践",
     accent: ["#0d9488", "#1d4ed8", "#67e8f9"],
-    coverExtension: "svg",
+    coverUrl: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=70",
+    coverFallback: "/img/ai-posts/cross-platform-sse-streaming.jpg",
+    coverAlt: "机房中的网络设备与数据线",
     manualContent: true,
     sources: [
       ["WHATWG HTML Standard: Server-sent events", "https://html.spec.whatwg.org/multipage/server-sent-events.html"],
@@ -2239,7 +2241,10 @@ function sourceList(post) {
 }
 
 function articlePage(post, index) {
-  const image = `/img/ai-posts/${post.slug}.${post.coverExtension || "png"}`;
+  const image = post.coverUrl || `/img/ai-posts/${post.slug}.png`;
+  const fallback = post.coverFallback
+    ? ` onerror="this.onerror=null;this.src='${esc(post.coverFallback)}'"`
+    : "";
   const minutes = Math.max(4, Math.round(strip(post.content).length / 450));
   const tags = post.tags.map((tag) => `<a class="ai-chip" href="/tags/${encodeURIComponent(tag)}/">${esc(tag)}</a>`).join("");
   const prev = posts[index + 1];
@@ -2263,7 +2268,7 @@ ${banner(post.title, "/img/default.webp", "70vh", post.subtitle)}
               </div>
               <div class="ai-tags">${tags}</div>
               <div class="markdown-body">
-                <figure class="ai-cover"><img src="${image}" alt="${esc(post.title)} 配图"></figure>
+                <figure class="ai-cover"><img src="${esc(image)}" alt="${esc(post.coverAlt || `${post.title} 配图`)}"${fallback}></figure>
                 <p class="ai-note">${esc(post.note || "这篇文章基于 2026-04-29 可公开访问的官方资料整理，面向前端工程师的日常提效场景。")}</p>
                 ${post.content}
                 ${sourceList(post)}
@@ -2436,7 +2441,7 @@ function writeTaxonomy() {
   categoryNames.forEach((category) => {
     const selected = posts.filter((post) => post.category === category);
     const inner = `<div class="list-group"><p class="h4">${esc(category)}：${selected.length} 篇文章</p><hr>${selected.map((post) => `<a href="${postUrl(post)}" class="list-group-item list-group-item-action"><span class="archive-post-title">${esc(post.title)}</span><time style="float:right;">${(post.date || date).slice(5)}</time></a>`).join("")}</div>`;
-    write(`categories/${encodeURIComponent(category)}/index.html`, listingPage(category, inner));
+    write(`categories/${category}/index.html`, listingPage(category, inner));
   });
   const tagSet = [...new Set(posts.flatMap((post) => post.tags))];
   const tags = `<div class="text-center tagcloud">${tagSet.map((tag) => `<a class="ai-tagcloud" href="/tags/${encodeURIComponent(tag)}/">${esc(tag)}</a>`).join("")}</div>`;
@@ -2444,7 +2449,7 @@ function writeTaxonomy() {
   tagSet.forEach((tag) => {
     const tagged = posts.filter((post) => post.tags.includes(tag));
     const list = `<div class="list-group"><p class="h4">${esc(tag)}：${tagged.length} 篇文章</p><hr>${tagged.map((post) => `<a href="${postUrl(post)}" class="list-group-item list-group-item-action"><span class="archive-post-title">${esc(post.title)}</span><time style="float:right;">${(post.date || date).slice(5)}</time></a>`).join("")}</div>`;
-    write(`tags/${encodeURIComponent(tag)}/index.html`, listingPage(tag, list));
+    write(`tags/${tag}/index.html`, listingPage(tag, list));
   });
 }
 
@@ -2512,7 +2517,6 @@ function writeCss() {
 function main() {
   posts.forEach((post, index) => {
     write(`${postUrl(post).replace(/^\//, "")}index.html`, articlePage(post, index));
-    if (post.coverExtension === "svg") write(`img/ai-posts/${post.slug}.svg`, coverSvg(post));
   });
   oldPosts.forEach((post) => {
     const file = `${decodeURI(post.url).replace(/^\//, "")}index.html`;
